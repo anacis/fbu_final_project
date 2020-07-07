@@ -78,7 +78,7 @@ This app will allow a user to create a list of locations in a city/small area th
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
+<img src="https://github.com/anacis/travelr/blob/master/images/IMG_0376.jpg" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
 

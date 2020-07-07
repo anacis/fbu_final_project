@@ -27,19 +27,17 @@ This app will allow a user to create a list of locations in a city/small area th
 
 * Ability to create lists of places on google maps (Restaurants, museums, vistas, architectural attractions, etc..) (maybe divide in multiple model: food, attractions, etc)
 * The user can view all of their lists in a feed
-* Ability to pull "My Places" data from the Google Maps API/SDK and create lists based on that.
 * Ability to specify how many days you want to spend in that specific area and how long you want to visit attractions for every day.
 * Ability to calculate the most efficient order of visiting these locations and specifying on what day the user should visit each
 * Implementation of the Google maps SDK to see the daily directions.
 * Ability to view a list.
-* Ability to login to the App using one's Google account.
+* Ability to login to the App using one's Google/Facebook account.
 
 **Optional Nice-to-have Stories**
-
+* Ability to pull "My Places" data from the Google Maps API/SDK and create lists based on that.
 * Ability to view other people's lists (friends, but how do I implement the friends feature?)
-* Ability to save other people's lists
 * The app can suggest popular places to visit that are in the area you are visiting
-* The app can recognize which places are food related and place them at times of the day when one usually eats/limits the number of food places to a specified amount.
+( * The app can recognize which places are food related and place them at times of the day when one usually eats/limits the number of food places to a specified amount. ) 
 * The app suggests how long to spend at each location
 * The app takes into account when the locations are closed and does not suggest them then.
 * Ability to view a details page for each location
@@ -49,7 +47,7 @@ This app will allow a user to create a list of locations in a city/small area th
 ### 2. Screen Archetypes
 
 * Login Page
-   * Ability to login to the App using one's Google account.
+   * Ability to login to the App using one's Google/Facebook account.
 * List Feed Page
    * The user can view all of their lists in a feed
    * Ability to pull "My Places" data from the Google Maps API/SDK and create lists based on that.

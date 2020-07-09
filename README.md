@@ -105,8 +105,8 @@ Questions:
  * Should I be storing only the sorted places in the database and keep the unsorted variables as an instance variable that is only used during list creation?
  
 #### Place (or do I get this from the Maps SDK?)
-| Property      | Type     | Description | In Database |
-   | ------------- | -------- | ------------| ------------|
+| Property      | Type     | Description |
+   | ------------- | -------- | ------------| 
    | name          | String   | place name |
    | photo         | File     | an identifying photo from the API/SDK |
    | description   | String   | The list’s description |
@@ -125,15 +125,15 @@ https://developers.google.com/places/ios-sdk/place-data-fields
 * Apple Maps doesn’t have a place API so I would need to use the foursquare API (I previously used this in the PhotoMap lab) or find another API.
 
 #### User
-| Property      | Type     | Description | In Database |
-   | ------------- | -------- | ------------| ------------|
+| Property      | Type     | Description |
+   | ------------- | -------- | ------------| 
    | username          | String   | username set by user|
    | profilePhoto         | File     | an identifying photo set by the user |
    | password   | String   | password set by user|
  
 #### Day (not sure if I need this?)
-| Property      | Type     | Description | In Database |
-   | ------------- | -------- | ------------| ------------|
+| Property      | Type     | Description |
+   | ------------- | -------- | ------------|
    | name          | String   | Specifies what day of the travelling this is |
    | places        | Array     | The places to visit in that day |
    | travelingTime(?)   | Number   | The total time spent traveling (does not include the time spent at each location) |

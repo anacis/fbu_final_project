@@ -139,7 +139,7 @@ https://developers.google.com/places/ios-sdk/place-data-fields
    | travelingTime(?)   | Number   | The total time spent traveling (does not include the time spent at each location) |
    | linkToMap    | String   | The link that will open googleMaps or Apple Maps | 
 
-General Note: Using the google Maps Places API is not free :( the Maps SDK is free and seems to provide similar functionality, but might need to result to using the fourSquare API instead. I could also pay for the API since it's not that expensive.
+General Note: Using the google Maps Places API is not free :( the Maps SDK is free and seems to provide similar functionality, but might need to result to using the fourSquare API instead. I could also pay for the API since it's not that expensive. -- update: I can use my free google cloud credits for API calls yay!
 
 ### Networking
 * Sign Up Screen

@@ -87,8 +87,70 @@ This app will allow a user to create a list of locations in a city/small area th
 ## Schema 
 [This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+#### PlaceList
+
+   | Property      | Type     | Description | In Database |
+   | ------------- | -------- | ------------| ------------|
+   | name          | String   | list name | Yes |
+   | author        | Pointer to User| list author | Yes |
+   | photo         | File     | An identifying image that the user can set | Yes |
+   | description   | String   | The list’s description | Yes |
+   | numDays       | Number   | The number of days the user will be in the list’s general area | Yes |
+   | numHours      | Number   | The number of hours the user wishes to spend on tourism | Yes |
+   | placesUnsorted| Array | The places the user wishes to travel in the order the user inputs them | no? |
+   | placesSorted  | Array | The suggested order of visiting places; the array items will either be Days (if needed) or another array of places that are grouped by the day that the user will visit these places. | Yes |
+  
+Questions: 
+ * How should I store the suggested order of visiting places? I was thinking I could do a 2D array where each row represents the places to visit in a day?
+ * Should I be storing only the sorted places in the database and keep the unsorted variables as an instance variable that is only used during list creation?
+ 
+#### Place (or do I get this from the Maps SDK?)
+| Property      | Type     | Description | In Database |
+   | ------------- | -------- | ------------| ------------|
+   | name          | String   | place name |
+   | photo         | File     | an identifying photo from the API/SDK |
+   | description   | String   | The list’s description |
+   | latitude     | Number   | latitude for Maps feature | 
+   | longitude      | Number   | longitude for Maps feature |
+   | locationType| String | the type of location (restaurant, museum, beach, etc) used for timeSpent calculation| 
+   | openingHours | String | the hours when the place is open |
+
+Note:
+* Google Maps has a type Object: GMSPlaceField which could represent a place.
+https://developers.google.com/places/ios-sdk/place-data-fields
+* Need to figure out how to pass place into map call URL
+* Google Maps 
+  * doesn’t have an API call to get the typical time a person spends at a certain place (might need to set a standard time spent depending on the type of place it is)
+  * it does however have the opening hours.
+* Apple Maps doesn’t have a place API so I would need to use the foursquare API (I previously used this in the PhotoMap lab) or find another API.
+
+#### User
+| Property      | Type     | Description | In Database |
+   | ------------- | -------- | ------------| ------------|
+   | username          | String   | username set by user|
+   | profilePhoto         | File     | an identifying photo set by the user |
+   | password   | String   | password set by user|
+ 
+#### Day (not sure if I need this?)
+| Property      | Type     | Description | In Database |
+   | ------------- | -------- | ------------| ------------|
+   | name          | String   | Specifies what day of the travelling this is |
+   | places        | Array     | The places to visit in that day |
+   | travelingTime(?)   | Number   | The total time spent traveling (does not include the time spent at each location) |
+   | linkToMap    | String   | The link that will open googleMaps or Apple Maps | 
+
+General Note: Using the google Maps Places API is not free :( the Maps SDK is free and seems to provide similar functionality, but might need to result to using the fourSquare API instead. I could also pay for the API since it's not that expensive.
+
 ### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
+* Sign Up Screen
+  * (Create/POST) Create a new user object
+* List Feed Screen
+  * (Read/GET) Query all lists where user is author
+* List Creation Screen
+  * (Update/PUT) Update list photo by pressing on the photo
+  * Create/POST) Create a new list
+* Location Feed Screen
+  * (Read/GET) Query all Places in the list
+  * (Read/GET) Query all Days in the list(?)
+
 - [OPTIONAL: List endpoints if using existing API such as Yelp]

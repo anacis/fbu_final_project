@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <Parse/Parse.h>
 
 @interface AppDelegate ()
 
@@ -17,6 +18,25 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    ParseClientConfiguration *config = [ParseClientConfiguration   configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
+        
+        configuration.applicationId = @"travelr";
+        configuration.server = @"https://ana-travelr.herokuapp.com/parse";
+    }];
+    
+    [Parse initializeWithConfiguration:config];
+    
+    /* Testing Parse
+    PFObject *placeList = [PFObject objectWithClassName:@"PlaceList"];
+    placeList[@"name"] = @"Paris";
+    [placeList saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+      if (succeeded) {
+         NSLog(@"Object saved!");
+      } else {
+         NSLog(@"Error: %@", error.description);
+      }
+    }];*/
+    
     return YES;
 }
 

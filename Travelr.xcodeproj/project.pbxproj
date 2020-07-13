@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,6 +17,9 @@
 		949A20B424BCBCB8007010FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20B324BCBCB8007010FD /* main.m */; };
 		949A20BE24BCBCB8007010FD /* TravelrTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20BD24BCBCB8007010FD /* TravelrTests.m */; };
 		949A20C924BCBCB8007010FD /* TravelrUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20C824BCBCB8007010FD /* TravelrUITests.m */; };
+		949A20DD24BCCD09007010FD /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20DC24BCCD09007010FD /* User.m */; };
+		949A20E024BCCD6C007010FD /* PlaceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20DF24BCCD6C007010FD /* PlaceList.m */; };
+		949A20E324BCCD8D007010FD /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20E224BCCD8D007010FD /* Place.m */; };
 		D6EBE0661A1382C58E12E788 /* Pods_TravelrTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B710EB2106F91407D56BC7D /* Pods_TravelrTests.framework */; };
 		D7989ABD42DF2CE552166B2E /* Pods_Travelr_TravelrUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8DE768560B4AC11C21600C2 /* Pods_Travelr_TravelrUITests.framework */; };
 /* End PBXBuildFile section */
@@ -62,6 +65,12 @@
 		949A20C424BCBCB8007010FD /* TravelrUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravelrUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		949A20C824BCBCB8007010FD /* TravelrUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TravelrUITests.m; sourceTree = "<group>"; };
 		949A20CA24BCBCB8007010FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		949A20DB24BCCD09007010FD /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		949A20DC24BCCD09007010FD /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		949A20DE24BCCD6C007010FD /* PlaceList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceList.h; sourceTree = "<group>"; };
+		949A20DF24BCCD6C007010FD /* PlaceList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaceList.m; sourceTree = "<group>"; };
+		949A20E124BCCD8D007010FD /* Place.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
+		949A20E224BCCD8D007010FD /* Place.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
 		ABB1C2003509E12E20E7721F /* Pods-TravelrTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TravelrTests.release.xcconfig"; path = "Target Support Files/Pods-TravelrTests/Pods-TravelrTests.release.xcconfig"; sourceTree = "<group>"; };
 		B8DE768560B4AC11C21600C2 /* Pods_Travelr_TravelrUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Travelr_TravelrUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6631BA08F7B012734F80F24 /* Pods_Travelr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Travelr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,7 +115,6 @@
 				00D60ACE110090E27B050064 /* Pods-TravelrTests.debug.xcconfig */,
 				ABB1C2003509E12E20E7721F /* Pods-TravelrTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -135,6 +143,10 @@
 		949A20A024BCBCB7007010FD /* Travelr */ = {
 			isa = PBXGroup;
 			children = (
+				949A20DA24BCCCB7007010FD /* APIManager */,
+				949A20D824BCCCA0007010FD /* Models */,
+				949A20D724BCCC98007010FD /* Views */,
+				949A20D924BCCCA7007010FD /* ViewControllers */,
 				949A20A124BCBCB7007010FD /* AppDelegate.h */,
 				949A20A224BCBCB7007010FD /* AppDelegate.m */,
 				949A20A424BCBCB7007010FD /* SceneDelegate.h */,
@@ -166,6 +178,40 @@
 				949A20CA24BCBCB8007010FD /* Info.plist */,
 			);
 			path = TravelrUITests;
+			sourceTree = "<group>";
+		};
+		949A20D724BCCC98007010FD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		949A20D824BCCCA0007010FD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				949A20DB24BCCD09007010FD /* User.h */,
+				949A20DC24BCCD09007010FD /* User.m */,
+				949A20DE24BCCD6C007010FD /* PlaceList.h */,
+				949A20DF24BCCD6C007010FD /* PlaceList.m */,
+				949A20E124BCCD8D007010FD /* Place.h */,
+				949A20E224BCCD8D007010FD /* Place.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		949A20D924BCCCA7007010FD /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		949A20DA24BCCCB7007010FD /* APIManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = APIManager;
 			sourceTree = "<group>";
 		};
 		A7172DF04788EE45A75F043B /* Frameworks */ = {
@@ -416,8 +462,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				949A20DD24BCCD09007010FD /* User.m in Sources */,
 				949A20A924BCBCB7007010FD /* ViewController.m in Sources */,
+				949A20E324BCCD8D007010FD /* Place.m in Sources */,
 				949A20A324BCBCB7007010FD /* AppDelegate.m in Sources */,
+				949A20E024BCCD6C007010FD /* PlaceList.m in Sources */,
 				949A20B424BCBCB8007010FD /* main.m in Sources */,
 				949A20A624BCBCB7007010FD /* SceneDelegate.m in Sources */,
 			);

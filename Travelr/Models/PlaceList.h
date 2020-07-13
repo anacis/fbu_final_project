@@ -1,0 +1,25 @@
+//
+//  PlaceList.h
+//  Travelr
+//
+//  Created by Ana Cismaru on 7/13/20.
+//  Copyright © 2020 anacismaru. All rights reserved.
+//
+
+#import <Parse/Parse.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface PlaceList : PFObject<PFSubclassing>
+
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) PFUser *author;
+@property (nonatomic, strong) NSString *listDescription;
+@property (nonatomic, strong) PFFileObject *photo;
+@property (nonatomic, strong) NSNumber *numDays;
+@property (nonatomic, strong) NSNumber *numHours;
+@property (nonatomic, strong) NSMutableArray *placesUnsorted;
+
+@end
+
+NS_ASSUME_NONNULL_END

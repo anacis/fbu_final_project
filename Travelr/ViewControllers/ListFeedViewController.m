@@ -84,4 +84,9 @@
     }];
 }
 
+- (IBAction)onTapNewList:(id)sender {
+    NSLog(@"Tapping on New List");
+    [self performSegueWithIdentifier:@"newListSegue" sender:nil];
+}
+
 @end

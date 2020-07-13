@@ -97,12 +97,10 @@ This app will allow a user to create a list of locations in a city/small area th
    | description   | String   | The list’s description | Yes |
    | numDays       | Number   | The number of days the user will be in the list’s general area | Yes |
    | numHours      | Number   | The number of hours the user wishes to spend on tourism | Yes |
-   | placesUnsorted| Array | The places the user wishes to travel in the order the user inputs them | no? |
-   | placesSorted  | Array | The suggested order of visiting places; the array items will either be Days (if needed) or another array of places that are grouped by the day that the user will visit these places. | Yes |
+   | placesUnsorted| Array | The places the user wishes to travel in the order the user inputs them | Yes |
   
-Questions: 
- * How should I store the suggested order of visiting places? I was thinking I could do a 2D array where each row represents the places to visit in a day?
- * Should I be storing only the sorted places in the database and keep the unsorted variables as an instance variable that is only used during list creation?
+Note: I will only store the unsorted list of places and run the sorting algorithm every time the list is loaded.
+Question: What is the best way to store the associated number of hours the user wishes to spend at each location?
  
 #### Place (or do I get this from the Maps SDK?)
 | Property      | Type     | Description |

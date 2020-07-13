@@ -10,7 +10,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -173,6 +173,9 @@
                                 <rect key="frame" x="20" y="7" width="92" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="onTapBack:" destination="0FZ-Mq-LVO" eventType="touchUpInside" id="GgH-do-f9b"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -190,7 +193,7 @@
         <!--Navigation Controller-->
         <scene sceneID="eWU-mO-Hru">
             <objects>
-                <navigationController storyboardIdentifier="LoginNavController" automaticallyAdjustsScrollViewInsets="NO" id="pwR-gF-5dl" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LoginNavController" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="pwR-gF-5dl" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zvq-se-zS7">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -208,7 +211,7 @@
         <!--Navigation Controller-->
         <scene sceneID="6Xp-gN-m6Z">
             <objects>
-                <navigationController storyboardIdentifier="ListFeedNav" automaticallyAdjustsScrollViewInsets="NO" id="UDJ-rf-fFG" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ListFeedNav" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="UDJ-rf-fFG" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Tfb-14-uPa"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="P3g-g5-QHn">
@@ -227,7 +230,7 @@
         <!--Navigation Controller-->
         <scene sceneID="X2U-rL-ph5">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iz3-Yd-Bir" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="iz3-Yd-Bir" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="nKm-s5-UQB"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XbT-mG-XOl">
@@ -245,6 +248,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Eqd-80-QSL"/>
+        <segue reference="g53-Jw-ngS"/>
     </inferredMetricsTieBreakers>
 </document>

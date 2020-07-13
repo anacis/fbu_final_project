@@ -8,6 +8,8 @@
 
 #import "SignUpViewController.h"
 #import <Parse/Parse.h>
+#import "LoginViewController.h"
+#import "SceneDelegate.h"
 
 @interface SignUpViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -90,6 +92,12 @@
     }];
 }
 
+- (IBAction)onTapBack:(id)sender {
+    SceneDelegate *myDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginNavController"];
+    myDelegate.window.rootViewController = loginViewController;
+}
 
 
 /*

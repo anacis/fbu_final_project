@@ -14,8 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) PFUser *author;
-@property (nonatomic, strong) NSString *listDescription;
-@property (nonatomic, strong) PFFileObject *photo;
+@property (nonatomic, strong) PFFileObject *image;
 @property (nonatomic, strong) NSNumber *numDays;
 @property (nonatomic, strong) NSNumber *numHours;
 @property (nonatomic, strong) NSMutableArray *placesUnsorted;

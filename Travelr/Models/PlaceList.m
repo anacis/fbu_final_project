@@ -12,8 +12,8 @@
 
 @dynamic name;
 @dynamic author;
-@dynamic listDescription;
-@dynamic photo;
+@dynamic description;
+@dynamic image;
 @dynamic numDays;
 @dynamic numHours;
 @dynamic placesUnsorted;

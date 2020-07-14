@@ -56,8 +56,7 @@ static NSString * const clientSecret = @"WJDM2PK4YVAV2SSD2CY20UCBOH0FA0B5VT3B22N
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // This is the selected venue
     NSDictionary *venue = self.results[indexPath.row];
-    Place *place = [Place createPlaceFromDictionary:venue];
-    [self.delegate searchPlaceController:self didPickLocationWithPlace:place];
+    [self.delegate searchPlaceController:self didPickLocationWithDictionary:venue];
 }
 
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {

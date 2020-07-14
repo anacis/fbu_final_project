@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol SearchPlaceControllerDelegate
 
-- (void)searchPlaceController:(SearchPlaceController *)controller didPickLocationWithPlace:(Place *)place;
+- (void)searchPlaceController:(SearchPlaceController *)controller didPickLocationWithDictionary:(NSDictionary *)dict;
 
 @end
 

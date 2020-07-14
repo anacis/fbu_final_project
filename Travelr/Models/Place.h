@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *locationType;
 @property (nonatomic, strong) NSString *openingHours;
 
-+ (nonnull Place *)createPlaceFromDictionary: (NSDictionary *)dict;
++ (void)createPlaceFromDictionary: (NSDictionary *)dict placeList:(NSMutableArray *) placeList;
 
 @end
 

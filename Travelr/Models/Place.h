@@ -14,12 +14,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *apiId;
-@property (nonatomic, strong) NSString *placeDescription;
-@property (nonatomic, strong) PFFileObject *photo;
+@property (nonatomic, strong) NSString *address;
+@property (nonatomic, strong) NSString *photoURLString;
 @property (nonatomic, strong) NSNumber *latitude;
 @property (nonatomic, strong) NSNumber *longitude;
 @property (nonatomic, strong) NSString *locationType;
 @property (nonatomic, strong) NSString *openingHours;
+
++ (nonnull Place *)createPlaceFromDictionary: (NSDictionary *)dict;
 
 @end
 

@@ -1,24 +1,22 @@
 //
-//  NewPlaceCell.h
+//  SearchPlaceCell.h
 //  Travelr
 //
-//  Created by Ana Cismaru on 7/13/20.
+//  Created by Ana Cismaru on 7/14/20.
 //  Copyright © 2020 anacismaru. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "Place.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NewPlaceCell : UITableViewCell
+@interface SearchPlaceCell : UITableViewCell
 
-@property (strong, nonatomic) Place *place;
 @property (weak, nonatomic) IBOutlet UIImageView *image;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 
-- (void)setUpCell;
+- (void)updateWithLocation:(NSDictionary *)location;
 
 @end
 

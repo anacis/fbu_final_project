@@ -10,8 +10,9 @@
 @import Parse;
 #import "NewPlaceCell.h"
 #import "PlaceList.h"
+#import "SearchPlaceController.h"
 
-@interface NewListViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface NewListViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SearchPlaceControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UITextField *daysField;
@@ -30,22 +31,29 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.places = [[NSMutableArray alloc] init];
     // Do any additional setup after loading the view.
 }
 
-/*
-#pragma mark - Navigation
+- (void)viewDidAppear:(BOOL)animated {
+    [self.tableView reloadData];
+}
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"searchSegue"]) {
+        SearchPlaceController *searchPlaceView = [segue destinationViewController];
+        searchPlaceView.delegate = self;
+    }
 }
-*/
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     NewPlaceCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"NewPlaceCell"];
-    cell.place = self.places[indexPath.row];
+    
+    if (self.places.count != 0) {
+        cell.place = self.places[indexPath.row];
+        [cell setUpCell];
+    }
     return cell;
 }
 
@@ -110,7 +118,6 @@
     [list saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"Saved list successfully!");
-            //TODO: segue back to feed
             [self performSegueWithIdentifier:@"newListToFeed" sender:nil];
             
         }
@@ -121,6 +128,12 @@
     
 }
 
+- (void)searchPlaceController:(SearchPlaceController *)controller didPickLocationWithPlace:(Place *)place {
+    NSLog(@"%@", place);
+    [self.places addObject:place];
+    NSLog(@"in did pick locaton: %@", self.places);
+    [self.navigationController popToViewController:self animated:YES];
+}
 
 
 @end

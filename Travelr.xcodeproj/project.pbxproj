@@ -26,6 +26,8 @@
 		949A20EF24BCFE23007010FD /* PlaceListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20EE24BCFE23007010FD /* PlaceListCell.m */; };
 		949A20F224BD0925007010FD /* NewListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20F124BD0925007010FD /* NewListViewController.m */; };
 		949A20F524BD0D8B007010FD /* NewPlaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20F424BD0D8B007010FD /* NewPlaceCell.m */; };
+		949A20F824BE20FA007010FD /* SearchPlaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20F724BE20FA007010FD /* SearchPlaceController.m */; };
+		949A20FB24BE2651007010FD /* SearchPlaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20FA24BE2651007010FD /* SearchPlaceCell.m */; };
 		D6EBE0661A1382C58E12E788 /* Pods_TravelrTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B710EB2106F91407D56BC7D /* Pods_TravelrTests.framework */; };
 		D7989ABD42DF2CE552166B2E /* Pods_Travelr_TravelrUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8DE768560B4AC11C21600C2 /* Pods_Travelr_TravelrUITests.framework */; };
 /* End PBXBuildFile section */
@@ -89,6 +91,10 @@
 		949A20F124BD0925007010FD /* NewListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewListViewController.m; sourceTree = "<group>"; };
 		949A20F324BD0D8B007010FD /* NewPlaceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewPlaceCell.h; sourceTree = "<group>"; };
 		949A20F424BD0D8B007010FD /* NewPlaceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewPlaceCell.m; sourceTree = "<group>"; };
+		949A20F624BE20FA007010FD /* SearchPlaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchPlaceController.h; sourceTree = "<group>"; };
+		949A20F724BE20FA007010FD /* SearchPlaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchPlaceController.m; sourceTree = "<group>"; };
+		949A20F924BE2651007010FD /* SearchPlaceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchPlaceCell.h; sourceTree = "<group>"; };
+		949A20FA24BE2651007010FD /* SearchPlaceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchPlaceCell.m; sourceTree = "<group>"; };
 		ABB1C2003509E12E20E7721F /* Pods-TravelrTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TravelrTests.release.xcconfig"; path = "Target Support Files/Pods-TravelrTests/Pods-TravelrTests.release.xcconfig"; sourceTree = "<group>"; };
 		B8DE768560B4AC11C21600C2 /* Pods_Travelr_TravelrUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Travelr_TravelrUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6631BA08F7B012734F80F24 /* Pods_Travelr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Travelr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -205,6 +211,8 @@
 				949A20EE24BCFE23007010FD /* PlaceListCell.m */,
 				949A20F324BD0D8B007010FD /* NewPlaceCell.h */,
 				949A20F424BD0D8B007010FD /* NewPlaceCell.m */,
+				949A20F924BE2651007010FD /* SearchPlaceCell.h */,
+				949A20FA24BE2651007010FD /* SearchPlaceCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -233,6 +241,8 @@
 				949A20EB24BCDFC7007010FD /* ListFeedViewController.m */,
 				949A20F024BD0925007010FD /* NewListViewController.h */,
 				949A20F124BD0925007010FD /* NewListViewController.m */,
+				949A20F624BE20FA007010FD /* SearchPlaceController.h */,
+				949A20F724BE20FA007010FD /* SearchPlaceController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -494,6 +504,7 @@
 			files = (
 				949A20E624BCD6B0007010FD /* LoginViewController.m in Sources */,
 				949A20DD24BCCD09007010FD /* User.m in Sources */,
+				949A20FB24BE2651007010FD /* SearchPlaceCell.m in Sources */,
 				949A20A924BCBCB7007010FD /* ViewController.m in Sources */,
 				949A20F224BD0925007010FD /* NewListViewController.m in Sources */,
 				949A20E324BCCD8D007010FD /* Place.m in Sources */,
@@ -504,6 +515,7 @@
 				949A20EF24BCFE23007010FD /* PlaceListCell.m in Sources */,
 				949A20EC24BCDFC7007010FD /* ListFeedViewController.m in Sources */,
 				949A20E924BCDFA8007010FD /* SignUpViewController.m in Sources */,
+				949A20F824BE20FA007010FD /* SearchPlaceController.m in Sources */,
 				949A20F524BD0D8B007010FD /* NewPlaceCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -22,7 +22,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
 - (IBAction)onTapSignUp:(id)sender {
@@ -49,7 +48,7 @@
     }
     else if (![passwordRetype isEqualToString:password]) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Mismatching passwords"
-                      message:@"Your passwords do not match,"
+                      message:@"Your passwords do not match."
                preferredStyle:(UIAlertControllerStyleAlert)];
                // create an OK action
                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"

@@ -27,7 +27,6 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self fetchPlaceLists];
-    // Do any additional setup after loading the view.
 }
 
 - (IBAction)logout:(id)sender {

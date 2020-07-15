@@ -12,7 +12,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    UITapGestureRecognizer *placeListTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapList:)];
+    [self addGestureRecognizer:placeListTapGestureRecognizer];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -28,5 +29,22 @@
     self.image.layer.cornerRadius = self.image.frame.size.height / 2; //formula to create a circular image
     [self.image loadInBackground];
 }
+
+- (void) didTapList:(UITapGestureRecognizer *)sender{
+    //TODO:sort List
+    NSMutableArray *temp = [[NSMutableArray alloc] init];
+    for (int i = 0; i < self.placeList.placesUnsorted.count; i += 2) {
+        NSMutableArray *inside = [[NSMutableArray alloc] init];
+        [inside addObject:self.placeList.placesUnsorted[i]];
+        if (i + 1 < self.placeList.placesUnsorted.count) {
+            [inside addObject:self.placeList.placesUnsorted[i + 1]];
+        }
+        [temp addObject:inside];
+    }
+    self.placeList.placesSorted = temp;
+    
+    [self.delegate placeListCell:self didTap:self.placeList];
+}
+
 
 @end

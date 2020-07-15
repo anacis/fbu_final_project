@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *mapsButton;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
+- (void)setUpCell;
+
 @end
 
 NS_ASSUME_NONNULL_END

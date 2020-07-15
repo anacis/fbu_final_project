@@ -12,6 +12,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol PlaceListCellDelegate;
+
 @interface PlaceListCell : UITableViewCell
 
 @property (strong, nonatomic) PlaceList *placeList;
@@ -19,8 +21,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
+@property (nonatomic, weak) id<PlaceListCellDelegate> delegate;
+
 - (void)setUpCell;
 
+@end
+
+@protocol PlaceListCellDelegate
+- (void)placeListCell:(PlaceListCell *) placeListCell didTap: (PlaceList *)placeList;
 @end
 
 NS_ASSUME_NONNULL_END

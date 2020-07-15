@@ -11,8 +11,9 @@
 #import "SceneDelegate.h"
 #import "LoginViewController.h"
 #import "PlaceListCell.h"
+#import "LocationFeedController.h"
 
-@interface ListFeedViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface ListFeedViewController () <UITableViewDelegate, UITableViewDataSource, PlaceListCellDelegate>
 
 @property (strong, nonatomic) NSArray *placeLists;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -44,19 +45,18 @@
     }];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqual:@"listToLocationSegue"]) {
+        LocationFeedController *locationFeed = [segue destinationViewController];
+        locationFeed.placeList = sender;
+    }
 }
-*/
+
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PlaceListCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PlaceListCell"];
     cell.placeList = self.placeLists[indexPath.row];
+    cell.delegate = self;
     [cell setUpCell];
     return cell;
 }
@@ -69,6 +69,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"PlaceList"];
     [query orderByDescending:@"createdAt"];
     [query whereKey:@"author" equalTo:[PFUser currentUser]];
+    [query includeKey:@"placesUnsorted"];
     query.limit = 5;
 
     // fetch data asynchronously
@@ -86,6 +87,11 @@
 - (IBAction)onTapNewList:(id)sender {
     NSLog(@"Tapping on New List");
     [self performSegueWithIdentifier:@"newListSegue" sender:nil];
+}
+
+- (void)placeListCell:(nonnull PlaceListCell *)placeListCell didTap:(nonnull PlaceList *)placeList {
+    NSLog(@"Tapped on List Cell!");
+    [self performSegueWithIdentifier:@"listToLocationSegue" sender:placeList];
 }
 
 @end

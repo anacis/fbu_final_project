@@ -12,7 +12,6 @@
 @interface LocationFeedController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSArray *days;
 
 @end
 
@@ -22,6 +21,7 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    NSLog(@"%@", self.placeList.placesSorted[0]);
 }
 
 /*
@@ -36,13 +36,14 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     DayCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"DayCell"];
-    cell.places = self.days[indexPath.row];
-    cell.day = [NSString stringWithFormat: @"Day %ld", indexPath.row];
+    cell.places = self.placeList.placesSorted[indexPath.row];
+    cell.day = [NSString stringWithFormat: @"Day %ld", (indexPath.row + 1)];
+    [cell setUpCell];
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.days.count;
+    return self.placeList.placesSorted.count;
 }
 
 @end

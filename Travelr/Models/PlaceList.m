@@ -17,6 +17,7 @@
 @dynamic numDays;
 @dynamic numHours;
 @dynamic placesUnsorted;
+@dynamic placesSorted;
 
 + (nonnull NSString *)parseClassName {
     return @"PlaceList";

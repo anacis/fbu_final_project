@@ -14,7 +14,7 @@
 - (void)setUpCell {
     self.nameLabel.text = self.place.name;
     NSURL *photoURL = [NSURL URLWithString:self.place.photoURLString];
-    [self.image setImageWithURL:photoURL];
+    [self.imageView setImageWithURL:photoURL];
 }
 
 @end

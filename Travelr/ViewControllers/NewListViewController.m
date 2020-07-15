@@ -130,7 +130,6 @@
 
 - (void)searchPlaceController:(SearchPlaceController *)controller didPickLocationWithDictionary:(NSDictionary *)dict {
     [Place createPlaceFromDictionary:dict placeList:self.places];
-    NSLog(@"in did pick locaton: %@", self.places);
     [self.navigationController popToViewController:self animated:YES];
 }
 

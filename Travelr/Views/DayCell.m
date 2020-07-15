@@ -15,7 +15,6 @@
     [super awakeFromNib];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    self.dayLabel.text = self.day;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -31,6 +30,11 @@
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.places.count;
+}
+
+- (void)setUpCell {
+    self.dayLabel.text = self.day;
+    NSLog(@"Places: %@", self.places);
 }
 
 

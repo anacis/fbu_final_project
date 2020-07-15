@@ -10,6 +10,13 @@
 #import "Place.h"
 
 NS_ASSUME_NONNULL_BEGIN
+@class NewPlaceCell;
+
+@protocol NewPlaceCellDelegate
+
+- (void)newPlaceCell:(NewPlaceCell *)newPlaceCell didSpecifyTimeSpent:(nonnull NSNumber *)time;
+
+@end
 
 @interface NewPlaceCell : UITableViewCell <UIPickerViewDelegate, UIPickerViewDataSource>
 
@@ -22,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setUpCell;
 
+@property (weak, nonatomic) id<NewPlaceCellDelegate> delegate;
 @end
 
 NS_ASSUME_NONNULL_END

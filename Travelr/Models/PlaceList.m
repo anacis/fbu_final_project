@@ -17,6 +17,9 @@
 @dynamic numDays;
 @dynamic numHours;
 @dynamic placesUnsorted;
+@dynamic timesSpent;
+
+//not stored in Parse
 @dynamic placesSorted;
 
 + (nonnull NSString *)parseClassName {

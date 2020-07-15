@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSNumber *numDays;
 @property (nonatomic, strong) NSNumber *numHours;
 @property (nonatomic, strong) NSMutableArray *placesUnsorted;
+@property (nonatomic, strong) NSMutableArray *timesSpent;
 @property (nonatomic, strong) NSArray *placesSorted;
 
 + (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image;

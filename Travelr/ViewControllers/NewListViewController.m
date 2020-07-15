@@ -12,7 +12,7 @@
 #import "PlaceList.h"
 #import "SearchPlaceController.h"
 
-@interface NewListViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SearchPlaceControllerDelegate>
+@interface NewListViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SearchPlaceControllerDelegate, NewPlaceCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UITextField *daysField;
@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) NSMutableArray *places;
+@property (strong, nonatomic) NSMutableArray *timesSpent;
 
 @end
 
@@ -32,6 +33,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.places = [[NSMutableArray alloc] init];
+    self.timesSpent = [[NSMutableArray alloc] init];
     // Do any additional setup after loading the view.
 }
 
@@ -49,11 +51,9 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     NewPlaceCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"NewPlaceCell"];
-    
-    if (self.places.count != 0) {
-        cell.place = self.places[indexPath.row];
-        [cell setUpCell];
-    }
+    cell.place = self.places[indexPath.row];
+    cell.delegate = self;
+    [cell setUpCell];
     return cell;
 }
 
@@ -114,6 +114,8 @@
     list.numHours = [formatter numberFromString:self.hoursField.text];
     list.image = [PlaceList getPFFileFromImage:self.listImage.image];
     list.placesUnsorted = self.places;
+    list.timesSpent = self.timesSpent;
+    NSLog(@"%@", self.timesSpent);
     
     [list saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
@@ -130,11 +132,18 @@
 
 - (void)searchPlaceController:(SearchPlaceController *)controller didPickLocationWithDictionary:(NSDictionary *)dict {
     [Place createPlaceFromDictionary:dict placeList:self.places];
+    [self.timesSpent addObject:@0];
+    NSLog(@"%@", self.timesSpent);
     [self.navigationController popToViewController:self animated:YES];
 }
 
 - (IBAction)cancel:(id)sender {
     [self performSegueWithIdentifier:@"newListToFeed" sender:nil];
+}
+
+- (void)newPlaceCell:(NewPlaceCell *)newPlaceCell didSpecifyTimeSpent:(nonnull NSNumber *)time {
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:newPlaceCell];
+    self.timesSpent[indexPath.row] = time;
 }
 
 @end

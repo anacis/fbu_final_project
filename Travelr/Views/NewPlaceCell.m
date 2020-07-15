@@ -62,6 +62,16 @@
     //TODO: edit the button and make the picker hidden
     self.timeSpentButton.titleLabel.text = self.pickerData[row];
     [self.timeSpentPicker setHidden:YES];
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    NSNumber *time;
+    if ([self.pickerData[row] isEqualToString:@"?"]) {
+        time = 0;
+    }
+    else {
+        time = [f numberFromString:self.pickerData[row]];
+    }
+    [self.delegate newPlaceCell:self didSpecifyTimeSpent:time];
 }
 
 - (IBAction)onTapButton:(id)sender {

@@ -133,5 +133,8 @@
     [self.navigationController popToViewController:self animated:YES];
 }
 
+- (IBAction)cancel:(id)sender {
+    [self performSegueWithIdentifier:@"newListToFeed" sender:nil];
+}
 
 @end

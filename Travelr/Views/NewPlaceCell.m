@@ -22,14 +22,18 @@
         if (i == 0) {
             [temp addObject:@"?"];
         }
+        if (i == 1) {
+            [temp addObject:[NSString stringWithFormat:@"%i hour", i]];
+        }
         else {
-            [temp addObject:[NSString stringWithFormat:@"%i", i]];
+            [temp addObject:[NSString stringWithFormat:@"%i hours", i]];
         }
     }
     self.pickerData = (NSArray *) temp;
     self.timeSpentPicker.delegate = self;
     self.timeSpentPicker.dataSource = self;
     [self.timeSpentPicker setHidden:YES];
+    [self.timeSpentButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
     
 }
 
@@ -65,14 +69,28 @@
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
     NSNumber *time;
+    NSLog(@"%@", self.pickerData[row]);
     if ([self.pickerData[row] isEqualToString:@"?"]) {
-        time = 0;
+        time = @0;
     }
     else {
-        time = [f numberFromString:self.pickerData[row]];
+        //TODO: implement regex logic here (if time permits), below works but is semi-cheating since the formatter ignores spaces
+        time = [f numberFromString:[self.pickerData[row] substringToIndex:2]];
+        NSLog(@"%@", time);
     }
     [self.delegate newPlaceCell:self didSpecifyTimeSpent:time];
 }
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(nullable UIView *)view {
+    UILabel* label = (UILabel*)view;
+    if (!label){
+        label = [[UILabel alloc] init];
+        [label setFont:[UIFont systemFontOfSize:17]];
+    }
+    label.text = self.pickerData[row];
+    return label;
+}
+
 
 - (IBAction)onTapButton:(id)sender {
    [self.timeSpentPicker setHidden:NO];

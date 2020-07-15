@@ -70,7 +70,7 @@
     [query orderByDescending:@"createdAt"];
     [query whereKey:@"author" equalTo:[PFUser currentUser]];
     [query includeKey:@"placesUnsorted"];
-    query.limit = 5;
+    query.limit = 20;
 
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *placeLists, NSError *error) {

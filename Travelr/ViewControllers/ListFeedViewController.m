@@ -67,7 +67,7 @@
 
 - (void)fetchPlaceLists {
     PFQuery *query = [PFQuery queryWithClassName:@"PlaceList"];
-    [query orderByDescending:@"createdAt"];
+    [query orderByDescending:@"updatedAt"];
     [query whereKey:@"author" equalTo:[PFUser currentUser]];
     [query includeKey:@"placesUnsorted"];
     query.limit = 20;

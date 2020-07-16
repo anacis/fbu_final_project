@@ -51,14 +51,19 @@
 }
 
 - (NSString *)getMapsURLString {
-    NSString *urlString = @"https://www.google.com/maps/dir";
+    NSString const *baseUrlString = @"https://www.google.com/maps/dir";
+    NSString *urlString = @"";
     for (Place *place in self.places) {
-        NSString *temp = [NSString stringWithFormat:@"/%@,%@", place.latitude, place.longitude];
+        NSString *coordinatePair = [NSString stringWithFormat:@"/%@,%@", place.latitude, place.longitude];
         
         //Call using address/name rather than coordinates (only works for some though :(  )
         /*NSString *temp = [place.address stringByReplacingOccurrencesOfString:@" "withString:@"+"];
         temp = [temp stringByAppendingString:@"/"];*/
-        urlString = [urlString stringByAppendingString:temp];
+        if ([urlString isEqualToString:@""]) {
+            urlString  = [baseUrlString stringByAppendingString:coordinatePair];
+        } else {
+            urlString  = [urlString stringByAppendingString:coordinatePair];
+        }
     }
     return urlString;
 }

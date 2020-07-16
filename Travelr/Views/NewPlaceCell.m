@@ -18,7 +18,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     NSMutableArray *temp = [[NSMutableArray alloc] init];
-    for (int i = 0; i < 17; i++) {
+    int *const *maxHoursPerDay = 17;
+    for (int i = 0; i < maxHoursPerDay; i++) {
         if (i == 0) {
             [temp addObject:@"?"];
         }

@@ -93,7 +93,7 @@ This app will allow a user to create a list of locations in a city/small area th
    | ------------- | -------- | ------------| ------------|
    | name          | String   | list name | Yes |
    | author        | Pointer to User| list author | Yes |
-   | photo         | File     | An identifying image that the user can set | Yes |
+   | image        | File     | An identifying image that the user can set | Yes |
    | description   | String   | The list’s description | Yes |
    | numDays       | Number   | The number of days the user will be in the list’s general area | Yes |
    | numHours      | Number   | The number of hours the user wishes to spend on tourism | Yes |
@@ -106,7 +106,7 @@ Question: What is the best way to store the associated number of hours the user 
 | Property      | Type     | Description |
    | ------------- | -------- | ------------| 
    | name          | String   | place name |
-   | photo         | File     | an identifying photo from the API/SDK |
+   | image        | File     | an identifying photo from the API/SDK |
    | description   | String   | The list’s description |
    | latitude     | Number   | latitude for Maps feature | 
    | longitude      | Number   | longitude for Maps feature |

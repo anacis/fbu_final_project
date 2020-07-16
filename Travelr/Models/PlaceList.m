@@ -7,6 +7,8 @@
 //
 
 #import "PlaceList.h"
+#import "Place.h"
+#include <math.h>
 
 @implementation PlaceList
 
@@ -47,6 +49,24 @@
     //TODO: implement sorting algorithm
     return nil;
 }
+
++ (double)getDistance:(Place *)place1 place2:(Place *) place2 {
+    //convert lat/lon to radians, foursquare gives it in degrees
+    double lat1 = [PlaceList convertToRadians:place1.latitude];
+    double lat2 = [PlaceList convertToRadians:place2.latitude];
+    double long1 = [PlaceList convertToRadians:place1.longitude];
+    double long2 = [PlaceList convertToRadians:place2.longitude];
+    
+    //formula is in radians
+    //orthodromic distance formula in miles (units don't really matter I guess):
+    double distance = 3963.0 * acos((sin(lat1) * sin(lat2)) + cos(lat1) * cos(lat2) * cos(long2 - long1));
+    return distance;
+}
+
++ (double)convertToRadians:(NSNumber *)num {
+    return [num doubleValue] / (180/M_PI);
+}
+
 
 
 

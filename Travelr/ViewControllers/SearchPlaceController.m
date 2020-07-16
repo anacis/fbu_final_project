@@ -62,13 +62,13 @@ static NSString * const clientSecret = @"WJDM2PK4YVAV2SSD2CY20UCBOH0FA0B5VT3B22N
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     NSString *newText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
     //TODO: find a way to specify the near parameter
-    [self fetchLocationsWithQuery:newText near:@"Paris"];
+    [self fetchLocationsWithQuery:newText near:@"San Francisco"];
     return true;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     //TODO: find a way to specify the near parameter
-    [self fetchLocationsWithQuery:searchBar.text near:@"Paris"];
+    [self fetchLocationsWithQuery:searchBar.text near:@"San Francisco, CA"];
 }
 
 - (void)fetchLocationsWithQuery:(NSString *)query near:(NSString *)city {

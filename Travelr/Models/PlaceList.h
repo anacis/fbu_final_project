@@ -7,6 +7,7 @@
 //
 
 #import <Parse/Parse.h>
+#import "Place.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,6 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray *placesSorted;
 
 + (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image;
+
+- (NSArray *)sortPlaces;
+
 
 @end
 

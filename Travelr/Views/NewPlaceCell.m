@@ -18,12 +18,12 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     NSMutableArray *temp = [[NSMutableArray alloc] init];
-    int *const *maxHoursPerDay = 17;
+    int const maxHoursPerDay = 17;
     for (int i = 0; i < maxHoursPerDay; i++) {
         if (i == 0) {
             [temp addObject:@"?"];
         }
-        if (i == 1) {
+        else if (i == 1) {
             [temp addObject:[NSString stringWithFormat:@"%i hour", i]];
         }
         else {
@@ -70,14 +70,12 @@
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
     NSNumber *time;
-    NSLog(@"%@", self.pickerData[row]);
     if ([self.pickerData[row] isEqualToString:@"?"]) {
         time = @0;
     }
     else {
         //TODO: implement regex logic here (if time permits), below works but is semi-cheating since the formatter ignores spaces
         time = [f numberFromString:[self.pickerData[row] substringToIndex:2]];
-        NSLog(@"%@", time);
     }
     [self.delegate newPlaceCell:self didSpecifyTimeSpent:time];
 }

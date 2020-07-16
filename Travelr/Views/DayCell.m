@@ -34,7 +34,6 @@
 
 - (void)setUpCell {
     self.dayLabel.text = self.day;
-    NSLog(@"Places: %@", self.places);
 }
 
 - (IBAction)startMaps:(id)sender {
@@ -42,7 +41,6 @@
     //For Latitude/Longitude"https://www.google.com/maps/dir/48.8786722,2.3000998/48.8467008,2.2987277"
     // add as many slashes to add destination points
     
-    NSLog(@"PressedButton");
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self getMapsURLString]] options:nil completionHandler:^(BOOL success) {
         if (success) {
             NSLog(@"Launched Google Maps");

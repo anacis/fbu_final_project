@@ -115,7 +115,6 @@
     list.image = [PlaceList getPFFileFromImage:self.listImage.image];
     list.placesUnsorted = self.places;
     list.timesSpent = self.timesSpent;
-    NSLog(@"%@", self.timesSpent);
     
     [list saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
@@ -133,7 +132,6 @@
 - (void)searchPlaceController:(SearchPlaceController *)controller didPickLocationWithDictionary:(NSDictionary *)dict {
     [Place createPlaceFromDictionary:dict placeList:self.places];
     [self.timesSpent addObject:@0];
-    NSLog(@"%@", self.timesSpent);
     [self.navigationController popToViewController:self animated:YES];
 }
 

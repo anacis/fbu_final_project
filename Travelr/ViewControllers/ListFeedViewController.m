@@ -85,12 +85,10 @@
 }
 
 - (IBAction)onTapNewList:(id)sender {
-    NSLog(@"Tapping on New List");
     [self performSegueWithIdentifier:@"newListSegue" sender:nil];
 }
 
 - (void)placeListCell:(nonnull PlaceListCell *)placeListCell didTap:(nonnull PlaceList *)placeList {
-    NSLog(@"Tapped on List Cell!");
     [self performSegueWithIdentifier:@"listToLocationSegue" sender:placeList];
 }
 

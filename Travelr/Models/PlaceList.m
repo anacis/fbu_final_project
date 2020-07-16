@@ -45,9 +45,34 @@
     
 }
 
+//for now disregard time and days, just sort by distance assuming for one day
 - (NSArray *)sortPlaces {
-    //TODO: implement sorting algorithm
-    return nil;
+    
+    NSMutableArray *unsorted = [NSMutableArray arrayWithArray:self.placesUnsorted]; //make a copy as to not disturb orginal data
+    NSMutableArray *sorted = [[NSMutableArray alloc] init];
+    
+    //pick random starting point
+    //TODO: find better deterministic way to pick starting point
+    NSUInteger idx = arc4random() % unsorted.count;
+    [sorted addObject:unsorted[idx]];
+    [unsorted removeObjectAtIndex:idx];
+    
+    while (unsorted.count > 0) {
+        Place *from = sorted[sorted.count - 1];
+        Place *to;
+        double bestDistance = INFINITY;
+        for (Place *place in unsorted) {
+            double distance = [PlaceList getDistance:from place2:place];
+            if (distance < bestDistance) {
+                to = place;
+                bestDistance = distance;
+            }
+        }
+    
+        [sorted addObject:to];
+        [unsorted removeObject:to];
+    }
+    return sorted;
 }
 
 + (double)getDistance:(Place *)place1 place2:(Place *) place2 {

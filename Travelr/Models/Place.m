@@ -35,7 +35,6 @@
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable places, NSError * _Nullable error) {
         if (places.count != 0) {
-            NSLog(@"Place exists!");
             [placeList addObject:places[0]];
         }
         else if (error != nil) {

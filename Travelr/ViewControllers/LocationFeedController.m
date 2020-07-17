@@ -21,6 +21,7 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    [self checkListCompletion];
 }
 
 /*
@@ -43,6 +44,26 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.placeList.placesSorted.count;
+}
+
+- (void)checkListCompletion {
+    NSArray *flatArray = [self.placeList.placesSorted valueForKeyPath: @"@unionOfArrays.self"];
+    
+    if (self.placeList.placesUnsorted.count != flatArray.count) {
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Incomplete Itinerary"
+               message:@"It is impossible to generate a full itinerary given the time constraints, consider editing your list."
+        preferredStyle:(UIAlertControllerStyleAlert)];
+        // create an OK action
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                  style:UIAlertActionStyleDefault
+                                  handler:^(UIAlertAction * _Nonnull action) {
+                                                         }];
+        // add the OK action to the alert controller
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{
+        }];
+    }
 }
 
 @end

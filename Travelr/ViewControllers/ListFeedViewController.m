@@ -89,6 +89,9 @@
 }
 
 - (void)placeListCell:(nonnull PlaceListCell *)placeListCell didTap:(nonnull PlaceList *)placeList {
+    //TODO: check if places sorted does not have the same number of elements as places unsorted
+    
+    
     [self performSegueWithIdentifier:@"listToLocationSegue" sender:placeList];
 }
 

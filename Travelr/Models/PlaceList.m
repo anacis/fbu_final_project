@@ -118,7 +118,6 @@
             
             double totalTime = travelTime + timeSpent;
             if (hoursLeft - totalTime < 0) {
-                NSLog(@"break");
                 break;
             }
            
@@ -132,7 +131,6 @@
         daysLeft--;
     }
     
-    //TODO: check if sorted is not empty and if so display a warning that schedule cannot be created with time constraints
     
     self.placesSorted = result;
 }

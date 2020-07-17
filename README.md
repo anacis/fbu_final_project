@@ -22,26 +22,39 @@ This app will allow a user to create a list of locations in a city/small area th
 ## Product Spec
 
 ### 1. User Stories (Required and Optional)
+**FBU Expectations**
+- [X] Your app has multiple views
+- [X] Your app interacts with a database (e.g. Parse)
+- [X] You can log in/log out of your app as a user
+- [X] You can sign up with a new user profile
+- [X] Somewhere in your app you can use the camera to take a picture and do something with the picture (e.g. take a photo and share it to a feed, or take a photo and set a user’s profile picture)
+- [ ] Your app integrates with a SDK (e.g. Google Maps SDK, Facebook SDK)
+- [X] Your app contains at least one more complex algorithm (talk over this with your manager)
+- [ ] Your app uses gesture recognizers (e.g. double tap to like, e.g. pinch to scale)
+- [ ] Your app use an animation (doesn’t have to be fancy) (e.g. fade in/out, e.g. animating a view growing and shrinking)
+- [ ] Your app incorporates an external library to add visual polish
+
+
 
 **Required Must-have Stories**
 
-* Ability to create lists of places on google maps (Restaurants, museums, vistas, architectural attractions, etc..) (maybe divide in multiple model: food, attractions, etc)
-* The user can view all of their lists in a feed
-* Ability to specify how many days you want to spend in that specific area and how long you want to visit attractions for every day.
-* Ability to calculate the most efficient order of visiting these locations and specifying on what day the user should visit each
-* Implementation of the Google maps SDK to see the daily directions.
-* Ability to view a list.
-* Ability to login to the App using one's Google/Facebook account.
+- [X] Ability to create lists of places on google maps (Restaurants, museums, vistas, architectural attractions, etc..) (maybe divide in multiple model: food, attractions, etc)
+- [X] The user can view all of their lists in a feed
+- [X] Ability to specify how many days you want to spend in that specific area and how long you want to visit attractions for every day.
+- [X] Ability to calculate the most efficient order of visiting these locations and specifying on what day the user should visit each
+- [X] Implementation of the Google maps to see the daily directions.
+- [X] Ability to view a list.
+- [ ] Ability to login to the App using one's Google/Facebook account.
 
 **Optional Nice-to-have Stories**
-* Ability to pull "My Places" data from the Google Maps API/SDK and create lists based on that.
-* Ability to view other people's lists (friends, but how do I implement the friends feature?)
-* The app can suggest popular places to visit that are in the area you are visiting
-( * The app can recognize which places are food related and place them at times of the day when one usually eats/limits the number of food places to a specified amount. ) 
-* The app suggests how long to spend at each location
-* The app takes into account when the locations are closed and does not suggest them then.
-* Ability to view a details page for each location
-* Ability to edit a list
+- [ ] Ability to edit a list
+- [ ] Ability to view other people's lists (friends, but how do I implement the friends feature?)
+- [ ] The app can suggest popular places to visit that are in the area you are visiting
+- [ ] ( * The app can recognize which places are food related and place them at times of the day when one usually eats/limits the number of food places to a specified amount. ) 
+- [ ] The app suggests how long to spend at each location
+- [ ] The app takes into account when the locations are closed and does not suggest them then.
+- [ ] Ability to view a details page for each location
+
 
 
 ### 2. Screen Archetypes

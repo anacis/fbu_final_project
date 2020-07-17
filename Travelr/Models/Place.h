@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *apiId;
 @property (nonatomic, strong) NSString *address;
+@property (nonatomic, strong) NSString *gMapsAddress;
 @property (nonatomic, strong) NSString *photoURLString;
 @property (nonatomic, strong) NSNumber *latitude;
 @property (nonatomic, strong) NSNumber *longitude;

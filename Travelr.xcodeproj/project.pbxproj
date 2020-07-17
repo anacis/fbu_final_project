@@ -291,6 +291,7 @@
 				949A209B24BCBCB7007010FD /* Frameworks */,
 				949A209C24BCBCB7007010FD /* Resources */,
 				9763EB78F617CB0954920F07 /* [CP] Embed Pods Frameworks */,
+				323E9B179AC3C8944C26C755 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -329,6 +330,7 @@
 				949A20C124BCBCB8007010FD /* Frameworks */,
 				949A20C224BCBCB8007010FD /* Resources */,
 				DAD2C775568CD1D8FF664A7F /* [CP] Embed Pods Frameworks */,
+				597E4DCBC6E168FC5DE64CCB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -410,6 +412,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		323E9B179AC3C8944C26C755 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Travelr/Pods-Travelr-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Travelr/Pods-Travelr-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Travelr/Pods-Travelr-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		47589BBFD3656374B84ADD18 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -430,6 +449,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		597E4DCBC6E168FC5DE64CCB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Travelr-TravelrUITests/Pods-Travelr-TravelrUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Travelr-TravelrUITests/Pods-Travelr-TravelrUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Travelr-TravelrUITests/Pods-Travelr-TravelrUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5C4709465794BD7DEF2636C2 /* [CP] Check Pods Manifest.lock */ = {

@@ -9,6 +9,9 @@
 #import "Place.h"
 #import <Parse/Parse.h>
 #import "PlaceList.h"
+@import GoogleMaps;
+
+static NSString * const apiKey = @"AIzaSyA0ZUTS5YGFB_Um83afzjHghEgOvTnlRX0";
 
 @implementation Place
 
@@ -20,12 +23,16 @@
 @dynamic longitude;
 @dynamic locationType;
 @dynamic openingHours;
+@dynamic gMapsAddress;
 
 + (nonnull NSString *)parseClassName {
     return @"Place";
 }
 
+
+
 + (void)createPlaceFromDictionary: (NSDictionary *)dict placeList:(NSMutableArray *) placeList{
+    [GMSServices provideAPIKey:apiKey];
     
     //check if the place does not exist already
     PFQuery *query = [PFQuery queryWithClassName:@"Place"];
@@ -57,23 +64,26 @@
             newPlace.longitude = [dict valueForKeyPath:@"location.lng"];
             newPlace.latitude = [dict valueForKeyPath:@"location.lat"];
             newPlace.address = [dict valueForKeyPath:@"location.address"];
+            [newPlace reverseGeocode];
             
             [placeList addObject:newPlace];
 
         }
     }];
     
-    
-    
-    //Question: Do I want to save the place now or only once I save my list?
-    /*[place saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            NSLog(@"Saved place to database");
+}
+
+- (void)reverseGeocode {
+    CLLocationCoordinate2D coordinatePair = CLLocationCoordinate2DMake(self.latitude.floatValue, self.longitude.floatValue);
+    GMSGeocoder *geocoder = [GMSGeocoder geocoder];
+    [geocoder reverseGeocodeCoordinate:coordinatePair completionHandler:^(GMSReverseGeocodeResponse * _Nullable response, NSError * _Nullable error) {
+        if (response != nil) {
+            self.gMapsAddress = [response.firstResult.lines[0] stringByReplacingOccurrencesOfString:@" "withString:@"+"];
         }
         else {
-            NSLog(@"Error saving place: %@", error.localizedDescription);
+            NSLog(@"Error reverse geocoding: %@", error.localizedDescription);
         }
-    }];*/
+    }];
 }
 
 @end

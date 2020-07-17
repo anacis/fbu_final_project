@@ -40,7 +40,6 @@
     //GMaps Format: "https://www.google.com/maps/dir/Shoreline+Amphitheatre,+Amphitheatre+Parkway,+Mountain+View,+CA/Facebook,+1+Hacker+Way,+Menlo+Park,+CA+94025"
     //For Latitude/Longitude"https://www.google.com/maps/dir/48.8786722,2.3000998/48.8467008,2.2987277"
     // add as many slashes to add destination points
-    
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self getMapsURLString]] options:nil completionHandler:^(BOOL success) {
         if (success) {
             NSLog(@"Launched Google Maps");
@@ -49,20 +48,18 @@
 }
 
 - (NSString *)getMapsURLString {
-    NSString const *baseUrlString = @"https://www.google.com/maps/dir";
+    NSString const *baseUrlString = @"https://www.google.com/maps/dir/";
     NSString *urlString = @"";
     for (Place *place in self.places) {
-        NSString *coordinatePair = [NSString stringWithFormat:@"/%@,%@", place.latitude, place.longitude];
-        
-        //Call using address/name rather than coordinates (only works for some though :(  )
-        /*NSString *temp = [place.address stringByReplacingOccurrencesOfString:@" "withString:@"+"];
-        temp = [temp stringByAppendingString:@"/"];*/
         if ([urlString isEqualToString:@""]) {
-            urlString  = [baseUrlString stringByAppendingString:coordinatePair];
-        } else {
-            urlString  = [urlString stringByAppendingString:coordinatePair];
+            urlString = [baseUrlString stringByAppendingString:place.gMapsAddress];
+        }
+        else {
+            NSString *urlAddress = [@"/" stringByAppendingString:place.gMapsAddress];
+            urlString = [urlString stringByAppendingString:urlAddress];
         }
     }
+    NSLog(@"URL STRING: %@", urlString);
     return urlString;
 }
 

@@ -10,7 +10,6 @@
 #import "SearchPlaceCell.h"
 #import "Place.h"
 
-//TODO: make API client
 static NSString * const clientID = @"OJTXKY5VVXM1UR5TBR5KGZMMGLCZO34CMDPSOM2Y1QY4XHQ2";
 static NSString * const clientSecret = @"WJDM2PK4YVAV2SSD2CY20UCBOH0FA0B5VT3B22NXZHDCIUEG";
 

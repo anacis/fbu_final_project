@@ -22,6 +22,19 @@ This app will allow a user to create a list of locations in a city/small area th
 ## Product Spec
 
 ### 1. User Stories (Required and Optional)
+**FBU Expectations**
+[X] Your app has multiple views
+[X] Your app interacts with a database (e.g. Parse)
+[X] You can log in/log out of your app as a user
+[X] You can sign up with a new user profile
+[X] Somewhere in your app you can use the camera to take a picture and do something with the picture (e.g. take a photo and share it to a feed, or take a photo and set a user’s profile picture)
+[] Your app integrates with a SDK (e.g. Google Maps SDK, Facebook SDK)
+[X] Your app contains at least one more complex algorithm (talk over this with your manager)
+[] Your app uses gesture recognizers (e.g. double tap to like, e.g. pinch to scale)
+[] Your app use an animation (doesn’t have to be fancy) (e.g. fade in/out, e.g. animating a view growing and shrinking)
+[] Your app incorporates an external library to add visual polish
+
+
 
 **Required Must-have Stories**
 

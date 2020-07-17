@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image;
 
 - (NSArray *)sortPlaces;
+- (void)separateIntoDays:(NSArray *)sorted;
 
 
 @end

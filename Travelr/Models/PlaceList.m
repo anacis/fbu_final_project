@@ -92,6 +92,50 @@
     return [num doubleValue] / (180/M_PI);
 }
 
+- (void)separateIntoDays:(NSArray *)sorted {
+    //We are assuming that the average speed of driving is 35 mph
+    int const avgSpeed = 35;
+    double daysLeft = [self.numDays doubleValue];
+    int sortedIndex = 0;
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    
+    while (daysLeft > 0 && sortedIndex < sorted.count) {
+        NSMutableArray *dayList = [[NSMutableArray alloc] init];
+        double hoursLeft = [self.numHours doubleValue];
+        while (hoursLeft > 0 && sortedIndex < sorted.count) {
+            double travelTime;
+            if (sortedIndex == 0) {
+                travelTime = 0;
+            }
+            else {
+                travelTime = [PlaceList getDistance:sorted[sortedIndex - 1] place2:sorted[sortedIndex]] / avgSpeed;
+            }
+            //get time spent at location
+            NSUInteger placeIndex = [self.placesUnsorted indexOfObject:sorted[sortedIndex]];
+            double timeSpent = [self.timesSpent[placeIndex] doubleValue];
+            
+            //TODO: check if default value and retrieve
+            
+            double totalTime = travelTime + timeSpent;
+            if (hoursLeft - totalTime < 0) {
+                NSLog(@"break");
+                break;
+            }
+           
+            hoursLeft -= totalTime;
+            
+            [dayList addObject:sorted[sortedIndex]];
+            
+            sortedIndex++;
+        }
+        [result addObject:dayList];
+        daysLeft--;
+    }
+    
+    //TODO: check if sorted is not empty and if so display a warning that schedule cannot be created with time constraints
+    
+    self.placesSorted = result;
+}
 
 
 

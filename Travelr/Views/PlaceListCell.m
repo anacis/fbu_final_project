@@ -31,22 +31,8 @@
 }
 
 - (void) didTapList:(UITapGestureRecognizer *)sender{
-    //TODO:sort List
-    NSMutableArray *temp = [[NSMutableArray alloc] init];
-    [temp addObject:[self.placeList sortPlaces]];
-
+    [self.placeList separateIntoDays:[self.placeList sortPlaces]];
     
-    /* NSMutableArray *temp = [[NSMutableArray alloc] init];
-    for (int i = 0; i < self.placeList.placesUnsorted.count; i += 2) {
-        NSMutableArray *inside = [[NSMutableArray alloc] init];
-        [inside addObject:self.placeList.placesUnsorted[i]];
-        if (i + 1 < self.placeList.placesUnsorted.count) {
-            [inside addObject:self.placeList.placesUnsorted[i + 1]];
-        }
-        [temp addObject:inside];
-    }*/
-    
-    self.placeList.placesSorted = temp;
     [self.delegate placeListCell:self didTap:self.placeList];
 }
 

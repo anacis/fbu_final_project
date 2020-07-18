@@ -17,20 +17,31 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    NSMutableArray *temp = [[NSMutableArray alloc] init];
+    NSMutableArray *tempHours = [[NSMutableArray alloc] init];
     int const maxHoursPerDay = 17;
     for (int i = 0; i < maxHoursPerDay; i++) {
-        if (i == 0) {
-            [temp addObject:@"?"];
-        }
-        else if (i == 1) {
-            [temp addObject:[NSString stringWithFormat:@"%i hour", i]];
+        if (i < 10) {
+            [tempHours addObject:[NSString stringWithFormat:@"0%i", i]];
         }
         else {
-            [temp addObject:[NSString stringWithFormat:@"%i hours", i]];
+            [tempHours addObject:[NSString stringWithFormat:@"%i", i]];
         }
     }
-    self.pickerData = (NSArray *) temp;
+    [tempHours insertObject:@"?" atIndex:0];
+    
+    NSMutableArray *tempMinutes = [[NSMutableArray alloc] init];
+    int const maxMinutesPerDay = 46;
+    for (int i = 0; i < maxMinutesPerDay; i += 15) {
+        if (i < 10) {
+            [tempMinutes addObject:[NSString stringWithFormat:@"0%i", i]];
+        }
+        else {
+            [tempMinutes addObject:[NSString stringWithFormat:@"%i", i]];
+        }
+    }
+    [tempMinutes insertObject:@"?" atIndex:0];
+    
+    self.pickerData = [NSArray arrayWithObjects:tempHours, tempMinutes, nil];
     self.timeSpentPicker.delegate = self;
     self.timeSpentPicker.dataSource = self;
     [self.timeSpentPicker setHidden:YES];
@@ -52,43 +63,51 @@
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(nonnull UIPickerView *)pickerView {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)pickerView:(nonnull UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return self.pickerData.count;
+    return [self.pickerData[component] count];
 }
 
 - (NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return self.pickerData[row];
+    return self.pickerData[component][row];
 }
 
-- (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    //TODO: edit the button and make the picker hidden
-    self.timeSpentButton.titleLabel.text = self.pickerData[row];
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    NSString *hours = self.pickerData[0][[pickerView selectedRowInComponent:0]];
+    NSString *minutes = self.pickerData[1][[pickerView selectedRowInComponent:1]];
+    self.timeSpentButton.titleLabel.text = [NSString stringWithFormat:@"%@:%@", hours, minutes];
     [self.timeSpentPicker setHidden:YES];
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
     NSNumber *time;
-    if ([self.pickerData[row] isEqualToString:@"?"]) {
-        time = @0;
+    if ([hours isEqualToString:@"?"] || [hours isEqualToString:@"?"]) {
+        time = @(-1);
     }
     else {
-        //TODO: implement regex logic here (if time permits), below works but is semi-cheating since the formatter ignores spaces
-        time = [f numberFromString:[self.pickerData[row] substringToIndex:2]];
+        double convertedMinutes = [[self.pickerData[1][row] substringToIndex:2] doubleValue] / 60;
+        double totalTime = [[self.pickerData[0][row] substringToIndex:2] doubleValue] + convertedMinutes;
+        time = @(totalTime);
     }
     [self.delegate newPlaceCell:self didSpecifyTimeSpent:time];
 }
 
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(nullable UIView *)view {
-    UILabel* label = (UILabel*)view;
-    if (!label){
-        label = [[UILabel alloc] init];
-        [label setFont:[UIFont systemFontOfSize:17]];
+/*- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(nullable UIView *)view {
+    UILabel* labelHours = (UILabel*)view;
+    UILabel* labelMinutes = (UILabel*)view;
+    if (!labelHours){
+        labelHours = [[UILabel alloc] init];
+        [labelHours setFont:[UIFont systemFontOfSize:17]];
     }
-    label.text = self.pickerData[row];
-    return label;
-}
+    if (!labelMinutes){
+        labelMinutes = [[UILabel alloc] init];
+        [labelMinutes setFont:[UIFont systemFontOfSize:17]];
+    }
+    labelHours.text = self.pickerData[0][row];
+    labelMinutes.text = self.pickerData[1][row];
+    return view;
+}*/
 
 
 - (IBAction)onTapButton:(id)sender {

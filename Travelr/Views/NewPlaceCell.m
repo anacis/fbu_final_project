@@ -77,15 +77,21 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     NSString *hours = self.pickerData[0][[pickerView selectedRowInComponent:0]];
     NSString *minutes = self.pickerData[1][[pickerView selectedRowInComponent:1]];
-    self.timeSpentButton.titleLabel.text = [NSString stringWithFormat:@"%@:%@", hours, minutes];
     [self.timeSpentPicker setHidden:YES];
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
     NSNumber *time;
-    if ([hours isEqualToString:@"?"] || [hours isEqualToString:@"?"]) {
+    if ([hours isEqualToString:@"?"] || [minutes isEqualToString:@"?"]) {
+        self.timeSpentButton.titleLabel.text = @"Default time";
         time = @(-1);
     }
+    else if ([hours intValue] == 0){
+        self.timeSpentButton.titleLabel.text = [NSString stringWithFormat:@"%@min", minutes];
+        double convertedMinutes = [[self.pickerData[1][row] substringToIndex:2] doubleValue] / 60;
+        time = @(convertedMinutes);
+    }
     else {
+        self.timeSpentButton.titleLabel.text = [NSString stringWithFormat:@"%@h%@min", hours, minutes];
         double convertedMinutes = [[self.pickerData[1][row] substringToIndex:2] doubleValue] / 60;
         double totalTime = [[self.pickerData[0][row] substringToIndex:2] doubleValue] + convertedMinutes;
         time = @(totalTime);

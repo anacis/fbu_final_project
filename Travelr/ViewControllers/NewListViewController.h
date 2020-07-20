@@ -7,10 +7,13 @@
 //
 
 #import "ViewController.h"
+#import "PlaceList.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NewListViewController : ViewController
+
+@property (nonatomic, strong) PlaceList *placeList;
 
 @end
 

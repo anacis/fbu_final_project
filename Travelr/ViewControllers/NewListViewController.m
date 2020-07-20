@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UITextField *daysField;
 @property (weak, nonatomic) IBOutlet UITextField *hoursField;
-@property (weak, nonatomic) IBOutlet UIImageView *listImage;
+@property (weak, nonatomic) IBOutlet PFImageView *listImage;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionField;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -32,9 +32,23 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.places = [[NSMutableArray alloc] init];
-    self.timesSpent = [[NSMutableArray alloc] init];
-    // Do any additional setup after loading the view.
+    if (self.placeList != nil) {
+        NSLog(@"We are editing a list!");
+        self.places = self.placeList.placesUnsorted;
+        self.timesSpent = self.placeList.timesSpent;
+        self.titleField.text = self.placeList.name;
+        self.daysField.text = [self.placeList.numDays stringValue];
+        self.hoursField.text = [self.placeList.numHours stringValue];
+        self.descriptionField.text = self.placeList[@"description"];
+        self.listImage.file = self.placeList.image;
+        self.listImage.layer.cornerRadius = self.listImage.frame.size.height / 2; //formula to create a circular image
+        [self.listImage loadInBackground];
+        [self.tableView reloadData];
+    }
+    else {
+        self.places = [[NSMutableArray alloc] init];
+        self.timesSpent = [[NSMutableArray alloc] init];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -68,8 +82,6 @@
         [tableView reloadData];
     }
 }
-
-
 
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -120,27 +132,50 @@
 }
 
 - (IBAction)saveList:(id)sender {
-    PlaceList *list = [PlaceList new];
-    list.name = self.titleField.text;
-    list[@"description"] = self.descriptionField.text;
-    list.author = [PFUser currentUser];
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc]init];
-    list.numDays = [formatter numberFromString:self.daysField.text];
-    list.numHours = [formatter numberFromString:self.hoursField.text];
-    list.image = [PlaceList getPFFileFromImage:self.listImage.image];
-    list.placesUnsorted = self.places;
-    list.timesSpent = self.timesSpent;
-    
-    [list saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            NSLog(@"Saved list successfully!");
-            [self performSegueWithIdentifier:@"newListToFeed" sender:nil];
-            
-        }
-        else {
-           NSLog(@"Error: %@", error.localizedDescription);
-        }
-    }];
+    if (self.placeList == nil) {
+        PlaceList *list = [PlaceList new];
+        list.name = self.titleField.text;
+        list[@"description"] = self.descriptionField.text;
+        list.author = [PFUser currentUser];
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc]init];
+        list.numDays = [formatter numberFromString:self.daysField.text];
+        list.numHours = [formatter numberFromString:self.hoursField.text];
+        list.image = [PlaceList getPFFileFromImage:self.listImage.image];
+        list.placesUnsorted = self.places;
+        list.timesSpent = self.timesSpent;
+        
+        [list saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if (succeeded) {
+                NSLog(@"Saved list successfully!");
+                [self performSegueWithIdentifier:@"newListToFeed" sender:nil];
+                
+            }
+            else {
+               NSLog(@"Error: %@", error.localizedDescription);
+            }
+        }];
+    }
+    else {
+        self.placeList.name = self.titleField.text;
+        self.placeList[@"description"] = self.descriptionField.text;
+        self.placeList.author = [PFUser currentUser];
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc]init];
+        self.placeList.numDays = [formatter numberFromString:self.daysField.text];
+        self.placeList.numHours = [formatter numberFromString:self.hoursField.text];
+        self.placeList.image = [PlaceList getPFFileFromImage:self.listImage.image];
+        self.placeList.placesUnsorted = self.places;
+        self.placeList.timesSpent = self.timesSpent;
+        [self.placeList saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if (succeeded) {
+                NSLog(@"Saved list successfully!");
+                [self performSegueWithIdentifier:@"newListToFeed" sender:nil];
+                
+            }
+            else {
+               NSLog(@"Error: %@", error.localizedDescription);
+            }
+        }];
+    }
     
 }
 

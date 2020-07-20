@@ -8,6 +8,7 @@
 
 #import "LocationFeedController.h"
 #import "DayCell.h"
+#import "NewListViewController.h"
 
 @interface LocationFeedController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -24,15 +25,14 @@
     [self checkListCompletion];
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"editList"]) {
+        NewListViewController *destination = [segue destinationViewController];
+        destination.placeList = self.placeList;
+    }
 }
-*/
+
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     DayCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"DayCell"];
@@ -64,6 +64,10 @@
         [self presentViewController:alert animated:YES completion:^{
         }];
     }
+}
+
+- (IBAction)onTapEdit:(id)sender {
+    [self performSegueWithIdentifier:@"editList" sender:nil];
 }
 
 @end

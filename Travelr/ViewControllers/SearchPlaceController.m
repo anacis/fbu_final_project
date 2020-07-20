@@ -44,6 +44,7 @@ static NSString * const clientSecret = @"WJDM2PK4YVAV2SSD2CY20UCBOH0FA0B5VT3B22N
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     SearchPlaceCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"SearchPlaceCell"];
     NSDictionary *location = self.results[indexPath.row];
+    NSLog(@"%@", location);
     [cell updateWithLocation:location];
     return cell;
 }

@@ -31,6 +31,7 @@
 		949A20FE24BE726A007010FD /* LocationFeedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20FD24BE726A007010FD /* LocationFeedController.m */; };
 		949A210124BE7421007010FD /* DayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A210024BE7421007010FD /* DayCell.m */; };
 		949A210424BE74F0007010FD /* LocationCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A210324BE74F0007010FD /* LocationCollectionCell.m */; };
+		94AAC6A424C641FA003D451E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AAC6A324C641FA003D451E /* Constants.m */; };
 		D6EBE0661A1382C58E12E788 /* Pods_TravelrTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B710EB2106F91407D56BC7D /* Pods_TravelrTests.framework */; };
 		D7989ABD42DF2CE552166B2E /* Pods_Travelr_TravelrUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8DE768560B4AC11C21600C2 /* Pods_Travelr_TravelrUITests.framework */; };
 /* End PBXBuildFile section */
@@ -104,6 +105,8 @@
 		949A210024BE7421007010FD /* DayCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DayCell.m; sourceTree = "<group>"; };
 		949A210224BE74F0007010FD /* LocationCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationCollectionCell.h; sourceTree = "<group>"; };
 		949A210324BE74F0007010FD /* LocationCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationCollectionCell.m; sourceTree = "<group>"; };
+		94AAC6A224C641FA003D451E /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		94AAC6A324C641FA003D451E /* Constants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		ABB1C2003509E12E20E7721F /* Pods-TravelrTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TravelrTests.release.xcconfig"; path = "Target Support Files/Pods-TravelrTests/Pods-TravelrTests.release.xcconfig"; sourceTree = "<group>"; };
 		B8DE768560B4AC11C21600C2 /* Pods_Travelr_TravelrUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Travelr_TravelrUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6631BA08F7B012734F80F24 /* Pods_Travelr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Travelr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -239,6 +242,8 @@
 				949A20DF24BCCD6C007010FD /* PlaceList.m */,
 				949A20E124BCCD8D007010FD /* Place.h */,
 				949A20E224BCCD8D007010FD /* Place.m */,
+				94AAC6A224C641FA003D451E /* Constants.h */,
+				94AAC6A324C641FA003D451E /* Constants.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -571,6 +576,7 @@
 				949A20F824BE20FA007010FD /* SearchPlaceController.m in Sources */,
 				949A210124BE7421007010FD /* DayCell.m in Sources */,
 				949A20F524BD0D8B007010FD /* NewPlaceCell.m in Sources */,
+				94AAC6A424C641FA003D451E /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

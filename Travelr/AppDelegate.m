@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <PFFacebookUtils.h>
 
 @interface AppDelegate ()
 
@@ -26,9 +28,19 @@
     
     [Parse initializeWithConfiguration:config];
     
+    [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
+    
+    
     return YES;
 }
 
+- (BOOL)application:(UIApplication*)app openURL:(NSURL*)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    return [[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    [FBSDKAppEvents activateApp];
+}
 
 #pragma mark - UISceneSession lifecycle
 

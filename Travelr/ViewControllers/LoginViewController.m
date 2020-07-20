@@ -8,10 +8,17 @@
 
 #import "LoginViewController.h"
 #import <Parse/Parse.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <PFFacebookUtils.h>
+
 
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet UIButton *signUpButton;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
+
 
 @end
 
@@ -19,7 +26,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    FBSDKLoginButton *fbLoginButton = [[FBSDKLoginButton alloc] init];
+    CGRect screen = [[UIScreen mainScreen] bounds];
+    fbLoginButton.center = CGPointMake(screen.size.width / 2, self.signUpButton.frame.origin.y + 100);
+    fbLoginButton.permissions = @[@"public_profile", @"email"];
+    UITapGestureRecognizer *facebookTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(facebookLogin:)];
+    [fbLoginButton addGestureRecognizer:facebookTap];
+    [self.view addSubview:fbLoginButton];
 }
 
 - (IBAction)onTapLogin:(id)sender {
@@ -50,6 +63,23 @@
             NSLog(@"User logged in successfully");
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
         }
+    }];
+}
+
+- (void)facebookLogin:(UITapGestureRecognizer *)recognizer {
+    FBSDKLoginButton *button = (FBSDKLoginButton *) recognizer.view;
+    [PFFacebookUtils logInInBackgroundWithReadPermissions:button.permissions block:^(PFUser *user, NSError *error) {
+      if (!user) {
+          NSLog(@"Uh oh. The user cancelled the Facebook login.");
+      }
+      else if (user.isNew) {
+          NSLog(@"User signed up and logged in through Facebook!");
+          [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+      }
+      else {
+          NSLog(@"User logged in through Facebook!");
+          [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+      }
     }];
 }
 

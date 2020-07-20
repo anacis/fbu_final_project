@@ -80,7 +80,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="H0Y-Vj-fBW"/>
                     <connections>
+                        <outlet property="loginButton" destination="W9K-bO-b9Y" id="luw-iG-Dz6"/>
                         <outlet property="passwordField" destination="RJH-Xz-QMv" id="436-Be-SDm"/>
+                        <outlet property="signUpButton" destination="kBq-Au-4ZD" id="Myn-2g-60e"/>
                         <outlet property="usernameField" destination="4Bl-cf-D8R" id="8nP-4x-kpt"/>
                         <segue destination="UDJ-rf-fFG" kind="show" identifier="loginSegue" id="AdF-DU-W8i"/>
                     </connections>

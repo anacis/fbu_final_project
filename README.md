@@ -44,16 +44,15 @@ This app will allow a user to create a list of locations in a city/small area th
 - [X] Ability to calculate the most efficient order of visiting these locations and specifying on what day the user should visit each
 - [X] Implementation of the Google maps to see the daily directions.
 - [X] Ability to view a list.
-- [ ] Ability to login to the App using one's Google/Facebook account.
+- [X] Ability to login to the App using one's Google/Facebook account.
 
 **Optional Nice-to-have Stories**
-- [ ] Ability to edit a list
+- [X] Ability to edit a list
 - [ ] Ability to view other people's lists (friends, but how do I implement the friends feature?)
 - [ ] The app can suggest popular places to visit that are in the area you are visiting
 - [ ] ( * The app can recognize which places are food related and place them at times of the day when one usually eats/limits the number of food places to a specified amount. ) 
 - [ ] Ability to favorite lists and see them in a user's profile page
-- [ ] The app suggests how long to spend at each location
-- [ ] The app takes into account when the locations are closed and does not suggest them then.
+- [X] The app suggests how long to spend at each location
 - [ ] Ability to view a details page for each location
 
 

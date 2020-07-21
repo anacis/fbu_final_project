@@ -18,7 +18,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     NSMutableArray *tempHours = [[NSMutableArray alloc] init];
-    int const maxHoursPerDay = 17;
+    int const maxHoursPerDay = 17; //I determined that one would spend at maximum 16 hours in one tourist location (like a hike or a beach)
     for (int i = 0; i < maxHoursPerDay; i++) {
         if (i < 10) {
             [tempHours addObject:[NSString stringWithFormat:@"0%i", i]];
@@ -30,7 +30,7 @@
     [tempHours insertObject:@"?" atIndex:0];
     
     NSMutableArray *tempMinutes = [[NSMutableArray alloc] init];
-    int const maxMinutesPerDay = 46;
+    int const maxMinutesPerDay = 60; //incrementing the minutes option by 15 min (ie: 9, 15, 30, 45)
     for (int i = 0; i < maxMinutesPerDay; i += 15) {
         if (i < 10) {
             [tempMinutes addObject:[NSString stringWithFormat:@"0%i", i]];

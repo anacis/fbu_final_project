@@ -34,6 +34,7 @@
 		94AAC6A424C641FA003D451E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AAC6A324C641FA003D451E /* Constants.m */; };
 		94E3780724C7569A00A859D7 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E3780624C7569A00A859D7 /* TestViewController.m */; };
 		94E3780A24C789DD00A859D7 /* CityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E3780924C789DD00A859D7 /* CityCell.m */; };
+		94E3780D24C79CC600A859D7 /* APIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E3780C24C79CC600A859D7 /* APIConstants.m */; };
 		D6EBE0661A1382C58E12E788 /* Pods_TravelrTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B710EB2106F91407D56BC7D /* Pods_TravelrTests.framework */; };
 		D7989ABD42DF2CE552166B2E /* Pods_Travelr_TravelrUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8DE768560B4AC11C21600C2 /* Pods_Travelr_TravelrUITests.framework */; };
 /* End PBXBuildFile section */
@@ -113,6 +114,8 @@
 		94E3780624C7569A00A859D7 /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		94E3780824C789DD00A859D7 /* CityCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CityCell.h; sourceTree = "<group>"; };
 		94E3780924C789DD00A859D7 /* CityCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CityCell.m; sourceTree = "<group>"; };
+		94E3780B24C79CC600A859D7 /* APIConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIConstants.h; sourceTree = "<group>"; };
+		94E3780C24C79CC600A859D7 /* APIConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIConstants.m; sourceTree = "<group>"; };
 		ABB1C2003509E12E20E7721F /* Pods-TravelrTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TravelrTests.release.xcconfig"; path = "Target Support Files/Pods-TravelrTests/Pods-TravelrTests.release.xcconfig"; sourceTree = "<group>"; };
 		B8DE768560B4AC11C21600C2 /* Pods_Travelr_TravelrUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Travelr_TravelrUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6631BA08F7B012734F80F24 /* Pods_Travelr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Travelr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -252,6 +255,8 @@
 				949A20E224BCCD8D007010FD /* Place.m */,
 				94AAC6A224C641FA003D451E /* Constants.h */,
 				94AAC6A324C641FA003D451E /* Constants.m */,
+				94E3780B24C79CC600A859D7 /* APIConstants.h */,
+				94E3780C24C79CC600A859D7 /* APIConstants.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -582,6 +587,7 @@
 				949A20A624BCBCB7007010FD /* SceneDelegate.m in Sources */,
 				949A20EF24BCFE23007010FD /* PlaceListCell.m in Sources */,
 				949A20EC24BCDFC7007010FD /* ListFeedViewController.m in Sources */,
+				94E3780D24C79CC600A859D7 /* APIConstants.m in Sources */,
 				94E3780724C7569A00A859D7 /* TestViewController.m in Sources */,
 				949A20E924BCDFA8007010FD /* SignUpViewController.m in Sources */,
 				949A20F824BE20FA007010FD /* SearchPlaceController.m in Sources */,

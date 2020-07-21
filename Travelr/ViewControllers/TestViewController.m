@@ -9,6 +9,7 @@
 #import "TestViewController.h"
 #import "MKDropdownMenu.h"
 #import "CityCell.h"
+#import "APIConstants.h"
 
 @interface TestViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
@@ -69,8 +70,7 @@
     dispatch_group_enter(self.group);
     
     NSDictionary *headers = @{ @"x-rapidapi-host": @"wft-geo-db.p.rapidapi.com",
-        @"x-rapidapi-key":
-        @"47f9918e89msh529c6a696c3b15fp198bc0jsnfdfa59e36cf0" };
+        @"x-rapidapi-key": RAPIDAPIKEY};
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: [NSString stringWithFormat:@"https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=%@", name]]
         cachePolicy:NSURLRequestUseProtocolCachePolicy

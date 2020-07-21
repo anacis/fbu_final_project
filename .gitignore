@@ -1,3 +1,7 @@
 
 images/.DS_Store
 .DS_Store
+.gitsecret/keys/random_seed
+!*.secret
+Travelr/Models/APIConstants.m
+Travelr/Models/APIConstants.h

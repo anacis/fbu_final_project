@@ -9,6 +9,7 @@
 #import "SearchPlaceController.h"
 #import "SearchPlaceCell.h"
 #import "Place.h"
+#import "APIConstants.h"
 
 static NSString * const clientID = @"OJTXKY5VVXM1UR5TBR5KGZMMGLCZO34CMDPSOM2Y1QY4XHQ2";
 static NSString * const clientSecret = @"WJDM2PK4YVAV2SSD2CY20UCBOH0FA0B5VT3B22NXZHDCIUEG";
@@ -73,7 +74,7 @@ static NSString * const clientSecret = @"WJDM2PK4YVAV2SSD2CY20UCBOH0FA0B5VT3B22N
 
 - (void)fetchLocationsWithQuery:(NSString *)query near:(NSString *)city {
     NSString *baseURLString = @"https://api.foursquare.com/v2/venues/search?";
-    NSString *queryString = [NSString stringWithFormat:@"client_id=%@&client_secret=%@&v=20141020&near=%@&query=%@", clientID, clientSecret, city, query]; //TODO: change this call to remove the near
+    NSString *queryString = [NSString stringWithFormat:@"client_id=%@&client_secret=%@&v=20141020&near=%@&query=%@", FOURSQUAREID, FOURSQUARESECRET, city, query]; //TODO: change this call to remove the near
     queryString = [queryString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
     NSURL *url = [NSURL URLWithString:[baseURLString stringByAppendingString:queryString]];

@@ -10,8 +10,7 @@
 #import <Parse/Parse.h>
 #import "PlaceList.h"
 @import GoogleMaps;
-
-static NSString * const apiKey = @"AIzaSyA0ZUTS5YGFB_Um83afzjHghEgOvTnlRX0";
+#import "APIConstants.h"
 
 @implementation Place
 
@@ -32,7 +31,7 @@ static NSString * const apiKey = @"AIzaSyA0ZUTS5YGFB_Um83afzjHghEgOvTnlRX0";
 
 
 + (void)createPlaceFromDictionary: (NSDictionary *)dict placeList:(NSMutableArray *) placeList{
-    [GMSServices provideAPIKey:apiKey];
+    [GMSServices provideAPIKey:GOOGLEKEY];
     
     //check if the place does not exist already
     PFQuery *query = [PFQuery queryWithClassName:@"Place"];

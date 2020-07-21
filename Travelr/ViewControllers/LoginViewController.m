@@ -11,6 +11,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <PFFacebookUtils.h>
+#import "SceneDelegate.h"
 
 
 @interface LoginViewController ()
@@ -79,6 +80,9 @@
       else {
           NSLog(@"User logged in through Facebook!");
           [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+          UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+          SceneDelegate *scene = self.view.window.windowScene.delegate;
+          scene.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"ListFeedNav"];
       }
     }];
 }

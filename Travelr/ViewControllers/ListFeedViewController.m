@@ -31,6 +31,11 @@
 }
 
 - (IBAction)logout:(id)sender {
+    if ([FBSDKAccessToken currentAccessToken]) {
+        FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+        [login logOut];
+    }
+    
     [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
         if (error == nil) {
             NSLog(@"User is logged out");

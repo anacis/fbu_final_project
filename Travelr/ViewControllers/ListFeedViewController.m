@@ -28,6 +28,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self fetchPlaceLists];
+    
 }
 
 - (IBAction)logout:(id)sender {

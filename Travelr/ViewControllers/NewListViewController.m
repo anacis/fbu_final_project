@@ -194,4 +194,28 @@
     self.timesSpent[indexPath.row] = time;
 }
 
+
+- (void)fetchCities {
+    NSDictionary *headers = @{ @"x-rapidapi-host": @"wft-geo-db.p.rapidapi.com",
+                               @"x-rapidapi-key": @"47f9918e89msh529c6a696c3b15fp198bc0jsnfdfa59e36cf0" };
+
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=paris"]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:10.0];
+    //TODO: get user to input city name and change namePrefix!
+    [request setHTTPMethod:@"GET"];
+    [request setAllHTTPHeaderFields:headers];
+
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            NSLog(@"%@", error);
+        } else {
+            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSLog(@"%@", responseDictionary);
+        }
+    }];
+    [dataTask resume];
+}
+
 @end

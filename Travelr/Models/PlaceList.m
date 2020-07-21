@@ -131,8 +131,9 @@
             //get time spent at location
             NSUInteger placeIndex = [self.placesUnsorted indexOfObject:sorted[sortedIndex]];
             double timeSpent = [self.timesSpent[placeIndex] doubleValue];
-            
-            //TODO: check if default value and retrieve
+            if (timeSpent == -1) {
+                timeSpent = 1; //default time to spend at each location
+            }
             
             double totalTime = travelTime + timeSpent;
             if (hoursLeft - totalTime < 0) {

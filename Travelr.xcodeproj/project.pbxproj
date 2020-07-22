@@ -35,6 +35,8 @@
 		94E3780724C7569A00A859D7 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E3780624C7569A00A859D7 /* TestViewController.m */; };
 		94E3780A24C789DD00A859D7 /* CityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E3780924C789DD00A859D7 /* CityCell.m */; };
 		94E3780D24C79CC600A859D7 /* APIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E3780C24C79CC600A859D7 /* APIConstants.m */; };
+		94E3781224C7AD1600A859D7 /* NewListSlide.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94E3781124C7AD1600A859D7 /* NewListSlide.xib */; };
+		94E3781B24C8A80B00A859D7 /* NewListOnboardingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E3781A24C8A80B00A859D7 /* NewListOnboardingController.m */; };
 		D6EBE0661A1382C58E12E788 /* Pods_TravelrTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B710EB2106F91407D56BC7D /* Pods_TravelrTests.framework */; };
 		D7989ABD42DF2CE552166B2E /* Pods_Travelr_TravelrUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8DE768560B4AC11C21600C2 /* Pods_Travelr_TravelrUITests.framework */; };
 /* End PBXBuildFile section */
@@ -116,6 +118,9 @@
 		94E3780924C789DD00A859D7 /* CityCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CityCell.m; sourceTree = "<group>"; };
 		94E3780B24C79CC600A859D7 /* APIConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIConstants.h; sourceTree = "<group>"; };
 		94E3780C24C79CC600A859D7 /* APIConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIConstants.m; sourceTree = "<group>"; };
+		94E3781124C7AD1600A859D7 /* NewListSlide.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewListSlide.xib; sourceTree = "<group>"; };
+		94E3781924C8A80B00A859D7 /* NewListOnboardingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewListOnboardingController.h; sourceTree = "<group>"; };
+		94E3781A24C8A80B00A859D7 /* NewListOnboardingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewListOnboardingController.m; sourceTree = "<group>"; };
 		ABB1C2003509E12E20E7721F /* Pods-TravelrTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TravelrTests.release.xcconfig"; path = "Target Support Files/Pods-TravelrTests/Pods-TravelrTests.release.xcconfig"; sourceTree = "<group>"; };
 		B8DE768560B4AC11C21600C2 /* Pods_Travelr_TravelrUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Travelr_TravelrUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6631BA08F7B012734F80F24 /* Pods_Travelr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Travelr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -240,6 +245,7 @@
 				949A210324BE74F0007010FD /* LocationCollectionCell.m */,
 				94E3780824C789DD00A859D7 /* CityCell.h */,
 				94E3780924C789DD00A859D7 /* CityCell.m */,
+				94E3781124C7AD1600A859D7 /* NewListSlide.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -278,6 +284,8 @@
 				949A20FD24BE726A007010FD /* LocationFeedController.m */,
 				94E3780524C7569A00A859D7 /* TestViewController.h */,
 				94E3780624C7569A00A859D7 /* TestViewController.m */,
+				94E3781924C8A80B00A859D7 /* NewListOnboardingController.h */,
+				94E3781A24C8A80B00A859D7 /* NewListOnboardingController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -373,6 +381,7 @@
 				TargetAttributes = {
 					949A209D24BCBCB7007010FD = {
 						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 1160;
 					};
 					949A20B824BCBCB8007010FD = {
 						CreatedOnToolsVersion = 11.5;
@@ -409,6 +418,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94E3781224C7AD1600A859D7 /* NewListSlide.xib in Resources */,
 				949A20B124BCBCB8007010FD /* LaunchScreen.storyboard in Resources */,
 				949A20AE24BCBCB8007010FD /* Assets.xcassets in Resources */,
 				949A20AC24BCBCB7007010FD /* Main.storyboard in Resources */,
@@ -589,6 +599,7 @@
 				949A20EC24BCDFC7007010FD /* ListFeedViewController.m in Sources */,
 				94E3780D24C79CC600A859D7 /* APIConstants.m in Sources */,
 				94E3780724C7569A00A859D7 /* TestViewController.m in Sources */,
+				94E3781B24C8A80B00A859D7 /* NewListOnboardingController.m in Sources */,
 				949A20E924BCDFA8007010FD /* SignUpViewController.m in Sources */,
 				949A20F824BE20FA007010FD /* SearchPlaceController.m in Sources */,
 				949A210124BE7421007010FD /* DayCell.m in Sources */,
@@ -764,7 +775,9 @@
 			baseConfigurationReference = 029ACA8CAD479C08B9C7604E /* Pods-Travelr.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = XP986C937N;
 				INFOPLIST_FILE = Travelr/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -773,6 +786,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = anacismaru.Travelr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Travelr/ViewControllers/Travelr-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -782,7 +798,9 @@
 			baseConfigurationReference = 3769A92898CABDAFAF08B2BC /* Pods-Travelr.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = XP986C937N;
 				INFOPLIST_FILE = Travelr/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -791,6 +809,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = anacismaru.Travelr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Travelr/ViewControllers/Travelr-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -7,7 +7,6 @@
 //
 
 #import "TestViewController.h"
-#import "MKDropdownMenu.h"
 #import "CityCell.h"
 #import "APIConstants.h"
 
@@ -61,6 +60,7 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [self fetchCities:searchBar.text];
+    //TODO: create animation that makes the table view appear and disappear
     //TODO: ask jeff about weird asynchness going on
     dispatch_group_wait(self.group, 3);
     [self.tableView reloadData];

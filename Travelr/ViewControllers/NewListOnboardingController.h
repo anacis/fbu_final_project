@@ -10,7 +10,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NewListOnboardingController;
+
+@protocol SearchPlaceDelegate
+
+- (void)searchPlace:(NewListOnboardingController *)controller didPickLocationWithDictionary:(NSDictionary *)dict;
+
+@end
+
 @interface NewListOnboardingController : UIViewController
+
+@property (weak, nonatomic) id<SearchPlaceDelegate> delegate;
 
 @end
 

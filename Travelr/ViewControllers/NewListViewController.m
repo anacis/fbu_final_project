@@ -51,10 +51,12 @@
     }
 }
 
+//DONE
 - (void)viewDidAppear:(BOOL)animated {
     [self.tableView reloadData];
 }
 
+//NOT NEEDED
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"searchSegue"]) {
@@ -71,10 +73,12 @@
     return cell;
 }
 
+//DONE
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
 
+//DONE
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.places removeObjectAtIndex:indexPath.row];
@@ -83,11 +87,12 @@
     }
 }
 
-
+//DONE
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.places.count;
 }
 
+//NOT SURE IF I WANT
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     
     // Get the image captured by the UIImagePickerController
@@ -102,6 +107,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+//NOT SURE IF I WANT
 - (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
     UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
     
@@ -116,6 +122,7 @@
     return newImage;
 }
 
+//NOT SURE IF I WANT
 - (IBAction)onTapImage:(id)sender {
     NSLog(@"Tapping on image!");
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
@@ -131,6 +138,7 @@
     [self presentViewController:imagePickerVC animated:YES completion:nil];
 }
 
+//NEED TO IMPLEMENT EDITING
 - (IBAction)saveList:(id)sender {
     if (self.placeList == nil) {
         PlaceList *list = [PlaceList new];
@@ -179,22 +187,26 @@
     
 }
 
+//DONE --> added into selectrowatindexpath
 - (void)searchPlaceController:(SearchPlaceController *)controller didPickLocationWithDictionary:(NSDictionary *)dict {
     [Place createPlaceFromDictionary:dict placeList:self.places];
     [self.timesSpent addObject:@0];
     [self.navigationController popToViewController:self animated:YES];
 }
 
+//DONE
 - (IBAction)cancel:(id)sender {
     [self performSegueWithIdentifier:@"newListToFeed" sender:nil];
 }
 
+//DONE
 - (void)newPlaceCell:(NewPlaceCell *)newPlaceCell didSpecifyTimeSpent:(nonnull NSNumber *)time {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:newPlaceCell];
     self.timesSpent[indexPath.row] = time;
 }
 
 
+//DONE
 - (void)fetchCities {
     NSDictionary *headers = @{ @"x-rapidapi-host": @"wft-geo-db.p.rapidapi.com",
                                @"x-rapidapi-key": @"47f9918e89msh529c6a696c3b15fp198bc0jsnfdfa59e36cf0" };

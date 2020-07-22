@@ -11,9 +11,6 @@
 #import "Place.h"
 #import "APIConstants.h"
 
-static NSString * const clientID = @"OJTXKY5VVXM1UR5TBR5KGZMMGLCZO34CMDPSOM2Y1QY4XHQ2";
-static NSString * const clientSecret = @"WJDM2PK4YVAV2SSD2CY20UCBOH0FA0B5VT3B22NXZHDCIUEG";
-
 @interface SearchPlaceController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -42,24 +39,27 @@ static NSString * const clientSecret = @"WJDM2PK4YVAV2SSD2CY20UCBOH0FA0B5VT3B22N
 }
 */
 
+//DONE
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     SearchPlaceCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"SearchPlaceCell"];
     NSDictionary *location = self.results[indexPath.row];
-    NSLog(@"%@", location);
     [cell updateWithLocation:location];
     return cell;
 }
 
+//DONE
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.results.count;
 }
 
+//DONE
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // This is the selected venue
     NSDictionary *venue = self.results[indexPath.row];
     [self.delegate searchPlaceController:self didPickLocationWithDictionary:venue];
 }
 
+//DONE
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     NSString *newText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
     //TODO: find a way to specify the near parameter
@@ -67,11 +67,14 @@ static NSString * const clientSecret = @"WJDM2PK4YVAV2SSD2CY20UCBOH0FA0B5VT3B22N
     return true;
 }
 
+
+//DONE
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     //TODO: find a way to specify the near parameter
     [self fetchLocationsWithQuery:searchBar.text near:@"Lausanne"];
 }
 
+//DONE
 - (void)fetchLocationsWithQuery:(NSString *)query near:(NSString *)city {
     NSString *baseURLString = @"https://api.foursquare.com/v2/venues/search?";
     NSString *queryString = [NSString stringWithFormat:@"client_id=%@&client_secret=%@&v=20141020&near=%@&query=%@", FOURSQUAREID, FOURSQUARESECRET, city, query]; //TODO: change this call to remove the near

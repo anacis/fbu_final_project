@@ -18,8 +18,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.pageControl.numberOfPages = 3;
-    //add content here
+    int const numberOfPages = 3;
+    self.pageControl.numberOfPages = numberOfPages;
+    
+    for (int i = 0; i < numberOfPages; i++) {
+        [self setUpPage:i];
+    }
+    
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * self.pageControl.numberOfPages, self.scrollView.frame.size.height);
     self.scrollView.delegate = self;
 }
@@ -27,8 +32,20 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     int pageNumber = scrollView.contentOffset.x / scrollView.frame.size.width;
     self.pageControl.currentPage = pageNumber;
-    NSLog(@"%d", self.pageControl.currentPage);
+   
 }
+
+- (void)setUpPage:(int) index {
+    CGRect frame = CGRectMake(0, 0, 0, 0);
+    frame.origin.x = self.scrollView.frame.size.width * index;
+    frame.size = self.scrollView.frame.size;
+    UIView *slide = [[[NSBundle mainBundle]
+                      loadNibNamed:[NSString stringWithFormat:@"NewListSlide%d", index+1]
+                      owner:self options:nil] objectAtIndex:0];
+    slide.frame = frame;
+    [self.scrollView addSubview:slide];
+}
+
 /*
 #pragma mark - Navigation
 

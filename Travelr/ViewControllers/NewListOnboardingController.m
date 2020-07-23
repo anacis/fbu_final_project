@@ -66,7 +66,7 @@
     self.placeSearchTableView.delegate = self;
     self.placeSearchBar.delegate = self;
     
-    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(onTimer) userInfo:nil repeats:true];
+    //[NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(onTimer) userInfo:nil repeats:true];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -192,9 +192,9 @@
     if (tableView == self.placeSearchTableView) {
         // This is the selected venue
         NSDictionary *venue = self.placeSearchResults[indexPath.row];
-        [Place createPlaceFromDictionary:venue placeList:self.places];
+        [Place createPlaceFromDictionary:venue placeList:self.places tableView:self.myPlacesTableView];
         [self.timesSpent addObject:@0];
-        [self.myPlacesTableView reloadData];
+        //[self.myPlacesTableView reloadData];
     }
 }
 

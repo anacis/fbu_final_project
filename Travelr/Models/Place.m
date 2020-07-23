@@ -24,13 +24,15 @@
 @dynamic openingHours;
 @dynamic gMapsAddress;
 
+
 + (nonnull NSString *)parseClassName {
     return @"Place";
 }
 
 
 
-+ (void)createPlaceFromDictionary: (NSDictionary *)dict placeList:(NSMutableArray *) placeList{
++ (void)createPlaceFromDictionary: (NSDictionary *)dict placeList:(NSMutableArray *) placeList tableView:(UITableView *) tableView{
+    //TODO: implement check to see if API Key has already been provided
     [GMSServices provideAPIKey:GOOGLEKEY];
     
     //check if the place does not exist already
@@ -41,6 +43,9 @@
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable places, NSError * _Nullable error) {
         if (places.count != 0) {
+            if (places[0][@"gMapsAddress"] == nil) {
+                [places[0] reverseGeocode:tableView];
+            }
             [placeList addObject:places[0]];
         }
         else if (error != nil) {
@@ -63,7 +68,7 @@
             newPlace.longitude = [dict valueForKeyPath:@"location.lng"];
             newPlace.latitude = [dict valueForKeyPath:@"location.lat"];
             newPlace.address = [dict valueForKeyPath:@"location.address"];
-            [newPlace reverseGeocode];
+            [newPlace reverseGeocode:tableView];
             
             [placeList addObject:newPlace];
 
@@ -72,12 +77,13 @@
     
 }
 
-- (void)reverseGeocode {
+- (void)reverseGeocode:(UITableView *)tableView {
     CLLocationCoordinate2D coordinatePair = CLLocationCoordinate2DMake(self.latitude.floatValue, self.longitude.floatValue);
     GMSGeocoder *geocoder = [GMSGeocoder geocoder];
     [geocoder reverseGeocodeCoordinate:coordinatePair completionHandler:^(GMSReverseGeocodeResponse * _Nullable response, NSError * _Nullable error) {
         if (response != nil) {
             self.gMapsAddress = [response.firstResult.lines[0] stringByReplacingOccurrencesOfString:@" "withString:@"+"];
+            [tableView reloadData];
         }
         else {
             NSLog(@"Error reverse geocoding: %@", error.localizedDescription);

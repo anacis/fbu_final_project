@@ -189,7 +189,7 @@
 
 //DONE --> added into selectrowatindexpath
 - (void)searchPlaceController:(SearchPlaceController *)controller didPickLocationWithDictionary:(NSDictionary *)dict {
-    [Place createPlaceFromDictionary:dict placeList:self.places];
+    //[Place createPlaceFromDictionary:dict placeList:self.places];
     [self.timesSpent addObject:@0];
     [self.navigationController popToViewController:self animated:YES];
 }

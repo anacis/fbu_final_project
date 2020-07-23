@@ -659,9 +659,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="cityNameLabel" destination="JlR-HM-Jix" id="izw-bk-qRL"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -670,7 +667,6 @@
                         <viewLayoutGuide key="safeArea" id="nMK-Ux-5Vb"/>
                     </view>
                     <connections>
-                        <outlet property="searchBar" destination="ef5-EG-ASA" id="woe-0d-7fk"/>
                         <outlet property="tableView" destination="eAS-Jp-NVa" id="Gze-sq-d1K"/>
                     </connections>
                 </viewController>
@@ -683,11 +679,11 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="uMU-1A-pBn" customClass="SearchPlaceController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RlJ-YV-vS0">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="p85-0a-rSa">
-                                <rect key="frame" x="0.0" y="56" width="414" height="786"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <searchBar key="tableHeaderView" contentMode="redraw" id="XuF-1b-SQ4">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>

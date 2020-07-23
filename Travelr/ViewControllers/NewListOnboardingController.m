@@ -23,8 +23,8 @@
 
 @property (weak, nonatomic) UITextField *titleField;
 @property (weak, nonatomic) UITextView *descriptionField;
-@property (weak, nonatomic) UITableView *cityTableView;
-@property (weak, nonatomic) UISearchBar *citySearchBar;
+@property (weak, nonatomic) UITextField *cityField;
+
 
 @property (weak, nonatomic) UITextField *daysField;
 @property (weak, nonatomic) UITextField *hoursField;
@@ -60,18 +60,10 @@
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * self.pageControl.numberOfPages, self.scrollView.frame.size.height);
     self.scrollView.delegate = self;
     
-    self.cityTableView.delegate = self;
-    self.cityTableView.dataSource = self;
-    //[self.cityTableView registerClass:CityCell.self forCellReuseIdentifier:@"CityCell"];
-    self.citySearchBar.delegate = self;
-    self.group = dispatch_group_create();
-    
     self.myPlacesTableView.delegate = self;
     self.myPlacesTableView.dataSource = self;
-    //[self.myPlacesTableView registerClass:NewPlaceCell.self forCellReuseIdentifier:@"NewPlaceCell"];
     self.placeSearchTableView.dataSource = self;
     self.placeSearchTableView.delegate = self;
-    //[self.placeSearchTableView registerClass:SearchPlaceCell.self forCellReuseIdentifier:@"SearchPlaceCell"];
     self.placeSearchBar.delegate = self;
     
     [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(onTimer) userInfo:nil repeats:true];
@@ -79,13 +71,11 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [self.placeSearchTableView reloadData];
-    [self.cityTableView reloadData];
     [self.myPlacesTableView reloadData];
 }
 
 - (void)onTimer {
     [self.placeSearchTableView reloadData];
-    [self.cityTableView reloadData];
     [self.myPlacesTableView reloadData];
 }
 
@@ -106,8 +96,7 @@
         owner:self options:nil] objectAtIndex:0];
         self.titleField = slide.titleField;
         self.descriptionField = slide.descriptionField;
-        self.cityTableView = slide.cityTableView;
-        self.citySearchBar = slide.citySearchBar;
+        self.cityField = slide.cityField;
         slideView = (UIView *)slide;
     } else if (index == 1) {
         NewListSlide2 *slide = [[[NSBundle mainBundle] loadNibNamed:@"NewListSlide2" owner:self options:nil] objectAtIndex:0];
@@ -165,17 +154,7 @@
 */
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    if (tableView == self.cityTableView) {
-        CityCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CityCell"];
-        if (!cell) {
-            UINib *nib = [UINib nibWithNibName:@"CityCellView" bundle:nil];
-            [tableView registerNib:nib forCellReuseIdentifier:@"CityCell"];
-            cell = [tableView dequeueReusableCellWithIdentifier:@"CityCell"];
-        }
-        cell.cityNameLabel.text = self.citiesSearched[indexPath.row];
-        return cell;
-    }
-    else if (tableView == self.myPlacesTableView) {
+    if (tableView == self.myPlacesTableView) {
         NewPlaceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewPlaceCell"];
         if (!cell) {
             UINib *nib = [UINib nibWithNibName:@"NewPlaceCellView" bundle:nil];
@@ -201,10 +180,7 @@
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == self.cityTableView) {
-        return self.citiesSearched.count;
-    }
-    else if (tableView == self.myPlacesTableView) {
+    if (tableView == self.myPlacesTableView) {
         return self.places.count;
     }
     else {
@@ -240,30 +216,17 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    if (searchBar == self.citySearchBar) {
-        [self fetchCities:searchBar.text];
-        //TODO: create animation that makes the table view appear and disappear
-        //TODO: ask jeff about weird asynchness going on
-        dispatch_group_wait(self.group, 3);
-        [self.cityTableView reloadData];
-    }
-    else if (searchBar == self.placeSearchBar) {
-        [self fetchLocationsWithQuery:searchBar.text near:@"Lausanne"];
+    if (searchBar == self.placeSearchBar) {
+        NSString *city = self.cityField.text;
+        [self fetchLocationsWithQuery:searchBar.text near:city];
     }
 }
 
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if (searchBar == self.citySearchBar) {
-        [self fetchCities:searchBar.text];
-        //TODO: create animation that makes the table view appear and disappear
-        //TODO: ask jeff about weird asynchness going on
-        dispatch_group_wait(self.group, 3);
-        [self.cityTableView reloadData];
-    }
-    else if (searchBar == self.placeSearchBar) {
+    if (searchBar == self.placeSearchBar) {
         NSString *newText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
-        //TODO: find a way to specify the near parameter
-        [self fetchLocationsWithQuery:newText near:@"Lausanne"];
+        NSString *city = self.cityField.text;
+        [self fetchLocationsWithQuery:newText near:city];
         return true;
     }
     return false;
@@ -273,39 +236,6 @@
 - (void)newPlaceCell:(NewPlaceCell *)newPlaceCell didSpecifyTimeSpent:(nonnull NSNumber *)time {
     NSIndexPath *indexPath = [self.myPlacesTableView indexPathForCell:newPlaceCell];
     self.timesSpent[indexPath.row] = time;
-}
-
-- (void)fetchCities:(NSString *)name {
-    dispatch_group_enter(self.group);
-    
-    NSDictionary *headers = @{ @"x-rapidapi-host": @"wft-geo-db.p.rapidapi.com",
-        @"x-rapidapi-key": RAPIDAPIKEY};
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: [NSString stringWithFormat:@"https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=%@", name]]
-        cachePolicy:NSURLRequestUseProtocolCachePolicy
-        timeoutInterval:10.0];
-    [request setHTTPMethod:@"GET"];
-    [request setAllHTTPHeaderFields:headers];
-
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error) {
-            NSLog(@"%@", error);
-        } else if (data) {
-            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            NSArray *data = responseDictionary[@"data"];
-            NSMutableArray *currentSearch = [[NSMutableArray alloc] init];
-            for (NSDictionary *city in data) {
-                NSString *cityString = [NSString stringWithFormat:@"%@, %@", city[@"city"], city[@"country"]];
-                [currentSearch addObject:cityString];
-            }
-            self.citiesSearched = currentSearch;
-            NSLog(@"%@", self.citiesSearched);
-            dispatch_group_leave(self.group);
-        
-        }
-    }];
-    [dataTask resume];
 }
 
 - (void)fetchLocationsWithQuery:(NSString *)query near:(NSString *)city {

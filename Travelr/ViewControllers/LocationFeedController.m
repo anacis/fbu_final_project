@@ -8,7 +8,7 @@
 
 #import "LocationFeedController.h"
 #import "DayCell.h"
-#import "NewListViewController.h"
+#import "NewListOnboardingController.h"
 
 @interface LocationFeedController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -28,8 +28,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"editList"]) {
-        NewListViewController *destination = [segue destinationViewController];
-        destination.placeList = self.placeList;
+        UINavigationController *destination = [segue destinationViewController];
+        NewListOnboardingController *newListController = (NewListOnboardingController *) destination.topViewController;
+        newListController.placeList = self.placeList;
     }
 }
 

@@ -15,8 +15,9 @@
 #import "SearchPlaceCell.h"
 #import "APIConstants.h"
 #import "PlaceList.h"
+@import Parse;
 
-@interface NewListOnboardingController () <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
+@interface NewListOnboardingController () <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NewPlaceCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
@@ -24,6 +25,7 @@
 @property (weak, nonatomic) UITextField *titleField;
 @property (weak, nonatomic) UITextView *descriptionField;
 @property (weak, nonatomic) UITextField *cityField;
+@property (weak, nonatomic) PFImageView *listImage;
 
 
 @property (weak, nonatomic) UITextField *daysField;
@@ -38,7 +40,6 @@
 @property (strong, nonatomic) NSMutableArray *timesSpent;
 @property (strong, nonatomic) NSArray *citiesSearched;
 @property (strong, nonatomic) NSArray *placeSearchResults;
-@property (strong, nonatomic) dispatch_group_t group;
 
 
 @end
@@ -47,8 +48,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.places = [[NSMutableArray alloc] init];
-    self.timesSpent = [[NSMutableArray alloc] init];
     
     int const numberOfPages = 3;
     self.pageControl.numberOfPages = numberOfPages;
@@ -66,15 +65,25 @@
     self.placeSearchTableView.delegate = self;
     self.placeSearchBar.delegate = self;
     
-    //[NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(onTimer) userInfo:nil repeats:true];
+    if (self.placeList != nil) {
+         NSLog(@"We are editing a list!");
+         self.places = self.placeList.placesUnsorted;
+         self.timesSpent = self.placeList.timesSpent;
+         self.titleField.text = self.placeList.name;
+         self.daysField.text = [self.placeList.numDays stringValue];
+         self.hoursField.text = [self.placeList.numHours stringValue];
+         self.descriptionField.text = self.placeList[@"description"];
+         self.listImage.file = self.placeList.image;
+         [self.listImage loadInBackground];
+         [self.myPlacesTableView reloadData];
+     }
+     else {
+         self.places = [[NSMutableArray alloc] init];
+         self.timesSpent = [[NSMutableArray alloc] init];
+     }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self.placeSearchTableView reloadData];
-    [self.myPlacesTableView reloadData];
-}
-
-- (void)onTimer {
     [self.placeSearchTableView reloadData];
     [self.myPlacesTableView reloadData];
 }
@@ -97,6 +106,10 @@
         self.titleField = slide.titleField;
         self.descriptionField = slide.descriptionField;
         self.cityField = slide.cityField;
+        self.listImage = slide.listImage;
+        self.listImage.layer.cornerRadius = self.listImage.frame.size.height / 2; //formula to create a circular image
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapImage:)];
+        [self.listImage addGestureRecognizer:tap];
         slideView = (UIView *)slide;
     } else if (index == 1) {
         NewListSlide2 *slide = [[[NSBundle mainBundle] loadNibNamed:@"NewListSlide2" owner:self options:nil] objectAtIndex:0];
@@ -127,7 +140,7 @@
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc]init];
     list.numDays = [formatter numberFromString:self.daysField.text];
     list.numHours = [formatter numberFromString:self.hoursField.text];
-    //list.image = [PlaceList getPFFileFromImage:self.listImage.image];
+    list.image = [PlaceList getPFFileFromImage:self.listImage.image];
     list.placesUnsorted = self.places;
     list.timesSpent = self.timesSpent;
 
@@ -162,7 +175,7 @@
             cell = [tableView dequeueReusableCellWithIdentifier:@"NewPlaceCell"];
         }
         cell.place = self.places[indexPath.row];
-        //cell.delegate = self;
+        cell.delegate = self;
         [cell setUpCell];
         return cell;
     }
@@ -190,11 +203,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.placeSearchTableView) {
-        // This is the selected venue
         NSDictionary *venue = self.placeSearchResults[indexPath.row];
         [Place createPlaceFromDictionary:venue placeList:self.places tableView:self.myPlacesTableView];
         [self.timesSpent addObject:@0];
-        //[self.myPlacesTableView reloadData];
     }
 }
 
@@ -255,6 +266,49 @@
         }
     }];
     [task resume];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    
+    // Get the image captured by the UIImagePickerController
+    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
+
+    // Image editing
+    UIImage *resizedImage = [self resizeImage:originalImage withSize:CGSizeMake(300, 300)];
+    
+    self.listImage.image = resizedImage;
+    
+    // Dismiss UIImagePickerController to go back to your original view controller
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
+    UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    
+    resizeImageView.contentMode = UIViewContentModeScaleAspectFill;
+    resizeImageView.image = image;
+    
+    UIGraphicsBeginImageContext(size);
+    [resizeImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
+- (void)onTapImage:(UITapGestureRecognizer *)recognizer {
+    NSLog(@"Tapping on image!");
+    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
+    imagePickerVC.delegate = self;
+    imagePickerVC.allowsEditing = YES;
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }
+    else {
+        NSLog(@"Camera 🚫 available so we will use photo library instead");
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    [self presentViewController:imagePickerVC animated:YES completion:nil];
 }
 
 @end

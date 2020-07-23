@@ -24,15 +24,12 @@
 		949A20E924BCDFA8007010FD /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20E824BCDFA8007010FD /* SignUpViewController.m */; };
 		949A20EC24BCDFC7007010FD /* ListFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20EB24BCDFC7007010FD /* ListFeedViewController.m */; };
 		949A20EF24BCFE23007010FD /* PlaceListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20EE24BCFE23007010FD /* PlaceListCell.m */; };
-		949A20F224BD0925007010FD /* NewListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20F124BD0925007010FD /* NewListViewController.m */; };
 		949A20F524BD0D8B007010FD /* NewPlaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20F424BD0D8B007010FD /* NewPlaceCell.m */; };
-		949A20F824BE20FA007010FD /* SearchPlaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20F724BE20FA007010FD /* SearchPlaceController.m */; };
 		949A20FB24BE2651007010FD /* SearchPlaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20FA24BE2651007010FD /* SearchPlaceCell.m */; };
 		949A20FE24BE726A007010FD /* LocationFeedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20FD24BE726A007010FD /* LocationFeedController.m */; };
 		949A210124BE7421007010FD /* DayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A210024BE7421007010FD /* DayCell.m */; };
 		949A210424BE74F0007010FD /* LocationCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A210324BE74F0007010FD /* LocationCollectionCell.m */; };
 		94AAC6A424C641FA003D451E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AAC6A324C641FA003D451E /* Constants.m */; };
-		94E3780724C7569A00A859D7 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E3780624C7569A00A859D7 /* TestViewController.m */; };
 		94E3780A24C789DD00A859D7 /* CityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E3780924C789DD00A859D7 /* CityCell.m */; };
 		94E3780D24C79CC600A859D7 /* APIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E3780C24C79CC600A859D7 /* APIConstants.m */; };
 		94E3781224C7AD1600A859D7 /* NewListSlide1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94E3781124C7AD1600A859D7 /* NewListSlide1.xib */; };
@@ -104,12 +101,8 @@
 		949A20EB24BCDFC7007010FD /* ListFeedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListFeedViewController.m; sourceTree = "<group>"; };
 		949A20ED24BCFE23007010FD /* PlaceListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceListCell.h; sourceTree = "<group>"; };
 		949A20EE24BCFE23007010FD /* PlaceListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaceListCell.m; sourceTree = "<group>"; };
-		949A20F024BD0925007010FD /* NewListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewListViewController.h; sourceTree = "<group>"; };
-		949A20F124BD0925007010FD /* NewListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewListViewController.m; sourceTree = "<group>"; };
 		949A20F324BD0D8B007010FD /* NewPlaceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewPlaceCell.h; sourceTree = "<group>"; };
 		949A20F424BD0D8B007010FD /* NewPlaceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewPlaceCell.m; sourceTree = "<group>"; };
-		949A20F624BE20FA007010FD /* SearchPlaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchPlaceController.h; sourceTree = "<group>"; };
-		949A20F724BE20FA007010FD /* SearchPlaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchPlaceController.m; sourceTree = "<group>"; };
 		949A20F924BE2651007010FD /* SearchPlaceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchPlaceCell.h; sourceTree = "<group>"; };
 		949A20FA24BE2651007010FD /* SearchPlaceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchPlaceCell.m; sourceTree = "<group>"; };
 		949A20FC24BE726A007010FD /* LocationFeedController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationFeedController.h; sourceTree = "<group>"; };
@@ -120,8 +113,6 @@
 		949A210324BE74F0007010FD /* LocationCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationCollectionCell.m; sourceTree = "<group>"; };
 		94AAC6A224C641FA003D451E /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		94AAC6A324C641FA003D451E /* Constants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
-		94E3780524C7569A00A859D7 /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
-		94E3780624C7569A00A859D7 /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		94E3780824C789DD00A859D7 /* CityCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CityCell.h; sourceTree = "<group>"; };
 		94E3780924C789DD00A859D7 /* CityCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CityCell.m; sourceTree = "<group>"; };
 		94E3780B24C79CC600A859D7 /* APIConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIConstants.h; sourceTree = "<group>"; };
@@ -285,14 +276,8 @@
 				949A20E824BCDFA8007010FD /* SignUpViewController.m */,
 				949A20EA24BCDFC7007010FD /* ListFeedViewController.h */,
 				949A20EB24BCDFC7007010FD /* ListFeedViewController.m */,
-				949A20F024BD0925007010FD /* NewListViewController.h */,
-				949A20F124BD0925007010FD /* NewListViewController.m */,
-				949A20F624BE20FA007010FD /* SearchPlaceController.h */,
-				949A20F724BE20FA007010FD /* SearchPlaceController.m */,
 				949A20FC24BE726A007010FD /* LocationFeedController.h */,
 				949A20FD24BE726A007010FD /* LocationFeedController.m */,
-				94E3780524C7569A00A859D7 /* TestViewController.h */,
-				94E3780624C7569A00A859D7 /* TestViewController.m */,
 				94E3781924C8A80B00A859D7 /* NewListOnboardingController.h */,
 				94E3781A24C8A80B00A859D7 /* NewListOnboardingController.m */,
 			);
@@ -649,7 +634,6 @@
 				94E3783624C8DCAD00A859D7 /* NewListSlide3.m in Sources */,
 				949A20A924BCBCB7007010FD /* ViewController.m in Sources */,
 				949A20FE24BE726A007010FD /* LocationFeedController.m in Sources */,
-				949A20F224BD0925007010FD /* NewListViewController.m in Sources */,
 				949A20E324BCCD8D007010FD /* Place.m in Sources */,
 				949A20A324BCBCB7007010FD /* AppDelegate.m in Sources */,
 				949A20E024BCCD6C007010FD /* PlaceList.m in Sources */,
@@ -659,11 +643,9 @@
 				949A20EC24BCDFC7007010FD /* ListFeedViewController.m in Sources */,
 				94E3783324C8DC8000A859D7 /* NewListSlide2.m in Sources */,
 				94E3780D24C79CC600A859D7 /* APIConstants.m in Sources */,
-				94E3780724C7569A00A859D7 /* TestViewController.m in Sources */,
 				94E3781B24C8A80B00A859D7 /* NewListOnboardingController.m in Sources */,
 				949A20E924BCDFA8007010FD /* SignUpViewController.m in Sources */,
 				94E3783024C8DC1800A859D7 /* NewListSlide1.m in Sources */,
-				949A20F824BE20FA007010FD /* SearchPlaceController.m in Sources */,
 				949A210124BE7421007010FD /* DayCell.m in Sources */,
 				949A20F524BD0D8B007010FD /* NewPlaceCell.m in Sources */,
 				94E3780A24C789DD00A859D7 /* CityCell.m in Sources */,

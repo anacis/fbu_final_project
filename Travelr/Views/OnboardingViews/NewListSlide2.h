@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *numDaysField;
 @property (weak, nonatomic) IBOutlet UITextField *numHoursField;
 @property (weak, nonatomic) IBOutlet GLCalendarView *calendarView;
+@property (weak, nonatomic) IBOutlet UIButton *customDayButton;
 
 @end
 

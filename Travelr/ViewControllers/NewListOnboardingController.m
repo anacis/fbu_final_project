@@ -30,6 +30,7 @@
 
 @property (weak, nonatomic) UITextField *daysField;
 @property (weak, nonatomic) UITextField *hoursField;
+@property (weak, nonatomic) UIButton *customDayButton;
 @property (weak, nonatomic) GLCalendarView *calendarView;
 @property (nonatomic, weak) GLCalendarDateRange *calendarRange;
 
@@ -126,6 +127,9 @@
         self.daysField = slide.numDaysField;
         self.hoursField = slide.numHoursField;
         self.calendarView = slide.calendarView;
+        self.customDayButton = slide.customDayButton;
+        UITapGestureRecognizer *tapButton = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapCustomDay:)];
+        [self.customDayButton addGestureRecognizer:tapButton];
         //UITapGestureRecognizer *tap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
         //[slide addGestureRecognizer:tap];
         slideView = (UIView *)slide;
@@ -155,7 +159,12 @@
     list[@"description"] = self.descriptionField.text;
     list.author = [PFUser currentUser];
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc]init];
-    list.numDays = [formatter numberFromString:self.daysField.text];
+    if (self.customDayButton.selected == YES) {
+        list.numDays = [formatter numberFromString:self.daysField.text];
+    }
+    else {
+        list.numDays = @([GLDateUtils daysBetween:self.calendarRange.beginDate and:self.calendarRange.endDate]);
+    }
     list.numHours = [formatter numberFromString:self.hoursField.text];
     list.image = [PlaceList getPFFileFromImage:self.listImage.image];
     list.placesUnsorted = self.places;
@@ -368,11 +377,21 @@
     [self presentViewController:imagePickerVC animated:YES completion:nil];
 }
 
+- (void)tapCustomDay:(UITapGestureRecognizer *)recognizer {
+    if (self.customDayButton.selected == NO) {
+        [self.customDayButton setSelected:YES];
+        NSLog(@"Using custom day input");
+     }
+     else {
+        [self.customDayButton setSelected:NO];
+        NSLog(@"Using calendar day input");
+     }
+}
+
 - (BOOL)calenderView:(GLCalendarView *)calendarView canAddRangeWithBeginDate:(NSDate *)beginDate
 {
     // you should check whether user can add a range with the given begin date
     if (self.calendarView.ranges.count != 0){
-        //TODO: find way to remove all the ranges in calendarView.ranges
         for (GLCalendarDateRange *range in self.calendarView.ranges) {
             [self.calendarView removeRange:range];
         }
@@ -383,7 +402,7 @@
 
 - (GLCalendarDateRange *)calenderView:(GLCalendarView *)calendarView rangeToAddWithBeginDate:(NSDate *)beginDate
 {
-    NSDate* endDate = [GLDateUtils dateByAddingDays:3 toDate:beginDate];
+    NSDate* endDate = [GLDateUtils dateByAddingDays:5 toDate:beginDate];
     GLCalendarDateRange *range = [GLCalendarDateRange rangeWithBeginDate:beginDate endDate:endDate];
     range.backgroundColor = UIColor.blueColor;
     range.editable = YES;

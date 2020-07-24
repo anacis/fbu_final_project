@@ -13,12 +13,9 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0de-18-KEZ">
-                    <rect key="frame" x="20" y="124" width="374" height="190"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0de-18-KEZ">
+                    <rect key="frame" x="20" y="126" width="374" height="188"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="190" id="md9-Dj-ab2"/>
-                    </constraints>
                 </tableView>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="6y1-FU-mTu">
                     <rect key="frame" x="20" y="358" width="374" height="110"/>
@@ -36,6 +33,9 @@
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SZu-Tq-Swa">
                     <rect key="frame" x="20" y="512" width="374" height="335"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="335" id="SZL-vd-RYZ"/>
+                    </constraints>
                 </tableView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Places" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="djD-Z2-0oC">
                     <rect key="frame" x="20" y="483" width="78" height="21"/>
@@ -49,29 +49,40 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <searchBar contentMode="redraw" ambiguous="YES" id="xoG-2x-dgH">
-                    <rect key="frame" x="20" y="77" width="374" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <textInputTraits key="textInputTraits"/>
-                </searchBar>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9xV-bi-6Qx">
+                    <rect key="frame" x="20" y="74" width="374" height="52"/>
+                    <subviews>
+                        <searchBar contentMode="redraw" id="xoG-2x-dgH">
+                            <rect key="frame" x="0.0" y="8" width="374" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="52" id="XAj-EO-74C"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="SZu-Tq-Swa" firstAttribute="top" secondItem="djD-Z2-0oC" secondAttribute="bottom" constant="8" id="3GG-Wr-jlT"/>
+                <constraint firstItem="9xV-bi-6Qx" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="30" id="4LQ-a6-UUz"/>
                 <constraint firstItem="w9X-Sa-JxB" firstAttribute="top" secondItem="0de-18-KEZ" secondAttribute="bottom" constant="15" id="BJ6-hA-nge"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="6y1-FU-mTu" secondAttribute="trailing" constant="20" id="Csr-Cw-tg1"/>
-                <constraint firstItem="0de-18-KEZ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="80" id="Fk8-kS-j3n"/>
+                <constraint firstItem="9xV-bi-6Qx" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="EXa-Ro-qmB"/>
                 <constraint firstItem="djD-Z2-0oC" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="JfC-UZ-rJp"/>
                 <constraint firstItem="0de-18-KEZ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="KXy-Dt-1Pa"/>
                 <constraint firstItem="6y1-FU-mTu" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="U5P-iq-d2j"/>
                 <constraint firstItem="6y1-FU-mTu" firstAttribute="top" secondItem="w9X-Sa-JxB" secondAttribute="bottom" constant="8" id="Wbv-Tr-15v"/>
                 <constraint firstItem="w9X-Sa-JxB" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="jUt-Nt-6vK"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="0de-18-KEZ" secondAttribute="trailing" constant="20" id="kPi-1Z-IRD"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9xV-bi-6Qx" secondAttribute="trailing" constant="20" id="kUH-OU-G6k"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="SZu-Tq-Swa" secondAttribute="bottom" constant="15" id="kbJ-9W-SfM"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="SZu-Tq-Swa" secondAttribute="trailing" constant="20" id="lWL-5i-DPI"/>
                 <constraint firstItem="SZu-Tq-Swa" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="qiu-Ob-0TG"/>
-                <constraint firstItem="0de-18-KEZ" firstAttribute="top" secondItem="xoG-2x-dgH" secondAttribute="bottom" id="rEB-am-xqD"/>
                 <constraint firstItem="djD-Z2-0oC" firstAttribute="top" secondItem="6y1-FU-mTu" secondAttribute="bottom" constant="15" id="wsx-CB-DCT"/>
+                <constraint firstItem="0de-18-KEZ" firstAttribute="top" secondItem="9xV-bi-6Qx" secondAttribute="bottom" id="xty-P2-Otw"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>

@@ -13,39 +13,52 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y6d-BZ-6lC" customClass="GLCalendarView">
-                    <rect key="frame" x="38" y="162" width="328" height="212"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y6d-BZ-6lC" customClass="GLCalendarView">
+                    <rect key="frame" x="40" y="134" width="334" height="220"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="220" id="0yC-y9-FBs"/>
+                    </constraints>
                 </view>
-                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Kh-sc-Zw5">
-                    <rect key="frame" x="251" y="469" width="110" height="34"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Kh-sc-Zw5">
+                    <rect key="frame" x="248" y="467.5" width="116" height="34"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
-                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Os9-wu-y87">
-                    <rect key="frame" x="251" y="511" width="110" height="34"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Os9-wu-y87">
+                    <rect key="frame" x="248" y="513.5" width="116" height="34"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s34-8J-0z3">
-                    <rect key="frame" x="44" y="478" width="38" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s34-8J-0z3">
+                    <rect key="frame" x="40" y="474" width="38" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hours/Day" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0OS-kb-JCz">
-                    <rect key="frame" x="44" y="519" width="81" height="20.5"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hours/Day" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0OS-kb-JCz">
+                    <rect key="frame" x="40" y="520" width="81" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1Kh-sc-Zw5" secondAttribute="trailing" constant="50" id="5aN-rn-UAk"/>
+                <constraint firstItem="0OS-kb-JCz" firstAttribute="top" secondItem="s34-8J-0z3" secondAttribute="bottom" constant="25" id="5bG-Md-lIu"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Y6d-BZ-6lC" secondAttribute="trailing" constant="40" id="7e6-qe-pi7"/>
+                <constraint firstItem="Y6d-BZ-6lC" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="90" id="7jF-Yb-ONt"/>
+                <constraint firstItem="Os9-wu-y87" firstAttribute="centerY" secondItem="0OS-kb-JCz" secondAttribute="centerY" id="7nC-3T-BoV"/>
+                <constraint firstItem="Os9-wu-y87" firstAttribute="leading" secondItem="1Kh-sc-Zw5" secondAttribute="leading" id="EAv-5U-xQn"/>
+                <constraint firstItem="s34-8J-0z3" firstAttribute="top" secondItem="Y6d-BZ-6lC" secondAttribute="bottom" constant="120" id="Prb-au-k6x"/>
+                <constraint firstItem="1Kh-sc-Zw5" firstAttribute="centerY" secondItem="s34-8J-0z3" secondAttribute="centerY" id="TJX-R5-YfW"/>
+                <constraint firstItem="1Kh-sc-Zw5" firstAttribute="leading" secondItem="s34-8J-0z3" secondAttribute="trailing" constant="170" id="Tsh-g1-sUo"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Os9-wu-y87" secondAttribute="trailing" constant="50" id="ZTt-9y-wpE"/>
+                <constraint firstItem="s34-8J-0z3" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="40" id="g3u-y9-8J3"/>
+                <constraint firstItem="Y6d-BZ-6lC" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="40" id="jI4-zB-J1q"/>
+                <constraint firstItem="0OS-kb-JCz" firstAttribute="leading" secondItem="s34-8J-0z3" secondAttribute="leading" id="sp3-x8-TFe"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="calendarView" destination="Y6d-BZ-6lC" id="cKn-iX-VOk"/>

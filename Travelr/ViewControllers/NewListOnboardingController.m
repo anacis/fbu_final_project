@@ -66,9 +66,9 @@
     self.myPlacesTableView.dataSource = self;
     self.placeSearchTableView.dataSource = self;
     self.placeSearchTableView.delegate = self;
-    [self.placeSearchTableView setHidden:YES];
+    self.placeSearchTableView.alpha = 0;
+    self.placeSearchTableView.allowsSelection = YES;
     self.placeSearchBar.delegate = self;
-    //[self.placeSearchBar setHidden:NO];
     
     self.calendarView.delegate = self;
     //TODO: set calendar's first date and last date
@@ -117,14 +117,18 @@
         self.cityField = slide.cityField;
         self.listImage = slide.listImage;
         self.listImage.layer.cornerRadius = self.listImage.frame.size.height / 2; //formula to create a circular image
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapImage:)];
-        [self.listImage addGestureRecognizer:tap];
+        UITapGestureRecognizer *tapImage = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapImage:)];
+        [self.listImage addGestureRecognizer:tapImage];
+        UITapGestureRecognizer *tap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+        [slide addGestureRecognizer:tap];
         slideView = (UIView *)slide;
     } else if (index == 1) {
         NewListSlide2 *slide = [[[NSBundle mainBundle] loadNibNamed:@"NewListSlide2" owner:self options:nil] objectAtIndex:0];
         self.daysField = slide.numDaysField;
         self.hoursField = slide.numHoursField;
         self.calendarView = slide.calendarView;
+        UITapGestureRecognizer *tap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+        [slide addGestureRecognizer:tap];
         slideView = (UIView *)slide;
     } else if (index == 2) {
         NewListSlide3 *slide = [[[NSBundle mainBundle] loadNibNamed:@"NewListSlide3" owner:self options:nil] objectAtIndex:0];
@@ -247,7 +251,8 @@
 
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if (searchBar == self.placeSearchBar) {
-        [self.placeSearchTableView setHidden:NO];
+        self.placeSearchTableView.alpha = 1;
+        //TODO:animate the drop down
         NSString *newText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
         NSString *city = self.cityField.text;
         [self fetchLocationsWithQuery:newText near:city];
@@ -273,6 +278,14 @@
                      animations:^{
            // animations go here
     }];
+}
+
+-(void)dismissKeyboard {
+    [self.titleField endEditing:YES];
+    [self.cityField endEditing:YES];
+    [self.descriptionField endEditing:YES];
+    [self.daysField endEditing:YES];
+    [self.hoursField endEditing:YES];
 }
 
 - (void)fetchLocationsWithQuery:(NSString *)query near:(NSString *)city {

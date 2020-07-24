@@ -394,7 +394,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="contentView" destination="bJT-qT-IsZ" id="0kE-Yx-I9l"/>
                         <outlet property="pageControl" destination="XDD-7Q-DGB" id="ErG-De-p8a"/>
                         <outlet property="scrollView" destination="5k6-SY-ZsG" id="Qr7-mh-LuW"/>
                         <segue destination="OsM-1B-jVf" kind="show" identifier="newListToFeed" id="UjZ-CX-e0M"/>

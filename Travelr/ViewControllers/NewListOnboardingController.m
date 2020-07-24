@@ -43,6 +43,7 @@
 @property (strong, nonatomic) NSMutableArray *timesSpent;
 @property (strong, nonatomic) NSArray *citiesSearched;
 @property (strong, nonatomic) NSArray *placeSearchResults;
+@property (strong, nonatomic) NSLayoutConstraint *searchTableHeight;
 
 
 @end
@@ -51,7 +52,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     int const numberOfPages = 3;
     self.pageControl.numberOfPages = numberOfPages;
     
@@ -66,7 +66,7 @@
     self.myPlacesTableView.dataSource = self;
     self.placeSearchTableView.dataSource = self;
     self.placeSearchTableView.delegate = self;
-    self.placeSearchTableView.alpha = 0;
+    [self animateCloseTableView];
     self.placeSearchTableView.allowsSelection = YES;
     self.placeSearchBar.delegate = self;
     
@@ -133,6 +133,8 @@
     } else if (index == 2) {
         NewListSlide3 *slide = [[[NSBundle mainBundle] loadNibNamed:@"NewListSlide3" owner:self options:nil] objectAtIndex:0];
         self.placeSearchTableView = slide.placesSearchTableView;
+        NSPredicate *heightPredicate = [NSPredicate predicateWithFormat:@"firstAttribute = %d", NSLayoutAttributeHeight];
+        self.searchTableHeight = [self.placeSearchTableView.constraints filteredArrayUsingPredicate:heightPredicate][0];
         self.placeSearchBar = slide.placeSearchBar;
         self.suggestionsCollectionView =  slide.suggestionsCollectionView;
         self.myPlacesTableView = slide.myPlacesTableView;
@@ -221,7 +223,7 @@
         NSDictionary *venue = self.placeSearchResults[indexPath.row];
         [Place createPlaceFromDictionary:venue placeList:self.places tableView:self.myPlacesTableView];
         [self.timesSpent addObject:@0];
-        [self.placeSearchTableView setHidden:YES];
+        [self animateCloseTableView];
     }
 }
 
@@ -249,10 +251,20 @@
     }
 }
 
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    [self animateOpenTableView];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [self.placeSearchBar endEditing:YES];
+    [self animateCloseTableView];
+}
+
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if (searchBar == self.placeSearchBar) {
-        self.placeSearchTableView.alpha = 1;
-        //TODO:animate the drop down
+        if (self.searchTableHeight.constant == 0) {
+            [self animateOpenTableView];
+        }
         NSString *newText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
         NSString *city = self.cityField.text;
         [self fetchLocationsWithQuery:newText near:city];
@@ -267,16 +279,16 @@
 }
 
 - (void)animateOpenTableView {
-    [UIView animateWithDuration:1
-                     animations:^{
-           // animations go here
+    [UIView animateWithDuration:1.2f
+         animations:^{
+        self.searchTableHeight.constant = 200;
     }];
 }
 
 - (void)animateCloseTableView {
-    [UIView animateWithDuration:1
-                     animations:^{
-           // animations go here
+    [UIView animateWithDuration:1.2f
+         animations:^{
+        self.searchTableHeight.constant = 0;
     }];
 }
 
@@ -287,6 +299,7 @@
     [self.daysField endEditing:YES];
     [self.hoursField endEditing:YES];
 }
+
 
 - (void)fetchLocationsWithQuery:(NSString *)query near:(NSString *)city {
     NSString *baseURLString = @"https://api.foursquare.com/v2/venues/search?";

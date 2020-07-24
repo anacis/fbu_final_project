@@ -14,46 +14,48 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y6d-BZ-6lC" customClass="GLCalendarView">
-                    <rect key="frame" x="40" y="134" width="334" height="220"/>
+                    <rect key="frame" x="40" y="134" width="334" height="200"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="220" id="0yC-y9-FBs"/>
+                        <constraint firstAttribute="height" constant="200" id="iY8-kO-LG2"/>
                     </constraints>
                 </view>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Kh-sc-Zw5">
-                    <rect key="frame" x="248" y="467.5" width="116" height="34"/>
+                    <rect key="frame" x="264" y="387.5" width="100" height="34"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Os9-wu-y87">
-                    <rect key="frame" x="248" y="513.5" width="116" height="34"/>
+                    <rect key="frame" x="264" y="458.5" width="100" height="34"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s34-8J-0z3">
-                    <rect key="frame" x="40" y="474" width="38" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s34-8J-0z3">
+                    <rect key="frame" x="40" y="394" width="124" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hours Per Day" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0OS-kb-JCz">
-                    <rect key="frame" x="40" y="520" width="110" height="20.5"/>
+                    <rect key="frame" x="40" y="465" width="110" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3gy-Af-nBX">
-                    <rect key="frame" x="36" y="377" width="38" height="26"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3gy-Af-nBX">
+                    <rect key="frame" x="40" y="355" width="20" height="17.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="RHh-KN-2ow"/>
+                        <constraint firstAttribute="height" constant="20" id="ya5-TS-8Sg"/>
+                    </constraints>
                     <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                     <state key="normal" backgroundImage="checkmark.square" catalog="system">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <state key="selected" backgroundImage="checkmark.square.fill" catalog="system"/>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="I don't have a specific date for this trip" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAh-eC-Pit">
-                    <rect key="frame" x="82" y="382" width="218" height="15"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I don't have a specific date for this trip" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAh-eC-Pit">
+                    <rect key="frame" x="68" y="356.5" width="218" height="15"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -62,24 +64,29 @@
             <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1Kh-sc-Zw5" secondAttribute="trailing" constant="50" id="5aN-rn-UAk"/>
-                <constraint firstItem="0OS-kb-JCz" firstAttribute="top" secondItem="s34-8J-0z3" secondAttribute="bottom" constant="25" id="5bG-Md-lIu"/>
+                <constraint firstItem="0OS-kb-JCz" firstAttribute="top" secondItem="s34-8J-0z3" secondAttribute="bottom" constant="50" id="5bG-Md-lIu"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Y6d-BZ-6lC" secondAttribute="trailing" constant="40" id="7e6-qe-pi7"/>
                 <constraint firstItem="Y6d-BZ-6lC" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="90" id="7jF-Yb-ONt"/>
                 <constraint firstItem="Os9-wu-y87" firstAttribute="centerY" secondItem="0OS-kb-JCz" secondAttribute="centerY" id="7nC-3T-BoV"/>
+                <constraint firstItem="cAh-eC-Pit" firstAttribute="leading" secondItem="3gy-Af-nBX" secondAttribute="trailing" constant="8" id="8Q9-wU-xaU"/>
                 <constraint firstItem="Os9-wu-y87" firstAttribute="leading" secondItem="1Kh-sc-Zw5" secondAttribute="leading" id="EAv-5U-xQn"/>
-                <constraint firstItem="s34-8J-0z3" firstAttribute="top" secondItem="Y6d-BZ-6lC" secondAttribute="bottom" constant="120" id="Prb-au-k6x"/>
+                <constraint firstItem="3gy-Af-nBX" firstAttribute="leading" secondItem="Y6d-BZ-6lC" secondAttribute="leading" id="KW8-o4-t4o"/>
+                <constraint firstItem="s34-8J-0z3" firstAttribute="top" secondItem="3gy-Af-nBX" secondAttribute="bottom" constant="20" id="Prb-au-k6x"/>
                 <constraint firstItem="1Kh-sc-Zw5" firstAttribute="centerY" secondItem="s34-8J-0z3" secondAttribute="centerY" id="TJX-R5-YfW"/>
-                <constraint firstItem="1Kh-sc-Zw5" firstAttribute="leading" secondItem="s34-8J-0z3" secondAttribute="trailing" constant="170" id="Tsh-g1-sUo"/>
+                <constraint firstItem="1Kh-sc-Zw5" firstAttribute="leading" secondItem="s34-8J-0z3" secondAttribute="trailing" constant="100" id="Tsh-g1-sUo"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Os9-wu-y87" secondAttribute="trailing" constant="50" id="ZTt-9y-wpE"/>
+                <constraint firstItem="3gy-Af-nBX" firstAttribute="top" secondItem="Y6d-BZ-6lC" secondAttribute="bottom" constant="20" id="fbl-HM-hAo"/>
                 <constraint firstItem="s34-8J-0z3" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="40" id="g3u-y9-8J3"/>
                 <constraint firstItem="Y6d-BZ-6lC" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="40" id="jI4-zB-J1q"/>
                 <constraint firstItem="0OS-kb-JCz" firstAttribute="leading" secondItem="s34-8J-0z3" secondAttribute="leading" id="sp3-x8-TFe"/>
+                <constraint firstItem="cAh-eC-Pit" firstAttribute="centerY" secondItem="3gy-Af-nBX" secondAttribute="centerY" id="vV9-XP-VX5"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="calendarView" destination="Y6d-BZ-6lC" id="cKn-iX-VOk"/>
                 <outlet property="customDayButton" destination="3gy-Af-nBX" id="URE-N6-reO"/>
                 <outlet property="numDaysField" destination="1Kh-sc-Zw5" id="D3e-IA-11N"/>
+                <outlet property="numDaysLabel" destination="s34-8J-0z3" id="3bR-JS-Ioq"/>
                 <outlet property="numHoursField" destination="Os9-wu-y87" id="RpF-HZ-N1K"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="145.98214285714286"/>

@@ -29,22 +29,25 @@
 
 
 @property (weak, nonatomic) UITextField *daysField;
+@property (weak, nonatomic) UILabel *numDaysLabel;
 @property (weak, nonatomic) UITextField *hoursField;
 @property (weak, nonatomic) UIButton *customDayButton;
 @property (weak, nonatomic) GLCalendarView *calendarView;
 @property (nonatomic, weak) GLCalendarDateRange *calendarRange;
+@property (strong, nonatomic) NSLayoutConstraint *calendarHeight;
 
 @property (weak, nonatomic) UITableView *placeSearchTableView;
 @property (weak, nonatomic) UISearchBar *placeSearchBar;
 @property (weak, nonatomic) UITextField *cityField;
 @property (weak, nonatomic) UICollectionView *suggestionsCollectionView;
 @property (weak, nonatomic) UITableView *myPlacesTableView;
+@property (strong, nonatomic) NSLayoutConstraint *searchTableHeight;
 
 @property (strong, nonatomic) NSMutableArray *places;
 @property (strong, nonatomic) NSMutableArray *timesSpent;
 @property (strong, nonatomic) NSArray *citiesSearched;
 @property (strong, nonatomic) NSArray *placeSearchResults;
-@property (strong, nonatomic) NSLayoutConstraint *searchTableHeight;
+
 
 
 @end
@@ -125,8 +128,13 @@
     } else if (index == 1) {
         NewListSlide2 *slide = [[[NSBundle mainBundle] loadNibNamed:@"NewListSlide2" owner:self options:nil] objectAtIndex:0];
         self.daysField = slide.numDaysField;
+        self.numDaysLabel = slide.numDaysLabel;
+        self.numDaysLabel.alpha = 0;
+        self.daysField.alpha = 0;
         self.hoursField = slide.numHoursField;
         self.calendarView = slide.calendarView;
+        NSPredicate *heightPredicate = [NSPredicate predicateWithFormat:@"firstAttribute = %d", NSLayoutAttributeHeight];
+        self.calendarHeight = [self.calendarView.constraints filteredArrayUsingPredicate:heightPredicate][0];
         self.customDayButton = slide.customDayButton;
         UITapGestureRecognizer *tapButton = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapCustomDay:)];
         [self.customDayButton addGestureRecognizer:tapButton];
@@ -305,6 +313,24 @@
     }];
 }
 
+- (void)animateOpenCalendar {
+    [UIView animateWithDuration:0 animations:^{
+        self.calendarHeight.constant = 220;
+        self.calendarView.alpha = 1;
+        self.numDaysLabel.alpha = 0;
+        self.daysField.alpha = 0;
+    }];
+}
+
+- (void)animateCloseCalendar {
+    [UIView animateWithDuration:0 animations:^{
+        self.calendarView.alpha = 0;
+        self.calendarHeight.constant = 0;
+        self.numDaysLabel.alpha = 1;
+        self.daysField.alpha = 1;
+    }];
+}
+
 -(void)dismissKeyboard {
     [self.titleField endEditing:YES];
     [self.cityField endEditing:YES];
@@ -380,10 +406,12 @@
 - (void)tapCustomDay:(UITapGestureRecognizer *)recognizer {
     if (self.customDayButton.selected == NO) {
         [self.customDayButton setSelected:YES];
+        [self animateCloseCalendar];
         NSLog(@"Using custom day input");
      }
      else {
         [self.customDayButton setSelected:NO];
+        [self animateOpenCalendar];
         NSLog(@"Using calendar day input");
      }
 }

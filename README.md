@@ -32,7 +32,7 @@ This app will allow a user to create a list of locations in a city/small area th
 - [X] Your app contains at least one more complex algorithm (talk over this with your manager)
 - [X] Your app uses gesture recognizers (e.g. double tap to like, e.g. pinch to scale)
 - [X] Your app use an animation (doesn’t have to be fancy) (e.g. fade in/out, e.g. animating a view growing and shrinking)
-- [ ] Your app incorporates an external library to add visual polish
+- [X] Your app incorporates an external library to add visual polish
 
 
 

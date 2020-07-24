@@ -279,15 +279,13 @@
 }
 
 - (void)animateOpenTableView {
-    [UIView animateWithDuration:1.2f
-         animations:^{
+    [UIView animateWithDuration:1.2f animations:^{
         self.searchTableHeight.constant = 200;
     }];
 }
 
 - (void)animateCloseTableView {
-    [UIView animateWithDuration:1.2f
-         animations:^{
+    [UIView animateWithDuration:1.2f animations:^{
         self.searchTableHeight.constant = 0;
     }];
 }

@@ -15,9 +15,10 @@
 #import "SearchPlaceCell.h"
 #import "APIConstants.h"
 #import "PlaceList.h"
+@import GLCalendarView;
 @import Parse;
 
-@interface NewListOnboardingController () <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NewPlaceCellDelegate>
+@interface NewListOnboardingController () <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NewPlaceCellDelegate, GLCalendarViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
@@ -30,6 +31,8 @@
 
 @property (weak, nonatomic) UITextField *daysField;
 @property (weak, nonatomic) UITextField *hoursField;
+@property (weak, nonatomic) GLCalendarView *calendarView;
+@property (nonatomic, weak) GLCalendarDateRange *rangeUnderEdit;
 
 @property (weak, nonatomic) UITableView *placeSearchTableView;
 @property (weak, nonatomic) UISearchBar *placeSearchBar;
@@ -63,7 +66,12 @@
     self.myPlacesTableView.dataSource = self;
     self.placeSearchTableView.dataSource = self;
     self.placeSearchTableView.delegate = self;
+    [self.placeSearchTableView setHidden:YES];
     self.placeSearchBar.delegate = self;
+    //[self.placeSearchBar setHidden:NO];
+    
+    self.calendarView.delegate = self;
+    //TODO: set calendar's first date and last date
     
     if (self.placeList != nil) {
          NSLog(@"We are editing a list!");
@@ -86,6 +94,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [self.placeSearchTableView reloadData];
     [self.myPlacesTableView reloadData];
+    [self.calendarView reload];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -115,6 +124,7 @@
         NewListSlide2 *slide = [[[NSBundle mainBundle] loadNibNamed:@"NewListSlide2" owner:self options:nil] objectAtIndex:0];
         self.daysField = slide.numDaysField;
         self.hoursField = slide.numHoursField;
+        self.calendarView = slide.calendarView;
         slideView = (UIView *)slide;
     } else if (index == 2) {
         NewListSlide3 *slide = [[[NSBundle mainBundle] loadNibNamed:@"NewListSlide3" owner:self options:nil] objectAtIndex:0];
@@ -124,6 +134,7 @@
         self.myPlacesTableView = slide.myPlacesTableView;
         slideView = (UIView *)slide;
     }
+    
     slideView.frame = frame;
     [self.scrollView addSubview:slideView];
 }
@@ -206,6 +217,7 @@
         NSDictionary *venue = self.placeSearchResults[indexPath.row];
         [Place createPlaceFromDictionary:venue placeList:self.places tableView:self.myPlacesTableView];
         [self.timesSpent addObject:@0];
+        [self.placeSearchTableView setHidden:YES];
     }
 }
 
@@ -235,6 +247,7 @@
 
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if (searchBar == self.placeSearchBar) {
+        [self.placeSearchTableView setHidden:NO];
         NSString *newText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
         NSString *city = self.cityField.text;
         [self fetchLocationsWithQuery:newText near:city];
@@ -243,15 +256,28 @@
     return false;
 }
 
-
 - (void)newPlaceCell:(NewPlaceCell *)newPlaceCell didSpecifyTimeSpent:(nonnull NSNumber *)time {
     NSIndexPath *indexPath = [self.myPlacesTableView indexPathForCell:newPlaceCell];
     self.timesSpent[indexPath.row] = time;
 }
 
+- (void)animateOpenTableView {
+    [UIView animateWithDuration:1
+                     animations:^{
+           // animations go here
+    }];
+}
+
+- (void)animateCloseTableView {
+    [UIView animateWithDuration:1
+                     animations:^{
+           // animations go here
+    }];
+}
+
 - (void)fetchLocationsWithQuery:(NSString *)query near:(NSString *)city {
     NSString *baseURLString = @"https://api.foursquare.com/v2/venues/search?";
-    NSString *queryString = [NSString stringWithFormat:@"client_id=%@&client_secret=%@&v=20141020&near=%@&query=%@", FOURSQUAREID, FOURSQUARESECRET, city, query]; //TODO: change this call to remove the near
+    NSString *queryString = [NSString stringWithFormat:@"client_id=%@&client_secret=%@&v=20141020&near=%@&query=%@", FOURSQUAREID, FOURSQUARESECRET, city, query];
     queryString = [queryString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
     NSURL *url = [NSURL URLWithString:[baseURLString stringByAppendingString:queryString]];
@@ -301,6 +327,7 @@
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     imagePickerVC.delegate = self;
     imagePickerVC.allowsEditing = YES;
+    //TODO: ask user which option they wish to use
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
     }
@@ -309,6 +336,44 @@
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     }
     [self presentViewController:imagePickerVC animated:YES completion:nil];
+}
+
+- (BOOL)calenderView:(GLCalendarView *)calendarView canAddRangeWithBeginDate:(NSDate *)beginDate
+{
+    // you should check whether user can add a range with the given begin date
+    return YES;
+}
+
+- (GLCalendarDateRange *)calenderView:(GLCalendarView *)calendarView rangeToAddWithBeginDate:(NSDate *)beginDate
+{
+    NSDate* endDate = [GLDateUtils dateByAddingDays:3 toDate:beginDate];
+    GLCalendarDateRange *range = [GLCalendarDateRange rangeWithBeginDate:beginDate endDate:endDate];
+    range.backgroundColor = UIColor.blueColor;
+    range.editable = YES;
+    return range;
+}
+
+- (void)calenderView:(GLCalendarView *)calendarView beginToEditRange:(GLCalendarDateRange *)range
+{
+    NSLog(@"begin to edit range: %@", range);
+    self.rangeUnderEdit = range;
+}
+
+- (void)calenderView:(GLCalendarView *)calendarView finishEditRange:(GLCalendarDateRange *)range continueEditing:(BOOL)continueEditing
+{
+    NSLog(@"finish edit range: %@", range);
+    self.rangeUnderEdit = nil;
+}
+
+- (BOOL)calenderView:(GLCalendarView *)calendarView canUpdateRange:(GLCalendarDateRange *)range toBeginDate:(NSDate *)beginDate endDate:(NSDate *)endDate
+{
+    // you should check whether the beginDate or the endDate is valid
+    return YES;
+}
+
+- (void)calenderView:(GLCalendarView *)calendarView didUpdateRange:(GLCalendarDateRange *)range toBeginDate:(NSDate *)beginDate endDate:(NSDate *)endDate
+{
+    NSLog(@"did update range: %@", range);
 }
 
 @end

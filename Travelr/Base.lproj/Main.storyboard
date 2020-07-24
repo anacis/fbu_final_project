@@ -64,6 +64,7 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="4Bl-cf-D8R" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4UO-Z6-PoJ"/>
                             <constraint firstItem="RJH-Xz-QMv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Eib-Yu-B3f"/>
@@ -77,6 +78,9 @@
                             <constraint firstItem="RJH-Xz-QMv" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-20" id="tsR-h5-FiZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="0jG-Rb-Efx" appends="YES" id="0WO-vp-2Hc"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="H0Y-Vj-fBW"/>
                     <connections>
@@ -88,6 +92,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="0jG-Rb-Efx">
+                    <connections>
+                        <action selector="onOutsideTap:" destination="BYZ-38-t0r" id="pwg-c7-niF"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="70.982142857142847"/>
         </scene>
@@ -100,7 +109,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DGk-Rl-KRZ">
-                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PlaceListCell" id="M3e-Lp-YCq" customClass="PlaceListCell">
@@ -199,11 +208,11 @@
             <objects>
                 <viewController id="rUE-gm-v18" customClass="LocationFeedController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1IL-i0-2d8">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="256" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6ZM-YO-t7l">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DayCell" rowHeight="256" id="7HR-2J-bGI" customClass="DayCell">
@@ -333,14 +342,14 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="aiQ-WF-ACr" customClass="NewListOnboardingController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="THA-cv-9SS">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5k6-SY-ZsG">
-                                <rect key="frame" x="0.0" y="56" width="414" height="752"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bJT-qT-IsZ" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="1242" height="752"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1242" height="774"/>
                                         <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                 </subviews>
@@ -374,7 +383,7 @@
                     <navigationItem key="navigationItem" id="ZM9-VH-oJF">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="zbK-pO-mbb">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9ah-gW-vzf">
-                                <rect key="frame" x="20" y="13" width="48" height="30"/>
+                                <rect key="frame" x="20" y="7" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
@@ -384,7 +393,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="a4P-nd-Ed2">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5sq-mc-OTN">
-                                <rect key="frame" x="332" y="13" width="62" height="30"/>
+                                <rect key="frame" x="332" y="7" width="62" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
@@ -463,7 +472,11 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="s5A-wh-PYc"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="i40-8o-ztd" appends="YES" id="6wu-dv-CXb"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Sign Up" id="Exd-AG-nbf">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="Fyg-Rt-fes">
@@ -485,6 +498,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0n3-qv-pnB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="i40-8o-ztd">
+                    <connections>
+                        <action selector="onTapOutside:" destination="0FZ-Mq-LVO" id="hAh-8y-6SE"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="1667.4107142857142"/>
         </scene>
@@ -566,7 +584,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Qkg-Kc-9RA"/>
-        <segue reference="UjZ-CX-e0M"/>
+        <segue reference="g53-Jw-ngS"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="flame" catalog="system" width="109" height="128"/>

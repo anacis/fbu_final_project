@@ -87,6 +87,9 @@
     }];
 }
 
+- (IBAction)onOutsideTap:(id)sender {
+    [self.view endEditing:YES];
+}
 
 
 /*

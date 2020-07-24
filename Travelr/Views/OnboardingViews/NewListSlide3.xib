@@ -14,14 +14,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0de-18-KEZ">
-                    <rect key="frame" x="20" y="126" width="374" height="0.0"/>
+                    <rect key="frame" x="20" y="188" width="374" height="0.0"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
                         <constraint firstAttribute="height" identifier="searchTableHeight" id="IRZ-Te-eu3"/>
                     </constraints>
                 </tableView>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="6y1-FU-mTu">
-                    <rect key="frame" x="20" y="169.5" width="374" height="110"/>
+                    <rect key="frame" x="20" y="231.5" width="374" height="110"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="110" id="Y6F-tp-tj0"/>
@@ -34,26 +34,26 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SZu-Tq-Swa">
-                    <rect key="frame" x="20" y="323" width="374" height="335"/>
+                    <rect key="frame" x="20" y="385" width="374" height="335"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="335" id="SZL-vd-RYZ"/>
                     </constraints>
                 </tableView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="My Places" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="djD-Z2-0oC">
-                    <rect key="frame" x="20" y="294.5" width="78" height="20.5"/>
+                    <rect key="frame" x="20" y="356.5" width="78" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Suggestions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w9X-Sa-JxB">
-                    <rect key="frame" x="20" y="141" width="95" height="20.5"/>
+                    <rect key="frame" x="20" y="203" width="95" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9xV-bi-6Qx">
-                    <rect key="frame" x="20" y="74" width="374" height="52"/>
+                    <rect key="frame" x="20" y="136" width="374" height="52"/>
                     <subviews>
                         <searchBar contentMode="redraw" placeholder="Search Locations" showsCancelButton="YES" id="xoG-2x-dgH">
                             <rect key="frame" x="0.0" y="-4" width="374" height="56"/>
@@ -70,16 +70,25 @@
                         <constraint firstAttribute="height" constant="52" id="XAj-EO-74C"/>
                     </constraints>
                 </view>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search Destination" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OPE-ry-e8E">
+                    <rect key="frame" x="20" y="84" width="374" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="Q1J-FF-3t8"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
             </subviews>
             <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="SZu-Tq-Swa" firstAttribute="top" secondItem="djD-Z2-0oC" secondAttribute="bottom" constant="8" id="3GG-Wr-jlT"/>
-                <constraint firstItem="9xV-bi-6Qx" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="30" id="4LQ-a6-UUz"/>
                 <constraint firstItem="w9X-Sa-JxB" firstAttribute="top" secondItem="0de-18-KEZ" secondAttribute="bottom" constant="15" id="BJ6-hA-nge"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="6y1-FU-mTu" secondAttribute="trailing" constant="20" id="Csr-Cw-tg1"/>
                 <constraint firstItem="9xV-bi-6Qx" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="EXa-Ro-qmB"/>
                 <constraint firstItem="djD-Z2-0oC" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="JfC-UZ-rJp"/>
                 <constraint firstItem="0de-18-KEZ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="KXy-Dt-1Pa"/>
+                <constraint firstItem="9xV-bi-6Qx" firstAttribute="top" secondItem="OPE-ry-e8E" secondAttribute="bottom" constant="8" id="Ooa-Mc-xtZ"/>
+                <constraint firstItem="OPE-ry-e8E" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="40" id="Su6-UB-hWJ"/>
                 <constraint firstItem="6y1-FU-mTu" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="U5P-iq-d2j"/>
                 <constraint firstItem="6y1-FU-mTu" firstAttribute="top" secondItem="w9X-Sa-JxB" secondAttribute="bottom" constant="8" id="Wbv-Tr-15v"/>
                 <constraint firstItem="w9X-Sa-JxB" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="jUt-Nt-6vK"/>
@@ -87,12 +96,15 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9xV-bi-6Qx" secondAttribute="trailing" constant="20" id="kUH-OU-G6k"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="SZu-Tq-Swa" secondAttribute="bottom" constant="8" id="kbJ-9W-SfM"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="SZu-Tq-Swa" secondAttribute="trailing" constant="20" id="lWL-5i-DPI"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="OPE-ry-e8E" secondAttribute="trailing" constant="20" id="mmF-N3-PU8"/>
                 <constraint firstItem="SZu-Tq-Swa" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="qiu-Ob-0TG"/>
                 <constraint firstItem="djD-Z2-0oC" firstAttribute="top" secondItem="6y1-FU-mTu" secondAttribute="bottom" constant="15" id="wsx-CB-DCT"/>
                 <constraint firstItem="0de-18-KEZ" firstAttribute="top" secondItem="9xV-bi-6Qx" secondAttribute="bottom" id="xty-P2-Otw"/>
+                <constraint firstItem="OPE-ry-e8E" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="xyb-W1-cef"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="cityField" destination="OPE-ry-e8E" id="xSV-zR-SJY"/>
                 <outlet property="myPlacesTableView" destination="SZu-Tq-Swa" id="moI-C9-zfM"/>
                 <outlet property="placeSearchBar" destination="xoG-2x-dgH" id="srx-19-9eY"/>
                 <outlet property="placesSearchTableView" destination="0de-18-KEZ" id="VPx-M8-e6H"/>

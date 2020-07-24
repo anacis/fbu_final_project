@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NewListSlide1 : UIView
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionField;
-@property (weak, nonatomic) IBOutlet UITextField *cityField;
 @property (weak, nonatomic) IBOutlet PFImageView *listImage;
 
 

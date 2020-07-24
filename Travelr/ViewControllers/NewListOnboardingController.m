@@ -25,17 +25,17 @@
 
 @property (weak, nonatomic) UITextField *titleField;
 @property (weak, nonatomic) UITextView *descriptionField;
-@property (weak, nonatomic) UITextField *cityField;
 @property (weak, nonatomic) PFImageView *listImage;
 
 
 @property (weak, nonatomic) UITextField *daysField;
 @property (weak, nonatomic) UITextField *hoursField;
 @property (weak, nonatomic) GLCalendarView *calendarView;
-@property (nonatomic, weak) GLCalendarDateRange *rangeUnderEdit;
+@property (nonatomic, weak) GLCalendarDateRange *calendarRange;
 
 @property (weak, nonatomic) UITableView *placeSearchTableView;
 @property (weak, nonatomic) UISearchBar *placeSearchBar;
+@property (weak, nonatomic) UITextField *cityField;
 @property (weak, nonatomic) UICollectionView *suggestionsCollectionView;
 @property (weak, nonatomic) UITableView *myPlacesTableView;
 
@@ -114,7 +114,6 @@
         owner:self options:nil] objectAtIndex:0];
         self.titleField = slide.titleField;
         self.descriptionField = slide.descriptionField;
-        self.cityField = slide.cityField;
         self.listImage = slide.listImage;
         self.listImage.layer.cornerRadius = self.listImage.frame.size.height / 2; //formula to create a circular image
         UITapGestureRecognizer *tapImage = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapImage:)];
@@ -127,11 +126,12 @@
         self.daysField = slide.numDaysField;
         self.hoursField = slide.numHoursField;
         self.calendarView = slide.calendarView;
-        UITapGestureRecognizer *tap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
-        [slide addGestureRecognizer:tap];
+        //UITapGestureRecognizer *tap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+        //[slide addGestureRecognizer:tap];
         slideView = (UIView *)slide;
     } else if (index == 2) {
         NewListSlide3 *slide = [[[NSBundle mainBundle] loadNibNamed:@"NewListSlide3" owner:self options:nil] objectAtIndex:0];
+        self.cityField = slide.cityField;
         self.placeSearchTableView = slide.placesSearchTableView;
         NSPredicate *heightPredicate = [NSPredicate predicateWithFormat:@"firstAttribute = %d", NSLayoutAttributeHeight];
         self.searchTableHeight = [self.placeSearchTableView.constraints filteredArrayUsingPredicate:heightPredicate][0];
@@ -255,6 +255,12 @@
     [self animateOpenTableView];
 }
 
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if ([searchText isEqualToString:@""]) {
+        [self animateCloseTableView];
+    }
+}
+
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     [self.placeSearchBar endEditing:YES];
     [self animateCloseTableView];
@@ -365,6 +371,13 @@
 - (BOOL)calenderView:(GLCalendarView *)calendarView canAddRangeWithBeginDate:(NSDate *)beginDate
 {
     // you should check whether user can add a range with the given begin date
+    if (self.calendarView.ranges.count != 0){
+        //TODO: find way to remove all the ranges in calendarView.ranges
+        for (GLCalendarDateRange *range in self.calendarView.ranges) {
+            [self.calendarView removeRange:range];
+        }
+        self.calendarRange = nil;
+    }
     return YES;
 }
 
@@ -374,24 +387,22 @@
     GLCalendarDateRange *range = [GLCalendarDateRange rangeWithBeginDate:beginDate endDate:endDate];
     range.backgroundColor = UIColor.blueColor;
     range.editable = YES;
+    self.calendarRange = range;
     return range;
 }
 
 - (void)calenderView:(GLCalendarView *)calendarView beginToEditRange:(GLCalendarDateRange *)range
 {
     NSLog(@"begin to edit range: %@", range);
-    self.rangeUnderEdit = range;
 }
 
 - (void)calenderView:(GLCalendarView *)calendarView finishEditRange:(GLCalendarDateRange *)range continueEditing:(BOOL)continueEditing
 {
     NSLog(@"finish edit range: %@", range);
-    self.rangeUnderEdit = nil;
 }
 
 - (BOOL)calenderView:(GLCalendarView *)calendarView canUpdateRange:(GLCalendarDateRange *)range toBeginDate:(NSDate *)beginDate endDate:(NSDate *)endDate
 {
-    // you should check whether the beginDate or the endDate is valid
     return YES;
 }
 

@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <PFFacebookUtils.h>
+@import GLCalendarView;
 
 @interface AppDelegate ()
 
@@ -30,6 +31,7 @@
     
     [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
     
+    [GLCalendarDayCell appearance].rangeDisplayMode = RANGE_DISPLAY_MODE_CONTINUOUS;
     
     return YES;
 }

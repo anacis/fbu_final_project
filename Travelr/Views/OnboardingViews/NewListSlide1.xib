@@ -14,7 +14,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8a0-92-AaY">
-                    <rect key="frame" x="141" y="381.5" width="253" height="34"/>
+                    <rect key="frame" x="154" y="381.5" width="240" height="34"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
@@ -25,29 +25,21 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvT-13-eje">
-                    <rect key="frame" x="20" y="630" width="88" height="21"/>
+                    <rect key="frame" x="20" y="509" width="88" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="A description for your list!" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Nst-as-4un">
-                    <rect key="frame" x="141" y="596.5" width="253" height="88"/>
+                    <rect key="frame" x="154" y="469.5" width="240" height="100"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="IFM-vh-E0m"/>
+                    </constraints>
                     <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tF-8P-fAf">
-                    <rect key="frame" x="20" y="509" width="31" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lzx-SC-bFL">
-                    <rect key="frame" x="141" y="502.5" width="253" height="34"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
                 <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Nnx-Cr-6IX" customClass="PFImageView">
                     <rect key="frame" x="132" y="144.5" width="150" height="148"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -62,27 +54,20 @@
             <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="tvT-13-eje" firstAttribute="centerY" secondItem="Nst-as-4un" secondAttribute="centerY" id="3St-rp-Ude"/>
-                <constraint firstItem="lzx-SC-bFL" firstAttribute="trailing" secondItem="8a0-92-AaY" secondAttribute="trailing" id="8zv-V8-jpN"/>
                 <constraint firstItem="e7V-bT-d3G" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="DW9-xO-0zm"/>
-                <constraint firstItem="tvT-13-eje" firstAttribute="top" secondItem="6tF-8P-fAf" secondAttribute="bottom" constant="100" id="Gev-u8-DFh"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="lzx-SC-bFL" secondAttribute="trailing" constant="20" id="Lvu-hy-avF"/>
+                <constraint firstItem="8a0-92-AaY" firstAttribute="leading" secondItem="e7V-bT-d3G" secondAttribute="trailing" constant="100" id="HAf-oj-1ty"/>
                 <constraint firstItem="Nst-as-4un" firstAttribute="trailing" secondItem="8a0-92-AaY" secondAttribute="trailing" id="M8F-DL-hVo"/>
-                <constraint firstItem="lzx-SC-bFL" firstAttribute="leading" secondItem="6tF-8P-fAf" secondAttribute="trailing" constant="90" id="Op4-0z-1MH"/>
                 <constraint firstItem="Nnx-Cr-6IX" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Oum-lj-A0H"/>
-                <constraint firstItem="lzx-SC-bFL" firstAttribute="leading" secondItem="8a0-92-AaY" secondAttribute="leading" id="Qoa-9a-MW2"/>
                 <constraint firstItem="e7V-bT-d3G" firstAttribute="top" secondItem="Nnx-Cr-6IX" secondAttribute="bottom" constant="94" id="RX1-EL-Gi8"/>
-                <constraint firstItem="Nst-as-4un" firstAttribute="top" secondItem="lzx-SC-bFL" secondAttribute="bottom" constant="60" id="Uxt-Ty-KwN"/>
+                <constraint firstItem="tvT-13-eje" firstAttribute="top" secondItem="e7V-bT-d3G" secondAttribute="bottom" constant="100" id="VXY-Qf-Ry6"/>
                 <constraint firstItem="tvT-13-eje" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="XQh-an-1zj"/>
                 <constraint firstItem="8a0-92-AaY" firstAttribute="centerY" secondItem="e7V-bT-d3G" secondAttribute="centerY" id="ff9-4l-VK5"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="8a0-92-AaY" secondAttribute="trailing" constant="20" id="fzs-r6-0gK"/>
                 <constraint firstItem="Nst-as-4un" firstAttribute="leading" secondItem="8a0-92-AaY" secondAttribute="leading" id="hA4-Cr-zG7"/>
-                <constraint firstItem="6tF-8P-fAf" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="jml-yV-q2K"/>
-                <constraint firstItem="lzx-SC-bFL" firstAttribute="centerY" secondItem="6tF-8P-fAf" secondAttribute="centerY" id="llE-py-3TV"/>
-                <constraint firstItem="6tF-8P-fAf" firstAttribute="top" secondItem="e7V-bT-d3G" secondAttribute="bottom" constant="100" id="peW-ru-trL"/>
                 <constraint firstItem="Nnx-Cr-6IX" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="100" id="wKb-Eg-ziZ"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outlet property="cityField" destination="lzx-SC-bFL" id="SNB-3p-y6l"/>
                 <outlet property="descriptionField" destination="Nst-as-4un" id="d19-ar-7lo"/>
                 <outlet property="listImage" destination="Nnx-Cr-6IX" id="9JX-Ov-fUJ"/>
                 <outlet property="titleField" destination="8a0-92-AaY" id="WOT-KW-EWh"/>

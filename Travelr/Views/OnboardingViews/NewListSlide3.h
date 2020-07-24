@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UICollectionView *suggestionsCollectionView;
 @property (weak, nonatomic) IBOutlet UITableView *myPlacesTableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *placeSearchBar;
+@property (weak, nonatomic) IBOutlet UITextField *cityField;
 
 @end
 

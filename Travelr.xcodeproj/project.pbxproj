@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		352B80661AD3EB61DA297217 /* Pods_Travelr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6631BA08F7B012734F80F24 /* Pods_Travelr.framework */; };
+		944582B624CBA616001600A8 /* SuggestionCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 944582B424CBA616001600A8 /* SuggestionCollectionCell.m */; };
+		944582B724CBA616001600A8 /* SuggestionCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944582B524CBA616001600A8 /* SuggestionCollectionCell.xib */; };
 		949A20A324BCBCB7007010FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20A224BCBCB7007010FD /* AppDelegate.m */; };
 		949A20A624BCBCB7007010FD /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20A524BCBCB7007010FD /* SceneDelegate.m */; };
 		949A20A924BCBCB7007010FD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20A824BCBCB7007010FD /* ViewController.m */; };
@@ -69,6 +71,9 @@
 		3769A92898CABDAFAF08B2BC /* Pods-Travelr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Travelr.release.xcconfig"; path = "Target Support Files/Pods-Travelr/Pods-Travelr.release.xcconfig"; sourceTree = "<group>"; };
 		3B710EB2106F91407D56BC7D /* Pods_TravelrTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TravelrTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF7D7F6CDFA6041A1F5E95D /* Pods-Travelr-TravelrUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Travelr-TravelrUITests.release.xcconfig"; path = "Target Support Files/Pods-Travelr-TravelrUITests/Pods-Travelr-TravelrUITests.release.xcconfig"; sourceTree = "<group>"; };
+		944582B324CBA616001600A8 /* SuggestionCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuggestionCollectionCell.h; sourceTree = "<group>"; };
+		944582B424CBA616001600A8 /* SuggestionCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuggestionCollectionCell.m; sourceTree = "<group>"; };
+		944582B524CBA616001600A8 /* SuggestionCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionCollectionCell.xib; sourceTree = "<group>"; };
 		949A209E24BCBCB7007010FD /* Travelr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Travelr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		949A20A124BCBCB7007010FD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		949A20A224BCBCB7007010FD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -316,6 +321,9 @@
 			children = (
 				949A210224BE74F0007010FD /* LocationCollectionCell.h */,
 				949A210324BE74F0007010FD /* LocationCollectionCell.m */,
+				944582B324CBA616001600A8 /* SuggestionCollectionCell.h */,
+				944582B424CBA616001600A8 /* SuggestionCollectionCell.m */,
+				944582B524CBA616001600A8 /* SuggestionCollectionCell.xib */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -462,6 +470,7 @@
 				94E3782524C8D62200A859D7 /* CityCellView.xib in Resources */,
 				949A20B124BCBCB8007010FD /* LaunchScreen.storyboard in Resources */,
 				94E3782924C8D78500A859D7 /* SearchPlaceCellView.xib in Resources */,
+				944582B724CBA616001600A8 /* SuggestionCollectionCell.xib in Resources */,
 				949A20AE24BCBCB8007010FD /* Assets.xcassets in Resources */,
 				949A20AC24BCBCB7007010FD /* Main.storyboard in Resources */,
 				94E3782124C8C05D00A859D7 /* NewListSlide2.xib in Resources */,
@@ -644,6 +653,7 @@
 				94E3783324C8DC8000A859D7 /* NewListSlide2.m in Sources */,
 				94E3780D24C79CC600A859D7 /* APIConstants.m in Sources */,
 				94E3781B24C8A80B00A859D7 /* NewListOnboardingController.m in Sources */,
+				944582B624CBA616001600A8 /* SuggestionCollectionCell.m in Sources */,
 				949A20E924BCDFA8007010FD /* SignUpViewController.m in Sources */,
 				94E3783024C8DC1800A859D7 /* NewListSlide1.m in Sources */,
 				949A210124BE7421007010FD /* DayCell.m in Sources */,

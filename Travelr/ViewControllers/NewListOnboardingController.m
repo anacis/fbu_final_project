@@ -15,10 +15,11 @@
 #import "SearchPlaceCell.h"
 #import "APIConstants.h"
 #import "PlaceList.h"
+#import "SuggestionCollectionCell.h"
 @import GLCalendarView;
 @import Parse;
 
-@interface NewListOnboardingController () <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NewPlaceCellDelegate, GLCalendarViewDelegate>
+@interface NewListOnboardingController () <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NewPlaceCellDelegate, GLCalendarViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
@@ -47,6 +48,8 @@
 @property (strong, nonatomic) NSMutableArray *timesSpent;
 @property (strong, nonatomic) NSArray *citiesSearched;
 @property (strong, nonatomic) NSArray *placeSearchResults;
+@property (strong, nonatomic) NSArray *suggestions;
+
 
 
 
@@ -71,6 +74,8 @@
     self.placeSearchTableView.dataSource = self;
     self.placeSearchTableView.delegate = self;
     [self animateCloseTableView];
+    self.suggestionsCollectionView.delegate = self;
+    self.suggestionsCollectionView.dataSource = self;
     self.placeSearchTableView.allowsSelection = YES;
     self.placeSearchBar.delegate = self;
     
@@ -144,11 +149,14 @@
     } else if (index == 2) {
         NewListSlide3 *slide = [[[NSBundle mainBundle] loadNibNamed:@"NewListSlide3" owner:self options:nil] objectAtIndex:0];
         self.cityField = slide.cityField;
+        [self.cityField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
         self.placeSearchTableView = slide.placesSearchTableView;
         NSPredicate *heightPredicate = [NSPredicate predicateWithFormat:@"firstAttribute = %d", NSLayoutAttributeHeight];
         self.searchTableHeight = [self.placeSearchTableView.constraints filteredArrayUsingPredicate:heightPredicate][0];
         self.placeSearchBar = slide.placeSearchBar;
         self.suggestionsCollectionView =  slide.suggestionsCollectionView;
+        UINib *nib = [UINib nibWithNibName:@"SuggestionCollectionCell" bundle:nil];
+        [self.suggestionsCollectionView registerNib:nib forCellWithReuseIdentifier:@"SuggestionCollectionCell"];
         self.myPlacesTableView = slide.myPlacesTableView;
         slideView = (UIView *)slide;
     }
@@ -162,7 +170,13 @@
 }
 
 - (IBAction)saveList:(id)sender {
-    PlaceList *list = [PlaceList new];
+    PlaceList *list;
+    if (self.placeList == nil) {
+        list = [PlaceList new];
+    }
+    else {
+        list = self.placeList;
+    }
     list.name = self.titleField.text;
     list[@"description"] = self.descriptionField.text;
     list.author = [PFUser currentUser];
@@ -171,7 +185,7 @@
         list.numDays = [formatter numberFromString:self.daysField.text];
     }
     else {
-        list.numDays = @([GLDateUtils daysBetween:self.calendarRange.beginDate and:self.calendarRange.endDate]);
+        list.numDays = @([GLDateUtils daysBetween:self.calendarRange.beginDate and:self.calendarRange.endDate] + 1);
     }
     list.numHours = [formatter numberFromString:self.hoursField.text];
     list.image = [PlaceList getPFFileFromImage:self.listImage.image];
@@ -261,6 +275,24 @@
     }
 }
 
+- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    SuggestionCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SuggestionCollectionCell" forIndexPath:indexPath];
+    NSDictionary *suggestion = self.suggestions[indexPath.item];
+    [cell updateWithSuggestion:suggestion];
+    return cell;
+}
+
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.suggestions.count;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *venue = self.suggestions[indexPath.item][@"venue"];
+    [Place createPlaceFromDictionary:venue placeList:self.places tableView:self.myPlacesTableView];
+    [self.timesSpent addObject:@0];
+    //TODO: remove this suggestion and replace it with the next suggestion available
+}
+
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     if (searchBar == self.placeSearchBar) {
         NSString *city = self.cityField.text;
@@ -294,6 +326,10 @@
         return true;
     }
     return false;
+}
+
+-(void)textFieldDidChange :(UITextField *) textField{
+    [self fetchSuggestionsWithCity:textField.text];
 }
 
 - (void)newPlaceCell:(NewPlaceCell *)newPlaceCell didSpecifyTimeSpent:(nonnull NSNumber *)time {
@@ -354,6 +390,26 @@
             NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             self.placeSearchResults = [responseDictionary valueForKeyPath:@"response.venues"];
             [self.placeSearchTableView reloadData];
+        }
+    }];
+    [task resume];
+}
+
+- (void)fetchSuggestionsWithCity:(NSString *)city {
+    NSString *baseURLString = @"https://api.foursquare.com/v2/venues/explore?";
+    NSString *queryString = [NSString stringWithFormat:@"client_id=%@&client_secret=%@&v=20141020&near=%@", FOURSQUAREID, FOURSQUARESECRET, city];
+    queryString = [queryString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    
+    NSURL *url = [NSURL URLWithString:[baseURLString stringByAppendingString:queryString]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (data) {
+            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSDictionary *group = [responseDictionary valueForKeyPath:@"response.groups"][0];
+            self.suggestions = [group[@"items"] subarrayWithRange:NSMakeRange(0, MIN(10, [group[@"items"] count]))];
+            [self.suggestionsCollectionView reloadData];
         }
     }];
     [task resume];
@@ -430,7 +486,7 @@
 
 - (GLCalendarDateRange *)calenderView:(GLCalendarView *)calendarView rangeToAddWithBeginDate:(NSDate *)beginDate
 {
-    NSDate* endDate = [GLDateUtils dateByAddingDays:5 toDate:beginDate];
+    NSDate* endDate = [GLDateUtils dateByAddingDays:1 toDate:beginDate];
     GLCalendarDateRange *range = [GLCalendarDateRange rangeWithBeginDate:beginDate endDate:endDate];
     range.backgroundColor = UIColor.blueColor;
     range.editable = YES;
@@ -457,5 +513,6 @@
 {
     NSLog(@"did update range: %@", range);
 }
+
 
 @end

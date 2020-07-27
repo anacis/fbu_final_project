@@ -62,7 +62,9 @@
             NSLog(@"User log in failed: %@", error.localizedDescription);
         } else {
             NSLog(@"User logged in successfully");
-            [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            SceneDelegate *scene = (SceneDelegate *) self.view.window.windowScene.delegate;
+            scene.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"Tabbar"];
         }
     }];
 }
@@ -79,10 +81,9 @@
       }
       else {
           NSLog(@"User logged in through Facebook!");
-          [self performSegueWithIdentifier:@"loginSegue" sender:nil];
           UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-          SceneDelegate *scene = self.view.window.windowScene.delegate;
-          scene.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"ListFeedNav"];
+          SceneDelegate *scene = (SceneDelegate *) self.view.window.windowScene.delegate;
+          scene.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"Tabbar"];
       }
     }];
 }

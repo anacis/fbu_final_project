@@ -26,7 +26,7 @@
     // Code to initialize Parse
     if (PFUser.currentUser) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"ListFeedNav"];
+        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"Tabbar"];
     }
 }
 
@@ -61,6 +61,11 @@
     // Called as the scene transitions from the foreground to the background.
     // Use this method to save data, release shared resources, and store enough scene-specific state information
     // to restore the scene back to its current state.
+}
+
+- (void)changeRootVCWithIdentifier:(NSString *) vcIdentifier {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:vcIdentifier];
 }
 
 

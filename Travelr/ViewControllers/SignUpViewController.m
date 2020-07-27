@@ -86,7 +86,9 @@
             }];
         } else {
             NSLog(@"User registered successfully");
-            [self performSegueWithIdentifier:@"signUpSegue" sender:nil];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            SceneDelegate *scene = (SceneDelegate *) self.view.window.windowScene.delegate;
+            scene.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"Tabbar"];
         }
     }];
 }

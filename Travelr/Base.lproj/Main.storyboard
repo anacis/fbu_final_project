@@ -138,6 +138,16 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWJ-TQ-Lkq">
+                                                    <rect key="frame" x="355" y="109" width="26" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <state key="normal" backgroundImage="heart" catalog="system"/>
+                                                    <state key="selected" backgroundImage="heart.fill" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="tapLike:" destination="M3e-Lp-YCq" eventType="touchUpInside" id="b9Q-6r-clB"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eiG-s9-u9f" secondAttribute="trailing" constant="20" id="41T-Lq-Ta3"/>
@@ -155,6 +165,7 @@
                                         <connections>
                                             <outlet property="descriptionLabel" destination="x8d-cA-o6K" id="hzt-ZW-qqn"/>
                                             <outlet property="image" destination="Zec-gE-Rgc" id="pTH-g6-Rg7"/>
+                                            <outlet property="likeButton" destination="dWJ-TQ-Lkq" id="heJ-hs-v1i"/>
                                             <outlet property="titleLabel" destination="eiG-s9-u9f" id="sOw-N9-cQz"/>
                                         </connections>
                                     </tableViewCell>
@@ -200,7 +211,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6jT-bh-cfN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3845" y="-610"/>
+            <point key="canvasLocation" x="3844.9275362318845" y="-610.04464285714278"/>
         </scene>
         <!--Location Feed Controller-->
         <scene sceneID="lcb-xt-SDr">
@@ -758,11 +769,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Qkg-Kc-9RA"/>
+        <segue reference="n5u-DT-cbh"/>
         <segue reference="Eqd-80-QSL"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="flame" catalog="system" width="109" height="128"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="paperplane.fill" catalog="system" width="128" height="121"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
     </resources>

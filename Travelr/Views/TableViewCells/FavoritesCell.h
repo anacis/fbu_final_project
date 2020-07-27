@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PlaceList.h"
 @import Parse;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -17,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numPlacesLabel;
 @property (weak, nonatomic) IBOutlet PFImageView *image;
+
+@property (strong, nonatomic) PlaceList *placeList;
 
 
 - (void)setUpCell;

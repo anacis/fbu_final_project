@@ -23,6 +23,13 @@
 
 - (void)setUpCell {
     
+    self.listNameLabel.text = self.placeList.name;
+    self.authorLabel.text = self.placeList.author.username;
+    self.numPlacesLabel.text =  [@(self.placeList.placesUnsorted.count) stringValue];
+    self.image.file = self.placeList.image;
+    self.image.layer.cornerRadius = self.image.frame.size.height / 2; //formula to create a circular image
+    [self.image loadInBackground];
+    
 }
 
 @end

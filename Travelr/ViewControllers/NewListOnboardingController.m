@@ -176,6 +176,7 @@
     }
     else {
         list = self.placeList;
+        self.placeList.placesSorted = nil;
     }
     list.name = self.titleField.text;
     list[@"description"] = self.descriptionField.text;

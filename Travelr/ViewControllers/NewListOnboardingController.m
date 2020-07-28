@@ -16,6 +16,7 @@
 #import "APIConstants.h"
 #import "PlaceList.h"
 #import "SuggestionCollectionCell.h"
+#import "SceneDelegate.h"
 @import GLCalendarView;
 @import Parse;
 
@@ -166,7 +167,9 @@
 }
 
 - (IBAction)cancel:(id)sender {
-     [self performSegueWithIdentifier:@"newListToFeed" sender:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    SceneDelegate *scene = (SceneDelegate *) self.view.window.windowScene.delegate;
+    scene.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"Tabbar"];
 }
 
 - (IBAction)saveList:(id)sender {
@@ -196,7 +199,9 @@
     [list saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
        if (succeeded) {
            NSLog(@"Saved list successfully!");
-           [self performSegueWithIdentifier:@"newListToFeed" sender:nil];
+           UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+           SceneDelegate *scene = (SceneDelegate *) self.view.window.windowScene.delegate;
+           scene.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"Tabbar"];
            
        }
        else {

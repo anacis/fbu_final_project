@@ -63,10 +63,6 @@
     // to restore the scene back to its current state.
 }
 
-- (void)changeRootVCWithIdentifier:(NSString *) vcIdentifier {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:vcIdentifier];
-}
 
 
 @end

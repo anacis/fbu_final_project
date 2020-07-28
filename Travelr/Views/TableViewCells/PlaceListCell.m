@@ -29,7 +29,7 @@
     self.image.layer.cornerRadius = self.image.frame.size.height / 2; //formula to create a circular image
     [self.image loadInBackground];
     
-    if ([[PFUser currentUser][@"favorites"] containsObject:self.placeList]) {
+    if ([[PFUser currentUser][@"favoriteLists"] containsObject:self.placeList.objectId]) {
         [self.likeButton setSelected:YES];
     }
 }
@@ -42,23 +42,26 @@
 
 - (IBAction)tapLike:(id)sender {
     PFUser *currUser = [PFUser currentUser];
+    NSMutableArray *list = currUser[@"favoriteLists"];
     if (self.likeButton.isSelected) {
         [self.likeButton setSelected:NO];
-        [currUser[@"favorites"] removeObject:self.placeList];
+        [list removeObject:self.placeList];
         
     }
     else {
         [self.likeButton setSelected:YES];
-        NSLog(@"%@", currUser[@"favorites"]);
-        if (currUser[@"favorites"] == nil) {
-            currUser[@"favorites"] = [[NSMutableArray alloc] init];
+        
+        if (list == nil) {
+            list = [[NSMutableArray alloc] init];
         }
-        [currUser[@"favorites"] addObject:self.placeList];
-        //TODO: figure out why it isn't updating in Parse
-        NSLog(@"%@", currUser[@"favorites"]);
+        [list addObject:self.placeList.objectId];
     }
-    
-    [currUser save];
+    [currUser setObject:list  forKey:@"favoriteLists"];
+    [currUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"Updated user");
+        }
+    }];
 }
 
 @end

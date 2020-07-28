@@ -33,6 +33,9 @@
         NSLog(@"%@", self.placeList.objectId);
         [self.likeButton setSelected:YES];
     }
+    else {
+         [self.likeButton setSelected:NO];
+    }
 }
 
 - (void) didTapList:(UITapGestureRecognizer *)sender{

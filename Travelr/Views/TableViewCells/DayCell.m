@@ -44,8 +44,24 @@
         if (success) {
             NSLog(@"Launched Google Maps");
         }
+        else {
+            NSLog(@"GMaps with address didn't work, trying with coordinates");
+            [self startMapsWithCoordinates];
+        }
     }];
 }
+
+- (void)startMapsWithCoordinates {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self getMapsURLStringWithCoordinates]] options:nil completionHandler:^(BOOL success) {
+        if (success) {
+            NSLog(@"Launched Google Maps using coordinates");
+        }
+        else {
+            NSLog(@"GMaps with address didn't work :( ");
+        }
+    }];
+}
+
 
 - (NSString *)getMapsURLString {
     NSString const *baseUrlString = @"https://www.google.com/maps/dir/";
@@ -60,6 +76,22 @@
         }
     }
     NSLog(@"URL STRING: %@", urlString);
+    return urlString;
+}
+
+- (NSString *)getMapsURLStringWithCoordinates {
+    NSString const *baseUrlString = @"https://www.google.com/maps/dir";
+    NSString *urlString = @"";
+    for (Place *place in self.places) {
+        NSString *temp = [NSString stringWithFormat:@"/%@,%@", place.latitude, place.longitude];
+        if ([urlString isEqualToString:@""]) {
+            urlString = [baseUrlString stringByAppendingString:temp];
+        }
+        else {
+            urlString = [urlString stringByAppendingString:temp];
+        }
+    }
+    NSLog(@"URL STRING COOR: %@", urlString);
     return urlString;
 }
 

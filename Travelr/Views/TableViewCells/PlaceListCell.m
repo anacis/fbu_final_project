@@ -30,6 +30,7 @@
     [self.image loadInBackground];
     
     if ([[PFUser currentUser][@"favoriteLists"] containsObject:self.placeList.objectId]) {
+        NSLog(@"%@", self.placeList.objectId);
         [self.likeButton setSelected:YES];
     }
 }
@@ -44,13 +45,14 @@
     PFUser *currUser = [PFUser currentUser];
     NSMutableArray *list = currUser[@"favoriteLists"];
     if (self.likeButton.isSelected) {
+        NSLog(@"Unliked %@", self.placeList.objectId);
         [self.likeButton setSelected:NO];
-        [list removeObject:self.placeList];
+        [list removeObject:self.placeList.objectId];
         
     }
     else {
         [self.likeButton setSelected:YES];
-        
+        NSLog(@"Liked %@", self.placeList.objectId);
         if (list == nil) {
             list = [[NSMutableArray alloc] init];
         }

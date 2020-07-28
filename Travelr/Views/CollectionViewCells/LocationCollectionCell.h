@@ -12,6 +12,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol LocationCollectionCellDelegate;
+
 @interface LocationCollectionCell : UICollectionViewCell
 
 @property (nonatomic, strong) Place *place;
@@ -20,6 +22,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setUpCell;
 
+@property (nonatomic, weak) id<LocationCollectionCellDelegate> delegate;
+
+@end
+
+@protocol LocationCollectionCellDelegate
+- (void)LocationCollectionCell:(LocationCollectionCell *) LocationCollectionCell didTap: (Place *)place;
 @end
 
 NS_ASSUME_NONNULL_END

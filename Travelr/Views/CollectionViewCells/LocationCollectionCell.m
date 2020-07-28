@@ -15,6 +15,13 @@
     self.nameLabel.text = self.place.name;
     NSURL *photoURL = [NSURL URLWithString:self.place.photoURLString];
     [self.imageView setImageWithURL:photoURL];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapLocation:)];
+    [self addGestureRecognizer:tap];
+}
+
+- (void) didTapLocation:(UITapGestureRecognizer *)sender {
+    NSLog(@"Tapping on Cell");
+    [self.delegate LocationCollectionCell:self didTap:self.place];
 }
 
 @end

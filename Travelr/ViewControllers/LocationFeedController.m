@@ -9,8 +9,10 @@
 #import "LocationFeedController.h"
 #import "DayCell.h"
 #import "NewListOnboardingController.h"
+#import "LocationCollectionCell.h"
+#import "DetailsViewController.h"
 
-@interface LocationFeedController () <UITableViewDelegate, UITableViewDataSource>
+@interface LocationFeedController () <UITableViewDelegate, UITableViewDataSource, DayCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -32,6 +34,10 @@
         NewListOnboardingController *newListController = (NewListOnboardingController *) destination.topViewController;
         newListController.placeList = self.placeList;
     }
+    else if ([[segue identifier] isEqualToString:@"detailsSegue"]) {
+        DetailsViewController *destination = [segue destinationViewController];
+        destination.place = sender;
+    }
 }
 
 
@@ -39,6 +45,7 @@
     DayCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"DayCell"];
     cell.places = self.placeList.placesSorted[indexPath.row];
     cell.day = [NSString stringWithFormat: @"Day %ld", (indexPath.row + 1)];
+    cell.delegate = self;
     [cell setUpCell];
     return cell;
 }
@@ -69,6 +76,10 @@
 
 - (IBAction)onTapEdit:(id)sender {
     [self performSegueWithIdentifier:@"editList" sender:nil];
+}
+
+- (void)LocationCollectionCell:(nonnull LocationCollectionCell *)LocationCollectionCell didTapLocation:(nonnull Place *)place {
+    [self performSegueWithIdentifier:@"detailsSegue" sender:place];
 }
 
 @end

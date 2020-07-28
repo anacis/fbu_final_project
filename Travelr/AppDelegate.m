@@ -10,7 +10,9 @@
 #import <Parse/Parse.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <PFFacebookUtils.h>
+#import "APIConstants.h"
 @import GLCalendarView;
+@import GoogleMaps;
 
 @interface AppDelegate ()
 
@@ -30,6 +32,8 @@
     [Parse initializeWithConfiguration:config];
     
     [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
+    
+    [GMSServices provideAPIKey:GOOGLEKEY];
     
     [GLCalendarDayCell appearance].rangeDisplayMode = RANGE_DISPLAY_MODE_CONTINUOUS;
     

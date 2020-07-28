@@ -8,6 +8,7 @@
 
 #import "DayCell.h"
 #import "LocationCollectionCell.h"
+#import "DetailsViewController.h"
 
 @implementation DayCell 
 
@@ -24,6 +25,7 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     LocationCollectionCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"LocationCollectionCell" forIndexPath:indexPath];
     cell.place = self.places[indexPath.item];
+    cell.delegate = self;
     [cell setUpCell];
     return cell;
 }
@@ -35,6 +37,11 @@
 - (void)setUpCell {
     self.dayLabel.text = self.day;
 }
+
+- (void)LocationCollectionCell:(LocationCollectionCell *)LocationCollectionCell didTap:(Place *)place {
+    [self.delegate LocationCollectionCell:LocationCollectionCell didTapLocation:place];
+}
+
 
 - (IBAction)startMaps:(id)sender {
     //GMaps Format: "https://www.google.com/maps/dir/Shoreline+Amphitheatre,+Amphitheatre+Parkway,+Mountain+View,+CA/Facebook,+1+Hacker+Way,+Menlo+Park,+CA+94025"

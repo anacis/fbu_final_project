@@ -12,6 +12,7 @@
 		944582B724CBA616001600A8 /* SuggestionCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944582B524CBA616001600A8 /* SuggestionCollectionCell.xib */; };
 		944582BA24CF6C45001600A8 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 944582B924CF6C45001600A8 /* ProfileViewController.m */; };
 		944582BD24CF752F001600A8 /* FavoritesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 944582BC24CF752F001600A8 /* FavoritesCell.m */; };
+		944582C024D09511001600A8 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 944582BF24D09511001600A8 /* DetailsViewController.m */; };
 		949A20A324BCBCB7007010FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20A224BCBCB7007010FD /* AppDelegate.m */; };
 		949A20A624BCBCB7007010FD /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20A524BCBCB7007010FD /* SceneDelegate.m */; };
 		949A20A924BCBCB7007010FD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20A824BCBCB7007010FD /* ViewController.m */; };
@@ -80,6 +81,8 @@
 		944582B924CF6C45001600A8 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		944582BB24CF752F001600A8 /* FavoritesCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoritesCell.h; sourceTree = "<group>"; };
 		944582BC24CF752F001600A8 /* FavoritesCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesCell.m; sourceTree = "<group>"; };
+		944582BE24D09511001600A8 /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
+		944582BF24D09511001600A8 /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
 		949A209E24BCBCB7007010FD /* Travelr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Travelr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		949A20A124BCBCB7007010FD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		949A20A224BCBCB7007010FD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -292,6 +295,8 @@
 				94E3781A24C8A80B00A859D7 /* NewListOnboardingController.m */,
 				944582B824CF6C45001600A8 /* ProfileViewController.h */,
 				944582B924CF6C45001600A8 /* ProfileViewController.m */,
+				944582BE24D09511001600A8 /* DetailsViewController.h */,
+				944582BF24D09511001600A8 /* DetailsViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -662,6 +667,7 @@
 				949A210124BE7421007010FD /* DayCell.m in Sources */,
 				949A20F524BD0D8B007010FD /* NewPlaceCell.m in Sources */,
 				944582BD24CF752F001600A8 /* FavoritesCell.m in Sources */,
+				944582C024D09511001600A8 /* DetailsViewController.m in Sources */,
 				94E3780A24C789DD00A859D7 /* CityCell.m in Sources */,
 				94AAC6A424C641FA003D451E /* Constants.m in Sources */,
 			);

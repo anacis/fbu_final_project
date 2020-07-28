@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Place.h"
+#import "LocationCollectionCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DayCell : UITableViewCell <UICollectionViewDataSource, UICollectionViewDelegate>
+@protocol DayCellDelegate;
+
+@interface DayCell : UITableViewCell <UICollectionViewDataSource, UICollectionViewDelegate, LocationCollectionCellDelegate>
  
 @property (strong, nonatomic) NSArray *places;
 @property (strong, nonatomic) NSString *day;
@@ -18,8 +22,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *mapsButton;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
+@property (nonatomic, weak) id<DayCellDelegate> delegate;
+
 - (void)setUpCell;
 
 @end
+
+@protocol DayCellDelegate
+- (void)LocationCollectionCell:(LocationCollectionCell *) LocationCollectionCell didTapLocation: (Place *)place;
+@end
+
+
 
 NS_ASSUME_NONNULL_END

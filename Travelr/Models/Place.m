@@ -25,6 +25,7 @@
 @dynamic gMapsAddress;
 
 
+
 + (nonnull NSString *)parseClassName {
     return @"Place";
 }
@@ -32,8 +33,6 @@
 
 
 + (void)createPlaceFromDictionary: (NSDictionary *)dict placeList:(NSMutableArray *) placeList tableView:(UITableView *) tableView{
-    //TODO: implement check to see if API Key has already been provided
-    [GMSServices provideAPIKey:GOOGLEKEY];
     
     //check if the place does not exist already
     PFQuery *query = [PFQuery queryWithClassName:@"Place"];
@@ -68,6 +67,7 @@
             newPlace.longitude = [dict valueForKeyPath:@"location.lng"];
             newPlace.latitude = [dict valueForKeyPath:@"location.lat"];
             newPlace.address = [dict valueForKeyPath:@"location.address"];
+            
             [newPlace reverseGeocode:tableView];
             
             [placeList addObject:newPlace];

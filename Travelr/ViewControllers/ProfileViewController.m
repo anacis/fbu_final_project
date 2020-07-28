@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *listNumLabel;
 @property (weak, nonatomic) IBOutlet UILabel *friendsNumLabel;
 
+@property (strong, nonatomic) NSArray *favorites;
+
 @end
 
 @implementation ProfileViewController
@@ -38,6 +40,8 @@
     else {
         NSLog(@"User does not have a profile pic");
     }
+    
+    [self fetchFavorites];
 }
 
 /*
@@ -51,13 +55,35 @@
 */
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    NSLog(@"dequeing");
     FavoritesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FavoritesCell"];
+    cell.placeList = self.favorites[indexPath.row];
     [cell setUpCell];
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return self.favorites.count;
+}
+
+- (void)fetchFavorites {
+    PFQuery *query = [PFQuery queryWithClassName:@"PlaceList"];
+    [query orderByDescending:@"updatedAt"];
+    //[query whereKey:@"author" equalTo:[PFUser currentUser]];
+    NSArray *favorites = [PFUser currentUser][@"favoriteLists"];
+    [query whereKey:@"objectId" containedIn:favorites];
+    [query includeKey:@"placesUnsorted"];
+    query.limit = 20;
+
+    // fetch data asynchronously
+    [query findObjectsInBackgroundWithBlock:^(NSArray *placeLists, NSError *error) {
+        if (placeLists != nil) {
+            self.favorites = (NSArray *)placeLists;
+            [self.favoritesTableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
 }
 
 

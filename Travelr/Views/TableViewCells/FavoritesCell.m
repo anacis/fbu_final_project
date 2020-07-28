@@ -24,6 +24,7 @@
 - (void)setUpCell {
     
     self.listNameLabel.text = self.placeList.name;
+    [self.placeList.author fetchIfNeeded];
     self.authorLabel.text = self.placeList.author.username;
     self.numPlacesLabel.text =  [@(self.placeList.placesUnsorted.count) stringValue];
     self.image.file = self.placeList.image;

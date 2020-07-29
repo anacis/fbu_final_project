@@ -283,7 +283,7 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     SuggestionCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SuggestionCollectionCell" forIndexPath:indexPath];
-    NSDictionary *suggestion = self.suggestions[indexPath.item];
+    NSDictionary *suggestion = self.suggestions[indexPath.item][@"venue"];
     [cell updateWithSuggestion:suggestion];
     return cell;
 }

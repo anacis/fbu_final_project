@@ -28,6 +28,10 @@
                             <constraint firstAttribute="height" constant="70" id="KCq-cu-n51"/>
                         </constraints>
                     </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="plus.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4yD-X8-5Fp">
+                        <rect key="frame" x="90" y="10" width="19" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </view>
             <constraints>
@@ -49,4 +53,7 @@
             <point key="canvasLocation" x="310.14492753623193" y="208.25892857142856"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
+    </resources>
 </document>

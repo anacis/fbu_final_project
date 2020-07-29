@@ -17,11 +17,10 @@
 }
 
 - (void)updateWithSuggestion:(NSDictionary *) suggestion {
-    NSDictionary *venue = suggestion[@"venue"];
     
-    self.nameLabel.text = venue[@"name"];
+    self.nameLabel.text = suggestion[@"name"];
     
-    NSArray *categories = venue[@"categories"];
+    NSArray *categories = suggestion[@"categories"];
     if (categories && categories.count > 0) {
         NSDictionary *category = categories[0];
         NSString *urlPrefix = [category valueForKeyPath:@"icon.prefix"];
@@ -31,6 +30,7 @@
         [self.imageView setImageWithURL:photoURL];
     }
 }
+
     
    
 

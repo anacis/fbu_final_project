@@ -1,27 +1,26 @@
 //
-//  ListFeedViewController.m
+//  ExploreViewController.m
 //  Travelr
 //
-//  Created by Ana Cismaru on 7/13/20.
+//  Created by Ana Cismaru on 7/29/20.
 //  Copyright © 2020 anacismaru. All rights reserved.
 //
 
-#import "ListFeedViewController.h"
-#import <Parse/Parse.h>
-#import "SceneDelegate.h"
-#import "LoginViewController.h"
+#import "ExploreViewController.h"
 #import "PlaceListCell.h"
 #import "LocationFeedController.h"
+#import "LoginViewController.h"
+#import "SceneDelegate.h"
 #import <MBProgressHUD.h>
 
-@interface ListFeedViewController () <UITableViewDelegate, UITableViewDataSource, PlaceListCellDelegate>
+@interface ExploreViewController () <UITableViewDelegate, UITableViewDataSource, PlaceListCellDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) NSArray *placeLists;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
-@implementation ListFeedViewController
+@implementation ExploreViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,7 +28,6 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self fetchPlaceLists];
-    
 }
 
 - (IBAction)logout:(id)sender {
@@ -64,7 +62,7 @@
     PlaceListCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PlaceListCell"];
     cell.placeList = self.placeLists[indexPath.row];
     cell.delegate = self;
-    [cell setUpCell];
+    [cell setUpExploreCell];
     return cell;
 }
 
@@ -76,7 +74,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     PFQuery *query = [PFQuery queryWithClassName:@"PlaceList"];
     [query orderByDescending:@"updatedAt"];
-    [query whereKey:@"author" equalTo:[PFUser currentUser]];
+    //[query whereKey:@"author" equalTo:[PFUser currentUser]];
     [query includeKey:@"placesUnsorted"];
     query.limit = 20;
 
@@ -90,10 +88,6 @@
         }
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
-}
-
-- (IBAction)onTapNewList:(id)sender {
-    [self performSegueWithIdentifier:@"newListSegue" sender:nil];
 }
 
 - (void)placeListCell:(nonnull PlaceListCell *)placeListCell didTap:(nonnull PlaceList *)placeList {

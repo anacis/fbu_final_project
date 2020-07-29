@@ -37,6 +37,24 @@
     }
 }
 
+- (void)setUpExploreCell {
+    self.titleLabel.text = self.placeList.name;
+    self.descriptionLabel.text = self.placeList[@"description"];
+    PFUser *poster = [self.placeList.author fetchIfNeeded];
+    self.usernameLabel.text = [@"@" stringByAppendingString:poster.username];
+    self.image.file = self.placeList.image;
+    self.image.layer.cornerRadius = self.image.frame.size.height / 2; //formula to create a circular image
+    [self.image loadInBackground];
+    
+    if ([[PFUser currentUser][@"favoriteLists"] containsObject:self.placeList.objectId]) {
+        [self.likeButton setSelected:YES];
+    }
+    else {
+         [self.likeButton setSelected:NO];
+    }
+}
+
+
 - (void) didTapList:(UITapGestureRecognizer *)sender{
     [self.placeList separateIntoDays:[self.placeList sortPlaces]];
     

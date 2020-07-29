@@ -13,6 +13,7 @@
 		944582BA24CF6C45001600A8 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 944582B924CF6C45001600A8 /* ProfileViewController.m */; };
 		944582BD24CF752F001600A8 /* FavoritesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 944582BC24CF752F001600A8 /* FavoritesCell.m */; };
 		944582C024D09511001600A8 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 944582BF24D09511001600A8 /* DetailsViewController.m */; };
+		94688A0D24D22B7B004B52BD /* ExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94688A0C24D22B7B004B52BD /* ExploreViewController.m */; };
 		949A20A324BCBCB7007010FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20A224BCBCB7007010FD /* AppDelegate.m */; };
 		949A20A624BCBCB7007010FD /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20A524BCBCB7007010FD /* SceneDelegate.m */; };
 		949A20A924BCBCB7007010FD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20A824BCBCB7007010FD /* ViewController.m */; };
@@ -83,6 +84,8 @@
 		944582BC24CF752F001600A8 /* FavoritesCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesCell.m; sourceTree = "<group>"; };
 		944582BE24D09511001600A8 /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		944582BF24D09511001600A8 /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		94688A0B24D22B7B004B52BD /* ExploreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExploreViewController.h; sourceTree = "<group>"; };
+		94688A0C24D22B7B004B52BD /* ExploreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExploreViewController.m; sourceTree = "<group>"; };
 		949A209E24BCBCB7007010FD /* Travelr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Travelr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		949A20A124BCBCB7007010FD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		949A20A224BCBCB7007010FD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -297,6 +300,8 @@
 				944582B924CF6C45001600A8 /* ProfileViewController.m */,
 				944582BE24D09511001600A8 /* DetailsViewController.h */,
 				944582BF24D09511001600A8 /* DetailsViewController.m */,
+				94688A0B24D22B7B004B52BD /* ExploreViewController.h */,
+				94688A0C24D22B7B004B52BD /* ExploreViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -663,6 +668,7 @@
 				94E3781B24C8A80B00A859D7 /* NewListOnboardingController.m in Sources */,
 				944582B624CBA616001600A8 /* SuggestionCollectionCell.m in Sources */,
 				949A20E924BCDFA8007010FD /* SignUpViewController.m in Sources */,
+				94688A0D24D22B7B004B52BD /* ExploreViewController.m in Sources */,
 				94E3783024C8DC1800A859D7 /* NewListSlide1.m in Sources */,
 				949A210124BE7421007010FD /* DayCell.m in Sources */,
 				949A20F524BD0D8B007010FD /* NewPlaceCell.m in Sources */,

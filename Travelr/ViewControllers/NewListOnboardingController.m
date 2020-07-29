@@ -196,6 +196,15 @@
     list.image = [PlaceList getPFFileFromImage:self.listImage.image];
     list.placesUnsorted = self.places;
     list.timesSpent = self.timesSpent;
+    
+    [[PFUser currentUser] incrementKey:@"numLists"];
+    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+      if (succeeded) {
+        NSLog(@"Incremented user numLists!");
+      } else {
+        NSLog(@"Error: %@", error.localizedDescription);
+      }
+    }];
 
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [list saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {

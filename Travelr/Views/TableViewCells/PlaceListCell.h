@@ -21,10 +21,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 
 @property (nonatomic, weak) id<PlaceListCellDelegate> delegate;
 
 - (void)setUpCell;
+- (void)setUpExploreCell;
 
 @end
 

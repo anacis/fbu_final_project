@@ -53,6 +53,15 @@
     
 }
 
+-(void) viewWillDisappear:(BOOL)animated {
+    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
+        //resort placelist --> no only when segue back!
+        [self.placeList separateIntoDays:[self.placeList sortPlaces]];
+        
+    }
+    [super viewWillDisappear:animated];
+}
+
 /*
 #pragma mark - Navigation
 
@@ -75,26 +84,32 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    dispatch_group_t serviceGroup = dispatch_group_create();
     NSDictionary *suggestion = self.suggestions[indexPath.item];
     //create Place Object
     NSLog(@"Before: %lu", self.placeList.placesUnsorted.count);
     //TODO: create dispatch queue!
-    [Place createPlaceFromDictionaryDetails:suggestion placeList:self.placeList.placesUnsorted];
-    NSLog(@"After: %lu", self.placeList.placesUnsorted.count);
-    [self.placeList saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            NSLog(@"Added item from details view");
-        }
-    }];
-    //remove this suggestion from collectionView
-    [self.suggestions removeObject:suggestion];
-    [self.collectionView reloadData];
-    
-    
-    
-    //segue back?
-    //resort placelist --> no only when segue back!
-    //[self.placeList separateIntoDays:[self.placeList sortPlaces]];
+    dispatch_group_enter(serviceGroup);
+    [Place createPlaceFromDictionary:suggestion placeList:self.placeList.placesUnsorted group:serviceGroup];
+   
+    dispatch_group_notify(serviceGroup,dispatch_get_main_queue(),^{
+        NSLog(@"%@", self.placeList.placesUnsorted);
+        self.placeList[@"placesUnsorted"] = self.placeList.placesUnsorted;
+        //TODO: ask User for time Spent
+        [self.placeList.timesSpent addObject:@(-1)];
+        self.placeList[@"timesSpent"] = self.placeList.timesSpent;
+        self.placeList.placesSorted = nil;
+        [self.placeList saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if (succeeded) {
+                NSLog(@"After: %lu", self.placeList.placesUnsorted.count);
+                NSLog(@"Block 2 Done");
+                NSLog(@"Added item from details view");
+                //remove this suggestion from collectionView
+                [self.suggestions removeObject:suggestion];
+                [self.collectionView reloadData];
+            }
+            }];
+    });
 }
 
 - (void)fetchSuggestionsWithVenue:(NSString *)venue {

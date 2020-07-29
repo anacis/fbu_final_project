@@ -36,6 +36,7 @@
 
 - (void)setUpCell {
     self.dayLabel.text = self.day;
+    [self.collectionView reloadData];
 }
 
 - (void)LocationCollectionCell:(LocationCollectionCell *)LocationCollectionCell didTap:(Place *)place {

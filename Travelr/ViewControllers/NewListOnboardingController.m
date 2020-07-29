@@ -257,10 +257,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.placeSearchTableView) {
+        dispatch_group_t placeGroup = dispatch_group_create();
         NSDictionary *venue = self.placeSearchResults[indexPath.row];
-        [Place createPlaceFromDictionary:venue placeList:self.places tableView:self.myPlacesTableView];
-        [self.timesSpent addObject:@0];
-        [self animateCloseTableView];
+        dispatch_group_enter(placeGroup);
+        [Place createPlaceFromDictionary:venue placeList:self.places group:placeGroup];
+        dispatch_group_notify(placeGroup,dispatch_get_main_queue(),^{
+            [self.timesSpent addObject:@0];
+            [self.myPlacesTableView reloadData];
+            [self animateCloseTableView];
+        });
     }
 }
 
@@ -293,9 +298,15 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    dispatch_group_t placeGroup = dispatch_group_create();
     NSDictionary *venue = self.suggestions[indexPath.item][@"venue"];
-    [Place createPlaceFromDictionary:venue placeList:self.places tableView:self.myPlacesTableView];
-    [self.timesSpent addObject:@0];
+    dispatch_group_enter(placeGroup);
+    [Place createPlaceFromDictionary:venue placeList:self.places group:placeGroup];
+    dispatch_group_notify(placeGroup,dispatch_get_main_queue(),^{
+        [self.timesSpent addObject:@0];
+        [self.myPlacesTableView reloadData];
+       });
+    
     //TODO: remove this suggestion and replace it with the next suggestion available
 }
 

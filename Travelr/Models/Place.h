@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *openingHours;
 
 + (void)createPlaceFromDictionary: (NSDictionary *)dict placeList:(NSMutableArray *) placeList tableView:(UITableView *) tableView;
++ (void)createPlaceFromDictionaryDetails:(NSDictionary *)dict placeList:(NSMutableArray *)placeList;
 
 @end
 

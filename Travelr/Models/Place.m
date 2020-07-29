@@ -34,6 +34,8 @@
 
 + (void)createPlaceFromDictionary: (NSDictionary *)dict placeList:(NSMutableArray *) placeList tableView:(UITableView *) tableView{
     
+    //TODO:refactor code with dispatch queues (ask Jaz) to not need to pass in placeList and tableView so I can use this method regardless of vc
+    
     //check if the place does not exist already
     PFQuery *query = [PFQuery queryWithClassName:@"Place"];
     [query orderByDescending:@"createdAt"];
@@ -75,6 +77,46 @@
         }
     }];
     
+}
+
+//TODO: remove this method (temporary fix)
++ (void)createPlaceFromDictionaryDetails:(NSDictionary *)dict placeList:(NSMutableArray *)placeList {
+       //check if the place does not exist already
+       PFQuery *query = [PFQuery queryWithClassName:@"Place"];
+       [query orderByDescending:@"createdAt"];
+       [query whereKey:@"apiId" equalTo:dict[@"id"]];
+
+       // fetch data asynchronously
+       [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable places, NSError * _Nullable error) {
+           if (places.count != 0) {
+               [placeList addObject:places[0]];
+           }
+           else if (error != nil) {
+               NSLog(@"Error fetching Place: %@", error.localizedDescription);
+           }
+           else {
+               Place *newPlace = [Place new];
+               newPlace.name = dict[@"name"];
+               newPlace.apiId = dict[@"id"];
+               NSArray *categories = dict[@"categories"];
+               
+               if (categories && categories.count > 0) {
+                   NSDictionary *category = categories[0];
+                   NSString *urlPrefix = [category valueForKeyPath:@"icon.prefix"];
+                   NSString *urlSuffix = [category valueForKeyPath:@"icon.suffix"];
+                   newPlace.photoURLString = [NSString stringWithFormat:@"%@bg_32%@", urlPrefix, urlSuffix];
+                   newPlace.locationType = category[@"name"];
+               }
+               
+               newPlace.longitude = [dict valueForKeyPath:@"location.lng"];
+               newPlace.latitude = [dict valueForKeyPath:@"location.lat"];
+               newPlace.address = [dict valueForKeyPath:@"location.address"];
+               
+               [placeList addObject:newPlace];
+               NSLog(@"Added new place");
+
+           }
+       }];
 }
 
 - (void)reverseGeocode:(UITableView *)tableView {

@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet GMSMapView *mapView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
-@property (strong, nonatomic) NSArray *suggestions;
+@property (strong, nonatomic) NSMutableArray *suggestions;
 
 
 @end
@@ -71,8 +71,30 @@
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    //return MIN(10, [self.suggestions count]);
-    return self.suggestions.count;
+    return MIN(10, [self.suggestions count]);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *suggestion = self.suggestions[indexPath.item];
+    //create Place Object
+    NSLog(@"Before: %lu", self.placeList.placesUnsorted.count);
+    //TODO: create dispatch queue!
+    [Place createPlaceFromDictionaryDetails:suggestion placeList:self.placeList.placesUnsorted];
+    NSLog(@"After: %lu", self.placeList.placesUnsorted.count);
+    [self.placeList saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"Added item from details view");
+        }
+    }];
+    //remove this suggestion from collectionView
+    [self.suggestions removeObject:suggestion];
+    [self.collectionView reloadData];
+    
+    
+    
+    //segue back?
+    //resort placelist --> no only when segue back!
+    //[self.placeList separateIntoDays:[self.placeList sortPlaces]];
 }
 
 - (void)fetchSuggestionsWithVenue:(NSString *)venue {
@@ -87,7 +109,8 @@
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data) {
             NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            self.suggestions = [responseDictionary valueForKeyPath:@"response.similarVenues.items"];
+            //TODO: remove locations already in placelist
+            self.suggestions = [NSMutableArray arrayWithArray:[responseDictionary valueForKeyPath:@"response.similarVenues.items"]];
             [self.collectionView reloadData];
         }
     }];

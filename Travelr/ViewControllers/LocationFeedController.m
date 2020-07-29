@@ -37,6 +37,7 @@
     else if ([[segue identifier] isEqualToString:@"detailsSegue"]) {
         DetailsViewController *destination = [segue destinationViewController];
         destination.place = sender;
+        destination.placeList = self.placeList;
     }
 }
 

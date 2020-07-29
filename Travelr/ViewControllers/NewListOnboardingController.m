@@ -17,6 +17,7 @@
 #import "PlaceList.h"
 #import "SuggestionCollectionCell.h"
 #import "SceneDelegate.h"
+#import <MBProgressHUD.h>
 @import GLCalendarView;
 @import Parse;
 
@@ -196,13 +197,14 @@
     list.placesUnsorted = self.places;
     list.timesSpent = self.timesSpent;
 
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [list saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
        if (succeeded) {
            NSLog(@"Saved list successfully!");
            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
            SceneDelegate *scene = (SceneDelegate *) self.view.window.windowScene.delegate;
            scene.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"Tabbar"];
-           
+           [MBProgressHUD showHUDAddedTo:self.view animated:YES];
        }
        else {
           NSLog(@"Error: %@", error.localizedDescription);
@@ -259,12 +261,14 @@
     if (tableView == self.placeSearchTableView) {
         dispatch_group_t placeGroup = dispatch_group_create();
         NSDictionary *venue = self.placeSearchResults[indexPath.row];
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         dispatch_group_enter(placeGroup);
         [Place createPlaceFromDictionary:venue placeList:self.places group:placeGroup];
         dispatch_group_notify(placeGroup,dispatch_get_main_queue(),^{
             [self.timesSpent addObject:@0];
             [self.myPlacesTableView reloadData];
             [self animateCloseTableView];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     }
 }
@@ -300,10 +304,12 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     dispatch_group_t placeGroup = dispatch_group_create();
     NSDictionary *venue = self.suggestions[indexPath.item][@"venue"];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_group_enter(placeGroup);
     [Place createPlaceFromDictionary:venue placeList:self.places group:placeGroup];
     dispatch_group_notify(placeGroup,dispatch_get_main_queue(),^{
         [self.timesSpent addObject:@0];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.myPlacesTableView reloadData];
        });
     

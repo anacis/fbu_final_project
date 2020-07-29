@@ -8,6 +8,7 @@
 
 #import "ProfileViewController.h"
 #import "FavoritesCell.h"
+#import <MBProgressHUD.h>
 @import Parse;
 
 @interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -25,6 +26,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setUpPage];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self setUpPage];
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+- (void)setUpPage {
     self.user = [PFUser currentUser];
     self.favoritesTableView.delegate = self;
     self.favoritesTableView.dataSource = self;
@@ -44,18 +63,7 @@
     [self fetchFavorites];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    NSLog(@"dequeing");
     FavoritesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FavoritesCell"];
     cell.placeList = self.favorites[indexPath.row];
     [cell setUpCell];
@@ -67,6 +75,7 @@
 }
 
 - (void)fetchFavorites {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     PFQuery *query = [PFQuery queryWithClassName:@"PlaceList"];
     [query orderByDescending:@"updatedAt"];
     //[query whereKey:@"author" equalTo:[PFUser currentUser]];
@@ -83,6 +92,7 @@
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
 }
 

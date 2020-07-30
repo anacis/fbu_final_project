@@ -10,18 +10,20 @@
 #import "APIConstants.h"
 #import "SuggestionCollectionCell.h"
 #import <MBProgressHUD.h>
+#import <AFNetworking/UIImageView+AFNetworking.h>
+#import "DetailView.h"
 @import Parse;
 @import GoogleMaps;
 
-@interface DetailsViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
-@property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
-@property (weak, nonatomic) IBOutlet PFImageView *image;
-@property (weak, nonatomic) IBOutlet GMSMapView *mapView;
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@interface DetailsViewController () <UIScrollViewDelegate, UINavigationControllerDelegate>
 
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
+
+@property (weak, nonatomic) UIView *currentView;
 @property (strong, nonatomic) NSMutableArray *suggestions;
+@property (strong, nonatomic) NSArray *flattenedPlacesSorted;
 
 
 @end
@@ -30,27 +32,49 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setUpPage];
-    self.collectionView.delegate = self;
-    self.collectionView.dataSource = self;
-    UINib *nib = [UINib nibWithNibName:@"SuggestionCollectionCell" bundle:nil];
-    [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"SuggestionCollectionCell"];
-    [self fetchSuggestionsWithVenue:self.place.apiId];
+    
+    self.flattenedPlacesSorted = [self.placeList.placesSorted valueForKeyPath: @"@unionOfArrays.self"];
+    
+    self.pageControl.numberOfPages = self.flattenedPlacesSorted.count;
+    
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * self.pageControl.numberOfPages, self.scrollView.frame.size.height);
+    
+    NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeWidth multiplier:self.pageControl.numberOfPages constant:0];
+    [self.view addConstraint:width];
+    
+    
+    for (int i = 0; i < self.pageControl.numberOfPages; i++) {
+        [self setUpPage:i];
+    }
+    
+    self.scrollView.delegate = self;
+    NSUInteger index = [self.flattenedPlacesSorted indexOfObject:self.place];
+    self.pageControl.currentPage = index;
+    [self.scrollView scrollRectToVisible:CGRectMake((self.scrollView.frame.size.width * index), 0, self.scrollView.frame.size.width, self.scrollView.frame.size.height) animated:NO];
+    
+    self.pageControl.pageIndicatorTintColor = [UIColor colorWithRed:66.0/255.0f green:179.0/255.0f blue:111.0/255.0f alpha:1.0];
+    self.pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:151.0/255.0f green:195.0/255.0f blue:157.0/255.0f alpha:0.5];
     
 }
 
-- (void)setUpPage {
-    self.titleLabel.text = self.place.name;
-    self.addressLabel.text = [self.place.gMapsAddress stringByReplacingOccurrencesOfString:@"+" withString:@" "];
-    self.categoryLabel.text = self.place.locationType;
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    int pageNumber = scrollView.contentOffset.x / scrollView.frame.size.width;
+    self.pageControl.currentPage = pageNumber;
     
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: [self.place.latitude doubleValue] longitude:[self.place.longitude doubleValue] zoom:12.0];
-    self.mapView.camera = camera;
+}
+
+- (void)setUpPage:(int) index {
+   
+    CGRect frame = CGRectMake(0, 0, 0, 0);
+    frame.origin.x = self.scrollView.frame.size.width * index;
+    frame.size = self.scrollView.frame.size;
     
-    GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake([self.place.latitude doubleValue], [self.place.longitude doubleValue]);
-    marker.title = self.place.name;
-    marker.map = self.mapView;
+    DetailView *detail = [[[NSBundle mainBundle] loadNibNamed:@"DetailView" owner:self options:nil] objectAtIndex:0];
+    detail.placeList = self.placeList;
+    detail.place = self.flattenedPlacesSorted[index];
+    [detail setUpPage];    
+    detail.frame = frame;
+    [self.scrollView addSubview:(UIView *)detail];
     
 }
 
@@ -74,61 +98,7 @@
 }
 */
 
-- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    SuggestionCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SuggestionCollectionCell" forIndexPath:indexPath];
-    NSDictionary *suggestion = self.suggestions[indexPath.item];
-    [cell updateWithSuggestion:suggestion];
-    return cell;
-}
 
-- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return MIN(10, [self.suggestions count]);
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    dispatch_group_t serviceGroup = dispatch_group_create();
-    NSDictionary *suggestion = self.suggestions[indexPath.item];
-    //create Place Object
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_group_enter(serviceGroup);
-    [Place createPlaceFromDictionary:suggestion placeList:self.placeList.placesUnsorted group:serviceGroup];
-   
-    dispatch_group_notify(serviceGroup,dispatch_get_main_queue(),^{
-        self.placeList[@"placesUnsorted"] = self.placeList.placesUnsorted;
-        //TODO: ask User for time Spent
-        [self.placeList.timesSpent addObject:@(-1)];
-        self.placeList[@"timesSpent"] = self.placeList.timesSpent;
-        self.placeList.placesSorted = nil;
-        [self.placeList saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-            if (succeeded) {
-                //remove this suggestion from collectionView
-                [self.suggestions removeObject:suggestion];
-                [self.collectionView reloadData];
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-            }
-            }];
-    });
-}
-
-- (void)fetchSuggestionsWithVenue:(NSString *)venue {
-    NSString *baseURLString = @"https://api.foursquare.com/v2/venues/";
-    NSString *queryString = [NSString stringWithFormat:@"%@/similar?client_id=%@&client_secret=%@&v=20141020", venue, FOURSQUAREID, FOURSQUARESECRET];
-    queryString = [queryString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    
-    NSURL *url = [NSURL URLWithString:[baseURLString stringByAppendingString:queryString]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (data) {
-            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            //TODO: remove locations already in placelist
-            self.suggestions = [NSMutableArray arrayWithArray:[responseDictionary valueForKeyPath:@"response.similarVenues.items"]];
-            [self.collectionView reloadData];
-        }
-    }];
-    [task resume];
-}
 
 
 

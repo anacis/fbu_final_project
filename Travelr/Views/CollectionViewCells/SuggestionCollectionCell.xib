@@ -23,26 +23,27 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Iit-hG-Oc7">
-                        <rect key="frame" x="0.0" y="15" width="150" height="70"/>
+                        <rect key="frame" x="43" y="15" width="64" height="70"/>
                         <constraints>
+                            <constraint firstAttribute="width" constant="64" id="2aY-5U-3Y7"/>
                             <constraint firstAttribute="height" constant="70" id="KCq-cu-n51"/>
                         </constraints>
                     </imageView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="plus.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4yD-X8-5Fp">
-                        <rect key="frame" x="90" y="10" width="19" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="plus.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4yD-X8-5Fp">
+                        <rect key="frame" x="99" y="8.5" width="15" height="15"/>
                     </imageView>
                 </subviews>
             </view>
             <constraints>
+                <constraint firstItem="4yD-X8-5Fp" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="Af6-FR-xfY"/>
+                <constraint firstItem="4yD-X8-5Fp" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="99" id="BMo-zW-qGg"/>
                 <constraint firstItem="npv-Qa-vhY" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="Dgw-SQ-n0T"/>
                 <constraint firstItem="npv-Qa-vhY" firstAttribute="top" secondItem="Iit-hG-Oc7" secondAttribute="bottom" id="Jwg-2N-snA"/>
-                <constraint firstItem="Iit-hG-Oc7" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="RIX-Qw-lnw"/>
+                <constraint firstItem="Iit-hG-Oc7" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="c7p-24-F7a"/>
                 <constraint firstItem="npv-Qa-vhY" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="fnt-uQ-RHC"/>
                 <constraint firstAttribute="trailing" secondItem="npv-Qa-vhY" secondAttribute="trailing" constant="8" id="lRQ-ph-gpW"/>
                 <constraint firstItem="Iit-hG-Oc7" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="qig-nc-DYl"/>
                 <constraint firstAttribute="bottom" secondItem="npv-Qa-vhY" secondAttribute="bottom" id="spj-Xj-O6T"/>
-                <constraint firstAttribute="trailing" secondItem="Iit-hG-Oc7" secondAttribute="trailing" id="u2o-gH-RdY"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
             <size key="customSize" width="303" height="234"/>

@@ -81,6 +81,7 @@
                 </textField>
             </subviews>
             <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="SZu-Tq-Swa" firstAttribute="top" secondItem="djD-Z2-0oC" secondAttribute="bottom" constant="8" id="3GG-Wr-jlT"/>
                 <constraint firstItem="w9X-Sa-JxB" firstAttribute="top" secondItem="0de-18-KEZ" secondAttribute="bottom" constant="15" id="BJ6-hA-nge"/>

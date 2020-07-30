@@ -82,7 +82,6 @@
     self.placeSearchBar.delegate = self;
     
     self.calendarView.delegate = self;
-    //TODO: set calendar's first date and last date
     
     if (self.placeList != nil) {
          NSLog(@"We are editing a list!");
@@ -111,7 +110,6 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     int pageNumber = scrollView.contentOffset.x / scrollView.frame.size.width;
     self.pageControl.currentPage = pageNumber;
-   
 }
 
 - (void)setUpPage:(int) index {

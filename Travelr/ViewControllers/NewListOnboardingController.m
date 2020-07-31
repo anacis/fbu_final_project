@@ -141,8 +141,7 @@
         self.customDayButton = slide.customDayButton;
         UITapGestureRecognizer *tapButton = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapCustomDay:)];
         [self.customDayButton addGestureRecognizer:tapButton];
-        //UITapGestureRecognizer *tap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
-        //[slide addGestureRecognizer:tap];
+        [slide setUpGestureRecognizer];
         slideView = (UIView *)slide;
     } else if (index == 2) {
         NewListSlide3 *slide = [[[NSBundle mainBundle] loadNibNamed:@"NewListSlide3" owner:self options:nil] objectAtIndex:0];
@@ -162,6 +161,8 @@
         self.placeSearchBar.alpha = 0;
         self.suggestionsCollectionView.alpha = 0;
         self.suggestionsLabel.alpha = 0;
+        
+        [slide setUpGestureRecognizer];
         
         slideView = (UIView *)slide;
     }

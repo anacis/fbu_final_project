@@ -7,6 +7,7 @@
 //
 
 #import "NewListSlide2.h"
+#import <GLCalendarView.h>
 
 @implementation NewListSlide2
 
@@ -17,5 +18,30 @@
     // Drawing code
 }
 */
+
+- (void)setUpGestureRecognizer {
+    self.tap.delegate = self;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+   if ([touch.view isDescendantOfView:self.calendarView]) {
+        // Don't let selections of auto-complete entries fire the
+        // gesture recognizer
+        return NO;
+    } else if ([touch.view isDescendantOfView:self.customDayButton]) {
+        return NO;
+    } else if (self.calendarView.ranges.count != 0) {
+        if ([touch.view isDescendantOfView:self.calendarView.ranges[0]]) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
+- (IBAction)outsideTap:(id)sender {
+    [self.numDaysField resignFirstResponder];
+    [self.numHoursField resignFirstResponder];
+}
 
 @end

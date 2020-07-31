@@ -18,4 +18,29 @@
 }
 */
 
+- (void)setUpGestureRecognizer {
+    self.tap.delegate = self;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([touch.view isDescendantOfView:self.myPlacesTableView]) {
+        // Don't let selections of auto-complete entries fire the
+        // gesture recognizer
+        return NO;
+    }
+    else if ([touch.view isDescendantOfView:self.placesSearchTableView]) {
+        return NO;
+    }
+    else if ([touch.view isDescendantOfView:self.suggestionsCollectionView]) {
+        return NO;
+    }
+    return YES;
+}
+
+- (IBAction)outsideTap:(id)sender {
+    [self.placeSearchBar resignFirstResponder];
+    [self.cityField resignFirstResponder];
+}
+
 @end

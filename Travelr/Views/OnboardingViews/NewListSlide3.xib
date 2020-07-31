@@ -112,8 +112,15 @@
                 <outlet property="placesSearchTableView" destination="0de-18-KEZ" id="VPx-M8-e6H"/>
                 <outlet property="suggestionsCollectionView" destination="6y1-FU-mTu" id="GI5-Ec-U0v"/>
                 <outlet property="suggestionsLabel" destination="w9X-Sa-JxB" id="hBr-M0-rKf"/>
+                <outlet property="tap" destination="UVK-UT-VzY" id="MJd-Qb-gl5"/>
+                <outletCollection property="gestureRecognizers" destination="UVK-UT-VzY" appends="YES" id="2z2-HV-zeO"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="145.98214285714286"/>
         </view>
+        <tapGestureRecognizer id="UVK-UT-VzY">
+            <connections>
+                <action selector="outsideTap:" destination="iN0-l3-epB" id="srp-kk-kT4"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
 </document>

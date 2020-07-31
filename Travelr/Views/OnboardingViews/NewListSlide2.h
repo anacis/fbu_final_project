@@ -11,12 +11,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NewListSlide2 : UIView
+@interface NewListSlide2 : UIView <UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *numDaysField;
 @property (weak, nonatomic) IBOutlet UILabel *numDaysLabel;
 @property (weak, nonatomic) IBOutlet UITextField *numHoursField;
 @property (weak, nonatomic) IBOutlet GLCalendarView *calendarView;
 @property (weak, nonatomic) IBOutlet UIButton *customDayButton;
+@property (weak, nonatomic) IBOutlet UITapGestureRecognizer *tap;
+
+- (void)setUpGestureRecognizer;
 
 @end
 

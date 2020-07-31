@@ -62,6 +62,7 @@
                 </label>
             </subviews>
             <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1Kh-sc-Zw5" secondAttribute="trailing" constant="50" id="5aN-rn-UAk"/>
                 <constraint firstItem="0OS-kb-JCz" firstAttribute="top" secondItem="s34-8J-0z3" secondAttribute="bottom" constant="50" id="5bG-Md-lIu"/>
@@ -88,9 +89,16 @@
                 <outlet property="numDaysField" destination="1Kh-sc-Zw5" id="D3e-IA-11N"/>
                 <outlet property="numDaysLabel" destination="s34-8J-0z3" id="3bR-JS-Ioq"/>
                 <outlet property="numHoursField" destination="Os9-wu-y87" id="RpF-HZ-N1K"/>
+                <outlet property="tap" destination="R0q-1f-bIo" id="wYA-sf-yfS"/>
+                <outletCollection property="gestureRecognizers" destination="R0q-1f-bIo" appends="YES" id="ozD-Yg-8AQ"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="145.98214285714286"/>
         </view>
+        <tapGestureRecognizer id="R0q-1f-bIo">
+            <connections>
+                <action selector="outsideTap:" destination="iN0-l3-epB" id="FBb-Wx-usD"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="checkmark.square" catalog="system" width="128" height="114"/>

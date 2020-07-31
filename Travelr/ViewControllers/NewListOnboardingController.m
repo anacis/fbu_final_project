@@ -546,15 +546,27 @@
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     imagePickerVC.delegate = self;
     imagePickerVC.allowsEditing = YES;
-    //TODO: ask user which option they wish to use
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *camera = [UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
-    }
-    else {
-        NSLog(@"Camera 🚫 available so we will use photo library instead");
+        [alertController dismissViewControllerAnimated:YES completion:^{
+            [self presentViewController:imagePickerVC animated:YES completion:nil];
+        }];
+    }];
+    UIAlertAction *cameraRoll = [UIAlertAction actionWithTitle:@"Use Camera Roll" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    }
-    [self presentViewController:imagePickerVC animated:YES completion:nil];
+        [alertController dismissViewControllerAnimated:YES completion:^{
+            [self presentViewController:imagePickerVC animated:YES completion:nil];
+        }];
+    }];
+    
+    [alertController addAction:camera];
+    [alertController addAction:cameraRoll];
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+    
+    
 }
 
 - (void)tapCustomDay:(UITapGestureRecognizer *)recognizer {

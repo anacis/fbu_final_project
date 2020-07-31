@@ -45,13 +45,10 @@
 @property (weak, nonatomic) UICollectionView *suggestionsCollectionView;
 @property (weak, nonatomic) UITableView *myPlacesTableView;
 @property (strong, nonatomic) NSLayoutConstraint *searchTableHeight;
-
-@property (weak, nonatomic) UISearchBar *citySearchBar;
-@property (weak, nonatomic) UITableView *cityTableView;
+@property (weak, nonatomic) UILabel *suggestionsLabel;
 
 @property (strong, nonatomic) NSMutableArray *places;
 @property (strong, nonatomic) NSMutableArray *timesSpent;
-@property (strong, nonatomic) NSArray *citiesSearched;
 @property (strong, nonatomic) NSArray *placeSearchResults;
 @property (strong, nonatomic) NSArray *suggestions;
 @property (strong, nonatomic) NSString *city;
@@ -81,10 +78,6 @@
     self.suggestionsCollectionView.dataSource = self;
     self.placeSearchTableView.allowsSelection = YES;
     self.placeSearchBar.delegate = self;
-    
-    self.citySearchBar.delegate = self;
-    self.cityTableView.delegate = self;
-    self.cityTableView.dataSource = self;
     
     self.calendarView.delegate = self;
     
@@ -163,11 +156,12 @@
         UINib *nib = [UINib nibWithNibName:@"SuggestionCollectionCell" bundle:nil];
         [self.suggestionsCollectionView registerNib:nib forCellWithReuseIdentifier:@"SuggestionCollectionCell"];
         self.myPlacesTableView = slide.myPlacesTableView;
+        self.suggestionsLabel = slide.suggestionsLabel;
         
-        self.cityTableView = slide.cityTableView;
-        self.citySearchBar = slide.citySearchBar;
-        UINib *cityNib = [UINib nibWithNibName:@"CityCellView" bundle:nil];
-        [self.cityTableView registerNib:cityNib forCellReuseIdentifier:@"CityCell"];
+        self.placeSearchTableView.alpha = 0;
+        self.placeSearchBar.alpha = 0;
+        self.suggestionsCollectionView.alpha = 0;
+        self.suggestionsLabel.alpha = 0;
         
         slideView = (UIView *)slide;
     }
@@ -243,11 +237,6 @@
         [cell setUpCell];
         return cell;
     }
-    else if (tableView == self.cityTableView) {
-        CityCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CityCell"];
-        cell.cityNameLabel.text = self.citiesSearched[indexPath.row];
-        return cell;
-    }
     else {
         SearchPlaceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchPlaceCell"];
         if (!cell) {
@@ -265,9 +254,6 @@
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.myPlacesTableView) {
         return self.places.count;
-    }
-    else if (tableView == self.cityTableView) {
-        return self.citiesSearched.count;
     }
     else {
         return self.placeSearchResults.count;
@@ -338,15 +324,6 @@
         NSString *city = self.cityField.text;
         [self fetchLocationsWithQuery:searchBar.text near:city];
     }
-    else if (searchBar == self.citySearchBar) {
-        dispatch_group_t group = dispatch_group_create();
-        dispatch_group_enter(group);
-        [self fetchCities:searchBar.text group:group];
-        dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-            NSLog(@"%@", self.citiesSearched);
-            [self.cityTableView reloadData];
-        });
-    }
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
@@ -380,11 +357,17 @@
         [self fetchLocationsWithQuery:newText near:city];
         return true;
     }
-    return true;
+    return false;
 }
 
 -(void)textFieldDidChange :(UITextField *) textField{
-    [self fetchSuggestionsWithCity:textField.text];
+    if ([textField.text isEqualToString:@""]) {
+        [self animateSearchDisAppear];
+    }
+    else {
+        [self fetchSuggestionsWithCity:textField.text];
+        [self animateSearchAppear];
+    }
 }
 
 - (void)newPlaceCell:(NewPlaceCell *)newPlaceCell didSpecifyTimeSpent:(nonnull NSNumber *)time {
@@ -419,6 +402,24 @@
         self.calendarHeight.constant = 0;
         self.numDaysLabel.alpha = 1;
         self.daysField.alpha = 1;
+    }];
+}
+
+- (void)animateSearchAppear {
+    [UIView animateWithDuration:0 animations:^{
+        self.placeSearchBar.alpha = 1;
+        self.suggestionsCollectionView.alpha = 1;
+        self.placeSearchTableView.alpha = 1;
+        self.suggestionsLabel.alpha = 1;
+    }];
+}
+
+- (void)animateSearchDisAppear {
+    [UIView animateWithDuration:0 animations:^{
+        self.placeSearchBar.alpha = 0;
+        self.suggestionsCollectionView.alpha = 0;
+        self.placeSearchTableView.alpha = 0;
+        self.suggestionsLabel.alpha = 0;
     }];
 }
 
@@ -471,7 +472,7 @@
 }
 
 - (void)fetchCities:(NSString *)name group:(dispatch_group_t)group{
-    NSDictionary *headers = @{ @"x-rapidapi-host": @"wft-geo-db.p.rapidapi.com",
+     NSDictionary *headers = @{ @"x-rapidapi-host": @"wft-geo-db.p.rapidapi.com",
         @"x-rapidapi-key": RAPIDAPIKEY};
 
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: [NSString stringWithFormat:@"https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=%@", name]]
@@ -492,7 +493,7 @@
                 NSString *cityString = [NSString stringWithFormat:@"%@, %@", city[@"city"], city[@"country"]];
                 [currentSearch addObject:cityString];
             }
-            self.citiesSearched = currentSearch;
+            //self.citiesSearched = currentSearch;
             dispatch_group_leave(group);
         }
     }];

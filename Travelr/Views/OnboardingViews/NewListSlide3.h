@@ -11,13 +11,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NewListSlide3 : UIView
-@property (weak, nonatomic) IBOutlet UITableView *cityTableView;
-@property (weak, nonatomic) IBOutlet UISearchBar *citySearchBar;
 @property (weak, nonatomic) IBOutlet UITableView *placesSearchTableView;
 @property (weak, nonatomic) IBOutlet UICollectionView *suggestionsCollectionView;
 @property (weak, nonatomic) IBOutlet UITableView *myPlacesTableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *placeSearchBar;
 @property (weak, nonatomic) IBOutlet UITextField *cityField;
+@property (weak, nonatomic) IBOutlet UILabel *suggestionsLabel;
 
 @end
 

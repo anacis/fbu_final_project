@@ -50,7 +50,8 @@
 @property (strong, nonatomic) NSMutableArray *places;
 @property (strong, nonatomic) NSMutableArray *timesSpent;
 @property (strong, nonatomic) NSArray *placeSearchResults;
-@property (strong, nonatomic) NSArray *suggestions;
+@property (strong, nonatomic) NSMutableArray *suggestions;
+@property (strong, nonatomic) NSMutableArray *allSuggestions;
 @property (strong, nonatomic) NSString *city;
 
 @end
@@ -314,10 +315,14 @@
     dispatch_group_notify(placeGroup,dispatch_get_main_queue(),^{
         [self.timesSpent addObject:@0];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.suggestions removeObjectAtIndex:indexPath.item];
+        if (self.allSuggestions.count > 0) {
+            [self.suggestions addObject:self.allSuggestions[0]];
+            [self.allSuggestions removeObjectAtIndex:0];
+        }        
+        [self.suggestionsCollectionView reloadData];
         [self.myPlacesTableView reloadData];
        });
-    
-    //TODO: remove this suggestion and replace it with the next suggestion available
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -465,7 +470,13 @@
         if (data) {
             NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             NSDictionary *group = [responseDictionary valueForKeyPath:@"response.groups"][0];
-            self.suggestions = [group[@"items"] subarrayWithRange:NSMakeRange(0, MIN(10, [group[@"items"] count]))];
+            self.allSuggestions = [NSMutableArray arrayWithArray:group[@"items"]];
+            NSUInteger index = MIN(self.allSuggestions.count, 10);
+            self.suggestions = [NSMutableArray arrayWithArray:[self.allSuggestions subarrayWithRange:NSMakeRange(0, index)]];
+            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, index)];
+            [self.allSuggestions removeObjectsAtIndexes:indexSet];
+            
+            
             [self.suggestionsCollectionView reloadData];
         }
     }];

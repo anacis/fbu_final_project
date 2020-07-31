@@ -46,14 +46,15 @@
 @property (weak, nonatomic) UITableView *myPlacesTableView;
 @property (strong, nonatomic) NSLayoutConstraint *searchTableHeight;
 
+@property (weak, nonatomic) UISearchBar *citySearchBar;
+@property (weak, nonatomic) UITableView *cityTableView;
+
 @property (strong, nonatomic) NSMutableArray *places;
 @property (strong, nonatomic) NSMutableArray *timesSpent;
 @property (strong, nonatomic) NSArray *citiesSearched;
 @property (strong, nonatomic) NSArray *placeSearchResults;
 @property (strong, nonatomic) NSArray *suggestions;
-
-
-
+@property (strong, nonatomic) NSString *city;
 
 @end
 
@@ -80,6 +81,10 @@
     self.suggestionsCollectionView.dataSource = self;
     self.placeSearchTableView.allowsSelection = YES;
     self.placeSearchBar.delegate = self;
+    
+    self.citySearchBar.delegate = self;
+    self.cityTableView.delegate = self;
+    self.cityTableView.dataSource = self;
     
     self.calendarView.delegate = self;
     
@@ -158,6 +163,12 @@
         UINib *nib = [UINib nibWithNibName:@"SuggestionCollectionCell" bundle:nil];
         [self.suggestionsCollectionView registerNib:nib forCellWithReuseIdentifier:@"SuggestionCollectionCell"];
         self.myPlacesTableView = slide.myPlacesTableView;
+        
+        self.cityTableView = slide.cityTableView;
+        self.citySearchBar = slide.citySearchBar;
+        UINib *cityNib = [UINib nibWithNibName:@"CityCellView" bundle:nil];
+        [self.cityTableView registerNib:cityNib forCellReuseIdentifier:@"CityCell"];
+        
         slideView = (UIView *)slide;
     }
     
@@ -219,16 +230,6 @@
     }];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     if (tableView == self.myPlacesTableView) {
         NewPlaceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewPlaceCell"];
@@ -242,6 +243,11 @@
         [cell setUpCell];
         return cell;
     }
+    else if (tableView == self.cityTableView) {
+        CityCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CityCell"];
+        cell.cityNameLabel.text = self.citiesSearched[indexPath.row];
+        return cell;
+    }
     else {
         SearchPlaceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchPlaceCell"];
         if (!cell) {
@@ -253,11 +259,15 @@
         [cell updateWithLocation:location];
         return cell;
     }
+    
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.myPlacesTableView) {
         return self.places.count;
+    }
+    else if (tableView == self.cityTableView) {
+        return self.citiesSearched.count;
     }
     else {
         return self.placeSearchResults.count;
@@ -328,21 +338,36 @@
         NSString *city = self.cityField.text;
         [self fetchLocationsWithQuery:searchBar.text near:city];
     }
+    else if (searchBar == self.citySearchBar) {
+        dispatch_group_t group = dispatch_group_create();
+        dispatch_group_enter(group);
+        [self fetchCities:searchBar.text group:group];
+        dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+            NSLog(@"%@", self.citiesSearched);
+            [self.cityTableView reloadData];
+        });
+    }
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    [self animateOpenTableView];
+    if (searchBar == self.placeSearchBar) {
+        [self animateOpenTableView];
+    }
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    if ([searchText isEqualToString:@""]) {
-        [self animateCloseTableView];
+    if (searchBar == self.placeSearchBar) {
+        if ([searchText isEqualToString:@""]) {
+            [self animateCloseTableView];
+        }
     }
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    [self.placeSearchBar endEditing:YES];
-    [self animateCloseTableView];
+    if (searchBar == self.placeSearchBar) {
+        [self.placeSearchBar endEditing:YES];
+        [self animateCloseTableView];
+    }
 }
 
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -355,7 +380,7 @@
         [self fetchLocationsWithQuery:newText near:city];
         return true;
     }
-    return false;
+    return true;
 }
 
 -(void)textFieldDidChange :(UITextField *) textField{
@@ -444,6 +469,36 @@
     }];
     [task resume];
 }
+
+- (void)fetchCities:(NSString *)name group:(dispatch_group_t)group{
+    NSDictionary *headers = @{ @"x-rapidapi-host": @"wft-geo-db.p.rapidapi.com",
+        @"x-rapidapi-key": RAPIDAPIKEY};
+
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: [NSString stringWithFormat:@"https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=%@", name]]
+        cachePolicy:NSURLRequestUseProtocolCachePolicy
+        timeoutInterval:10.0];
+    [request setHTTPMethod:@"GET"];
+    [request setAllHTTPHeaderFields:headers];
+
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            NSLog(@"%@", error);
+        } else if (data) {
+            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSArray *data = responseDictionary[@"data"];
+            NSMutableArray *currentSearch = [[NSMutableArray alloc] init];
+            for (NSDictionary *city in data) {
+                NSString *cityString = [NSString stringWithFormat:@"%@, %@", city[@"city"], city[@"country"]];
+                [currentSearch addObject:cityString];
+            }
+            self.citiesSearched = currentSearch;
+            dispatch_group_leave(group);
+        }
+    }];
+    [dataTask resume];
+}
+
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     

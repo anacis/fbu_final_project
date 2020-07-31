@@ -24,6 +24,9 @@
                     </label>
                 </subviews>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="cityNameLabel" destination="EPG-dg-7GQ" id="Bw8-i3-CBd"/>
+            </connections>
             <point key="canvasLocation" x="76.811594202898561" y="32.8125"/>
         </tableViewCell>
     </objects>

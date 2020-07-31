@@ -79,6 +79,7 @@
                 [self.suggestions removeObject:suggestion];
                 [collectionView reloadData];
                 [MBProgressHUD hideHUDForView:self animated:YES];
+
             }
             }];
     });

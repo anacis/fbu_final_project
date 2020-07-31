@@ -83,7 +83,6 @@
     self.calendarView.delegate = self;
     
     if (self.placeList != nil) {
-         NSLog(@"We are editing a list!");
          self.places = self.placeList.placesUnsorted;
          self.timesSpent = self.placeList.timesSpent;
          self.titleField.text = self.placeList.name;
@@ -204,9 +203,7 @@
     
     [[PFUser currentUser] incrementKey:@"numLists"];
     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-      if (succeeded) {
-        NSLog(@"Incremented user numLists!");
-      } else {
+      if (error != nil) {
         NSLog(@"Error: %@", error.localizedDescription);
       }
     }];
@@ -483,35 +480,6 @@
     [task resume];
 }
 
-- (void)fetchCities:(NSString *)name group:(dispatch_group_t)group{
-     NSDictionary *headers = @{ @"x-rapidapi-host": @"wft-geo-db.p.rapidapi.com",
-        @"x-rapidapi-key": RAPIDAPIKEY};
-
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: [NSString stringWithFormat:@"https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=%@", name]]
-        cachePolicy:NSURLRequestUseProtocolCachePolicy
-        timeoutInterval:10.0];
-    [request setHTTPMethod:@"GET"];
-    [request setAllHTTPHeaderFields:headers];
-
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error) {
-            NSLog(@"%@", error);
-        } else if (data) {
-            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            NSArray *data = responseDictionary[@"data"];
-            NSMutableArray *currentSearch = [[NSMutableArray alloc] init];
-            for (NSDictionary *city in data) {
-                NSString *cityString = [NSString stringWithFormat:@"%@, %@", city[@"city"], city[@"country"]];
-                [currentSearch addObject:cityString];
-            }
-            //self.citiesSearched = currentSearch;
-            dispatch_group_leave(group);
-        }
-    }];
-    [dataTask resume];
-}
-
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     
@@ -542,7 +510,6 @@
 }
 
 - (void)onTapImage:(UITapGestureRecognizer *)recognizer {
-    NSLog(@"Tapping on image!");
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     imagePickerVC.delegate = self;
     imagePickerVC.allowsEditing = YES;
@@ -573,12 +540,10 @@
     if (self.customDayButton.selected == NO) {
         [self.customDayButton setSelected:YES];
         [self animateCloseCalendar];
-        NSLog(@"Using custom day input");
      }
      else {
         [self.customDayButton setSelected:NO];
         [self animateOpenCalendar];
-        NSLog(@"Using calendar day input");
      }
 }
 

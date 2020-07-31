@@ -98,7 +98,17 @@
         if (data) {
             NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             //TODO: remove locations already in placelist
-            self.suggestions = [NSMutableArray arrayWithArray:[responseDictionary valueForKeyPath:@"response.similarVenues.items"]];
+            
+            NSMutableArray *allSuggestions = [NSMutableArray arrayWithArray:[responseDictionary valueForKeyPath:@"response.similarVenues.items"]];
+            self.suggestions = [NSMutableArray arrayWithArray:allSuggestions];
+            for (NSDictionary *suggestion in allSuggestions) {
+                for (Place *place in self.placeList.placesUnsorted) {
+                    if ([suggestion[@"name"] isEqualToString:place.name]) {
+                        [self.suggestions removeObject:suggestion];
+                        break;
+                    }
+                }
+            }
             [self.collectionView reloadData];
             [MBProgressHUD hideHUDForView:self animated:YES];
         }

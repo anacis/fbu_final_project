@@ -18,10 +18,11 @@
 #import "SuggestionCollectionCell.h"
 #import "SceneDelegate.h"
 #import <MBProgressHUD.h>
+#import "PickerViewController.h"
 @import GLCalendarView;
 @import Parse;
 
-@interface NewListOnboardingController () <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NewPlaceCellDelegate, GLCalendarViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface NewListOnboardingController () <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NewPlaceCellDelegate, GLCalendarViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, PickerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
@@ -171,6 +172,16 @@
     [self.scrollView addSubview:slideView];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"pickerSegue"]) {
+        PickerViewController *destination = [segue destinationViewController];
+        destination.tabBarHeight = self.tabBarController.tabBar.frame.size.height;
+        destination.modalPresentationStyle = UIModalPresentationCustom;
+        destination.cell = sender;
+        destination.delegate = self;
+    }
+}
+
 - (IBAction)cancel:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     SceneDelegate *scene = (SceneDelegate *) self.view.window.windowScene.delegate;
@@ -234,6 +245,7 @@
         cell.place = self.places[indexPath.row];
         cell.delegate = self;
         [cell setUpCell];
+        //TODO: check if we are editing a list and if so, make the button text equal to the timeSpent value
         return cell;
     }
     else {
@@ -373,7 +385,12 @@
     }
 }
 
-- (void)newPlaceCell:(NewPlaceCell *)newPlaceCell didSpecifyTimeSpent:(nonnull NSNumber *)time {
+- (void)getTimeSpent:(NewPlaceCell *)newPlaceCell {
+    [self performSegueWithIdentifier:@"pickerSegue" sender:newPlaceCell];
+}
+
+- (void)time:(NSNumber *)time didSpecifyTimeSpent:(UIView *)view {
+    NewPlaceCell *newPlaceCell = (NewPlaceCell *) view;
     NSIndexPath *indexPath = [self.myPlacesTableView indexPathForCell:newPlaceCell];
     self.timesSpent[indexPath.row] = time;
 }
@@ -588,6 +605,7 @@
 {
     NSLog(@"did update range: %@", range);
 }
+
 
 
 @end

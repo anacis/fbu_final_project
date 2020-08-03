@@ -13,6 +13,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class DetailView;
+
+@protocol DetailViewDelegate
+
+- (void)getTimeSpent:(DetailView *)detailView timeGroup:(dispatch_group_t)timeGroup;
+
+@end
+
 @interface DetailView : UIView <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet GMSMapView *mapView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -24,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) Place *place;
 @property (strong, nonatomic) PlaceList *placeList;
 @property (strong, nonatomic) NSMutableArray *suggestions;
+
+@property (weak, nonatomic) id<DetailViewDelegate> delegate;
 
 - (void)setUpPage;
 - (void)fetchSuggestionsWithVenue:(NSString *)venue;

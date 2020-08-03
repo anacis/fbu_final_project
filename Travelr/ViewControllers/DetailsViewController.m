@@ -12,10 +12,11 @@
 #import <MBProgressHUD.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "DetailView.h"
+#import "PickerViewController.h"
 @import Parse;
 @import GoogleMaps;
 
-@interface DetailsViewController () <UIScrollViewDelegate, UINavigationControllerDelegate>
+@interface DetailsViewController () <UIScrollViewDelegate, UINavigationControllerDelegate, DetailViewDelegate, PickerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -24,6 +25,7 @@
 @property (weak, nonatomic) UIView *currentView;
 @property (strong, nonatomic) NSMutableArray *suggestions;
 @property (strong, nonatomic) NSArray *flattenedPlacesSorted;
+@property (strong, nonatomic) dispatch_group_t group;
 
 
 @end
@@ -74,6 +76,7 @@
     detail.place = self.flattenedPlacesSorted[index];
     [detail setUpPage];    
     detail.frame = frame;
+    detail.delegate = self;
     [self.scrollView addSubview:(UIView *)detail];
     
 }
@@ -88,19 +91,27 @@
     [super viewWillDisappear:animated];
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    PickerViewController *destination = [segue destinationViewController];
+    destination.delegate = self;
+    //destination.detailView = sender;
 }
-*/
 
 
+- (void)getTimeSpent:(nonnull DetailView *)detailView timeGroup:(nonnull dispatch_group_t)timeGroup {
+    self.group = timeGroup;
+    dispatch_group_enter(self.group);
+    [self performSegueWithIdentifier:@"pickerSegue" sender:detailView];
+}
 
-
+- (void)time:(NSNumber *)time didSpecifyTimeSpent:(UIView *)view {
+    [self.placeList.timesSpent addObject:time];
+    self.placeList[@"timesSpent"] = self.placeList.timesSpent;
+    self.placeList.placesSorted = nil;
+    dispatch_group_leave(self.group);
+}
 
 
 @end

@@ -14,18 +14,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol NewPlaceCellDelegate
 
-- (void)newPlaceCell:(NewPlaceCell *)newPlaceCell didSpecifyTimeSpent:(nonnull NSNumber *)time;
+- (void)getTimeSpent:(NewPlaceCell *)newPlaceCell;
 
 @end
 
-@interface NewPlaceCell : UITableViewCell <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface NewPlaceCell : UITableViewCell
 
 @property (strong, nonatomic) Place *place;
 @property (weak, nonatomic) IBOutlet UIImageView *image;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UIButton *timeSpentButton;
-@property (weak, nonatomic) IBOutlet UIPickerView *timeSpentPicker;
 
 - (void)setUpCell;
 

@@ -7,11 +7,14 @@
 //
 
 #import "DetailView.h"
+#import "DetailsViewController.h"
 #import "Place.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "SuggestionCollectionCell.h"
 #import "APIConstants.h"
 #import <MBProgressHUD.h>
+#import <HWPopController/HWPopController.h>
+#import "PopUpTimeView.h"
 
 @implementation DetailView
 
@@ -60,29 +63,38 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    dispatch_group_t serviceGroup = dispatch_group_create();
-    NSDictionary *suggestion = self.suggestions[indexPath.item];
-    //create Place Object
-    [MBProgressHUD showHUDAddedTo:self animated:YES];
-    dispatch_group_enter(serviceGroup);
-    [Place createPlaceFromDictionary:suggestion placeList:self.placeList.placesUnsorted group:serviceGroup];
-   
-    dispatch_group_notify(serviceGroup,dispatch_get_main_queue(),^{
-        self.placeList[@"placesUnsorted"] = self.placeList.placesUnsorted;
-        //TODO: ask User for time Spent
-        [self.placeList.timesSpent addObject:@(-1)];
-        self.placeList[@"timesSpent"] = self.placeList.timesSpent;
-        self.placeList.placesSorted = nil;
-        [self.placeList saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-            if (succeeded) {
-                //remove this suggestion from collectionView
-                [self.suggestions removeObject:suggestion];
-                [collectionView reloadData];
-                [MBProgressHUD hideHUDForView:self animated:YES];
 
-            }
-            }];
+    NSDictionary *suggestion = self.suggestions[indexPath.item];
+    
+    dispatch_group_t timeGroup = dispatch_group_create();
+    [self.delegate getTimeSpent:self timeGroup:timeGroup];
+    
+    dispatch_group_notify(timeGroup, dispatch_get_main_queue(), ^{
+        NSLog(@"Got Time");
+        dispatch_group_t serviceGroup = dispatch_group_create();
+        //create Place Object
+         [MBProgressHUD showHUDAddedTo:self animated:YES];
+         dispatch_group_enter(serviceGroup);
+        NSLog(@"Entering place creation");
+         [Place createPlaceFromDictionary:suggestion placeList:self.placeList.placesUnsorted group:serviceGroup];
+        
+         
+         dispatch_group_notify(serviceGroup,dispatch_get_main_queue(),^{
+             NSLog(@"Left place creation");
+             self.placeList[@"placesUnsorted"] = self.placeList.placesUnsorted;
+             [self.placeList saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+             if (succeeded) {
+                 //remove this suggestion from collectionView
+                 NSLog(@"Saved Place to PlaceList");
+                 [self.suggestions removeObject:suggestion];
+                 [collectionView reloadData];
+                 [MBProgressHUD hideHUDForView:self animated:YES];
+
+             }
+             }];
+         });
     });
+    
 }
 
 - (void)fetchSuggestionsWithVenue:(NSString *)venue {
@@ -97,8 +109,6 @@
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data) {
             NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            //TODO: remove locations already in placelist
-            
             NSMutableArray *allSuggestions = [NSMutableArray arrayWithArray:[responseDictionary valueForKeyPath:@"response.similarVenues.items"]];
             self.suggestions = [NSMutableArray arrayWithArray:allSuggestions];
             for (NSDictionary *suggestion in allSuggestions) {

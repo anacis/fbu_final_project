@@ -13,8 +13,6 @@
 #import "SuggestionCollectionCell.h"
 #import "APIConstants.h"
 #import <MBProgressHUD.h>
-#import <HWPopController/HWPopController.h>
-#import "PopUpTimeView.h"
 
 @implementation DetailView
 
@@ -67,25 +65,23 @@
     NSDictionary *suggestion = self.suggestions[indexPath.item];
     
     dispatch_group_t timeGroup = dispatch_group_create();
-    [self.delegate getTimeSpent:self timeGroup:timeGroup];
+
+    [self.delegate getTimeSpent:timeGroup];
+ 
     
     dispatch_group_notify(timeGroup, dispatch_get_main_queue(), ^{
-        NSLog(@"Got Time");
         dispatch_group_t serviceGroup = dispatch_group_create();
         //create Place Object
          [MBProgressHUD showHUDAddedTo:self animated:YES];
          dispatch_group_enter(serviceGroup);
-        NSLog(@"Entering place creation");
          [Place createPlaceFromDictionary:suggestion placeList:self.placeList.placesUnsorted group:serviceGroup];
         
          
          dispatch_group_notify(serviceGroup,dispatch_get_main_queue(),^{
-             NSLog(@"Left place creation");
              self.placeList[@"placesUnsorted"] = self.placeList.placesUnsorted;
              [self.placeList saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
              if (succeeded) {
                  //remove this suggestion from collectionView
-                 NSLog(@"Saved Place to PlaceList");
                  [self.suggestions removeObject:suggestion];
                  [collectionView reloadData];
                  [MBProgressHUD hideHUDForView:self animated:YES];

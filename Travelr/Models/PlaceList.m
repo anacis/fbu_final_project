@@ -9,6 +9,7 @@
 #import "PlaceList.h"
 #import "Place.h"
 #include <math.h>
+#import "DefaultHandling.h"
 
 @implementation PlaceList
 
@@ -132,9 +133,11 @@
             NSUInteger placeIndex = [self.placesUnsorted indexOfObject:sorted[sortedIndex]];
             double timeSpent = [self.timesSpent[placeIndex] doubleValue];
             if (timeSpent == -1) {
-                timeSpent = 1; //default time to spend at each location
+                NSLog(@"%@", sorted[sortedIndex]);
+                NSString *category = sorted[sortedIndex][@"locationType"];
+                timeSpent = [DefaultHandling getDefaultFromCategory:category]; //default time to spend at each location
             }
-            
+        
             double totalTime = travelTime + timeSpent;
             if (hoursLeft - totalTime < 0) {
                 break;

@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) double tabBarHeight;
 @property (strong, nonatomic) NewPlaceCell *cell;
-//@property (strong, nonatomic) DetailView *detailView;
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 
 @property (weak, nonatomic) id<PickerViewDelegate> delegate;

@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol DetailViewDelegate
 
-- (void)getTimeSpent:(DetailView *)detailView timeGroup:(dispatch_group_t)timeGroup;
+- (void)getTimeSpent:(dispatch_group_t)timeGroup;
 
 @end
 

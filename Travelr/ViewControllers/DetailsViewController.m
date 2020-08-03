@@ -96,14 +96,14 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     PickerViewController *destination = [segue destinationViewController];
     destination.delegate = self;
-    //destination.detailView = sender;
+    
 }
 
 
-- (void)getTimeSpent:(nonnull DetailView *)detailView timeGroup:(nonnull dispatch_group_t)timeGroup {
+- (void)getTimeSpent:(nonnull dispatch_group_t)timeGroup {
     self.group = timeGroup;
     dispatch_group_enter(self.group);
-    [self performSegueWithIdentifier:@"pickerSegue" sender:detailView];
+    [self performSegueWithIdentifier:@"pickerSegue" sender:nil];
 }
 
 - (void)time:(NSNumber *)time didSpecifyTimeSpent:(UIView *)view {

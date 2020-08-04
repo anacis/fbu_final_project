@@ -453,11 +453,10 @@
 
 
 - (void)fetchLocationsWithQuery:(NSString *)query near:(NSString *)city {
-    NSString *baseURLString = @"https://api.foursquare.com/v2/venues/search?";
-    NSString *queryString = [NSString stringWithFormat:@"client_id=%@&client_secret=%@&v=20141020&near=%@&query=%@", FOURSQUAREID, FOURSQUARESECRET, city, query];
+    NSString *queryString = [NSString stringWithFormat:SEARCHQUERY, FOURSQUAREID, FOURSQUARESECRET, city, query];
     queryString = [queryString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
-    NSURL *url = [NSURL URLWithString:[baseURLString stringByAppendingString:queryString]];
+    NSURL *url = [NSURL URLWithString:[BASEURLSEARCH stringByAppendingString:queryString]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -472,11 +471,10 @@
 }
 
 - (void)fetchSuggestionsWithCity:(NSString *)city {
-    NSString *baseURLString = @"https://api.foursquare.com/v2/venues/explore?";
-    NSString *queryString = [NSString stringWithFormat:@"client_id=%@&client_secret=%@&v=20141020&near=%@", FOURSQUAREID, FOURSQUARESECRET, city];
+    NSString *queryString = [NSString stringWithFormat:EXPLOREQUERY, FOURSQUAREID, FOURSQUARESECRET, city];
     queryString = [queryString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
-    NSURL *url = [NSURL URLWithString:[baseURLString stringByAppendingString:queryString]];
+    NSURL *url = [NSURL URLWithString:[BASEURLEXPLORE stringByAppendingString:queryString]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];

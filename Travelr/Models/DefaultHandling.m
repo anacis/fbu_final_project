@@ -15,27 +15,29 @@
         return 1;
     }
     
-    if ([category containsString:@"Restaurant"]) {
+    category = [category lowercaseString];
+    
+    if ([category containsString:@"restaurant"]) {
         return 2;
-    } else if ([category containsString:@"Shop"] || [category containsString:@"Store"]) {
+    } else if ([category containsString:@"shop"] || [category containsString:@"store"]) {
         return 0.5;
-    } else if ([category containsString:@"Museum"]) {
+    } else if ([category containsString:@"museum"]) {
         return 5;
-    } else if ([category containsString:@"Park"]) {
+    } else if ([category containsString:@"park"]) {
         return 1.5;
-    } else if ([category containsString:@"Beach"]) {
+    } else if ([category containsString:@"beach"]) {
         return 3;
-    } else if ([category containsString:@"Café"]) {
+    } else if ([category containsString:@"café"]) {
         return 1.5;
-    } else if ([category containsString:@"Landmark"]) {
+    } else if ([category containsString:@"landmark"]) {
         return 1;
-    } else if ([category containsString:@"Station"]) {
+    } else if ([category containsString:@"station"]) {
         return 0.5;
-    } else if ([category containsString:@"Lookout"]) {
+    } else if ([category containsString:@"lookout"]) {
         return 0.5;
-    } else if ([category containsString:@"Historic"]) {
+    } else if ([category containsString:@"historic"]) {
         return 3;
-    } else if ([category containsString:@"Music"] || ([category containsString:@"Theater"])) {
+    } else if ([category containsString:@"music"] || ([category containsString:@"theater"])) {
         return 3;
     }
     

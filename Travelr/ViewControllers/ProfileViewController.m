@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *listNumLabel;
 @property (weak, nonatomic) IBOutlet UILabel *friendsNumLabel;
 @property (weak, nonatomic) IBOutlet UIButton *button;
+@property (weak, nonatomic) IBOutlet UIButton *followButton;
+@property (weak, nonatomic) IBOutlet UILabel *listLabel;
 
 @property (strong, nonatomic) NSArray *favorites;
 
@@ -48,23 +50,30 @@
 
 - (void)setUpPage {
     UITapGestureRecognizer *tap;
-    if (self.user == nil || self.user == [PFUser currentUser]) {
-      //my profile page
-      self.user = [PFUser currentUser];
-      self.button.titleLabel.text = @"Logout";
-      tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logout:)];
+    if (self.user == nil || [self.user.objectId isEqualToString:[PFUser currentUser].objectId]) {
+        //my profile page
+        self.user = [PFUser currentUser];
+        self.button.titleLabel.text = @"Logout";
+        tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logout:)];
+        [self.button addGestureRecognizer:tap];
+        [self.followButton setHidden:YES];
+        self.listLabel.text = @"My Favorites";
     } else {
-      self.button.titleLabel.text = @"Back";
-      tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goBack:)];
+        self.listLabel.text = [NSString stringWithFormat:@"%@'s Lists", self.user[@"name"]];
+        [self.followButton setHidden:NO];
+        if ([[PFUser currentUser][@"following"] containsObject:self.user.objectId]) {
+            [self.followButton setSelected:YES];
+        }
+        else {
+            [self.followButton setSelected:NO];
+        }
     }
-    [self.button addGestureRecognizer:tap];
     self.favoritesTableView.delegate = self;
     self.favoritesTableView.dataSource = self;
     //TODO: add name field in sign up page
-    NSLog(@"%@", self.user);
     self.nameLabel.text = self.user[@"name"];
     self.listNumLabel.text = [self.user[@"numLists"] stringValue];
-    self.friendsNumLabel.text = [@([self.user[@"friends"] count]) stringValue];
+    self.friendsNumLabel.text = [@([self.user[@"following"] count]) stringValue];
     self.profilePicView.layer.cornerRadius = self.profilePicView.frame.size.height / 2;
     PFFileObject *image = self.user[@"profilePic"];
     if (image != nil) {
@@ -75,7 +84,12 @@
         NSLog(@"User does not have a profile pic");
     }
     
-    [self fetchFavorites];
+    
+    if ([self.user.objectId isEqualToString:[PFUser currentUser].objectId]) {
+        [self fetchFavorites];
+    } else {
+        [self fetchLists];
+    }
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -111,6 +125,27 @@
     }];
 }
 
+- (void)fetchLists {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    PFQuery *query = [PFQuery queryWithClassName:@"PlaceList"];
+    [query orderByDescending:@"updatedAt"];
+    [query whereKey:@"author" equalTo:self.user];
+    [query includeKey:@"placesUnsorted"];
+    query.limit = 20;
+
+    // fetch data asynchronously
+    [query findObjectsInBackgroundWithBlock:^(NSArray *placeLists, NSError *error) {
+        if (placeLists != nil) {
+            self.favorites = (NSArray *)placeLists;
+            NSLog(@"Placelists: %@", placeLists);
+            [self.favoritesTableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
+}
+
 - (void)logout:(UITapGestureRecognizer *)tap {
      if ([FBSDKAccessToken currentAccessToken]) {
          FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
@@ -131,14 +166,31 @@
      }];
 }
 
-- (void)goBack:(UITapGestureRecognizer *)tap {
-    self.user = nil;
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    SceneDelegate *scene = (SceneDelegate *) self.view.window.windowScene.delegate;
-    UITabBarController *tab = [storyboard instantiateViewControllerWithIdentifier:@"Tabbar"];
-    scene.window.rootViewController = tab;
-    [tab setSelectedIndex:1];
+- (IBAction)follow:(id)sender {
+    NSLog(@"Tapped on follow");
+    PFUser *currUser = [PFUser currentUser];
+    NSMutableArray *list = currUser[@"following"];
+    if (self.followButton.isSelected) {
+        [self.followButton setSelected:NO];
+        [list removeObject:self.user.objectId];
+    }
+    else {
+        [self.followButton setSelected:YES];
+        if (list == nil) {
+            list = [[NSMutableArray alloc] init];
+        }
+        [list addObject:self.user.objectId];
+    }
+    [currUser setObject:list  forKey:@"following"];
+    [currUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"Followed user");
+        } else {
+            NSLog(@"Error following user: %@", error.localizedDescription);
+        }
+    }];
     
 }
+
 
 @end

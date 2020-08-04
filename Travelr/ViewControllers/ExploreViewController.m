@@ -56,8 +56,7 @@
         LocationFeedController *locationFeed = [segue destinationViewController];
         locationFeed.placeList = sender;
     } else if ([segue.identifier isEqualToString:@"listToProfile"]) {
-        UINavigationController *nav = [segue destinationViewController];
-        ProfileViewController *destination = (ProfileViewController *) nav.topViewController;
+        ProfileViewController *destination = [segue destinationViewController];
         destination.user = sender;
         
     }

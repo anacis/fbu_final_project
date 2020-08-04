@@ -14,6 +14,9 @@
     [super awakeFromNib];
     UITapGestureRecognizer *placeListTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapList:)];
     [self addGestureRecognizer:placeListTapGestureRecognizer];
+    UITapGestureRecognizer *usernameTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(usernameTapped:)];
+    [self.usernameLabel addGestureRecognizer:usernameTapGestureRecognizer];
+   
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -83,5 +86,12 @@
         }
     }];
 }
+
+- (void)usernameTapped:(UITapGestureRecognizer*)tap {
+    NSLog(@"Tapped on username");
+    [self.delegate placeListCell:self didTapUsername:self.placeList.author];
+}
+
+
 
 @end

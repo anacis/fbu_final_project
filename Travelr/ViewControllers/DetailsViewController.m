@@ -44,7 +44,6 @@
     NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeWidth multiplier:self.pageControl.numberOfPages constant:0];
     [self.view addConstraint:width];
     
-    
     for (int i = 0; i < self.pageControl.numberOfPages; i++) {
         [self setUpPage:i];
     }
@@ -90,6 +89,7 @@
     }
     [super viewWillDisappear:animated];
 }
+
 
 
 

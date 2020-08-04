@@ -11,6 +11,7 @@
 #import "LocationFeedController.h"
 #import "LoginViewController.h"
 #import "SceneDelegate.h"
+#import "ProfileViewController.h"
 #import <MBProgressHUD.h>
 
 @interface ExploreViewController () <UITableViewDelegate, UITableViewDataSource, PlaceListCellDelegate>
@@ -54,6 +55,11 @@
     if ([segue.identifier isEqual:@"listToLocationSegue"]) {
         LocationFeedController *locationFeed = [segue destinationViewController];
         locationFeed.placeList = sender;
+    } else if ([segue.identifier isEqualToString:@"listToProfile"]) {
+        UINavigationController *nav = [segue destinationViewController];
+        ProfileViewController *destination = (ProfileViewController *) nav.topViewController;
+        destination.user = sender;
+        
     }
 }
 
@@ -92,6 +98,10 @@
 
 - (void)placeListCell:(nonnull PlaceListCell *)placeListCell didTap:(nonnull PlaceList *)placeList {
     [self performSegueWithIdentifier:@"listToLocationSegue" sender:placeList];
+}
+
+- (void)placeListCell:(PlaceListCell *) placeListCell didTapUsername: (PFUser *)user {
+    [self performSegueWithIdentifier:@"listToProfile" sender:user];
 }
 
 @end

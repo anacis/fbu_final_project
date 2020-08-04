@@ -9,6 +9,8 @@
 #import "ProfileViewController.h"
 #import "FavoritesCell.h"
 #import <MBProgressHUD.h>
+#import "SceneDelegate.h"
+#import "LoginViewController.h"
 @import Parse;
 
 @interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -17,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *listNumLabel;
 @property (weak, nonatomic) IBOutlet UILabel *friendsNumLabel;
+@property (weak, nonatomic) IBOutlet UIButton *button;
 
 @property (strong, nonatomic) NSArray *favorites;
 
@@ -44,9 +47,21 @@
 */
 
 - (void)setUpPage {
-    self.user = [PFUser currentUser];
+    UITapGestureRecognizer *tap;
+    if (self.user == nil || self.user == [PFUser currentUser]) {
+      //my profile page
+      self.user = [PFUser currentUser];
+      self.button.titleLabel.text = @"Logout";
+      tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logout:)];
+    } else {
+      self.button.titleLabel.text = @"Back";
+      tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goBack:)];
+    }
+    [self.button addGestureRecognizer:tap];
     self.favoritesTableView.delegate = self;
     self.favoritesTableView.dataSource = self;
+    //TODO: add name field in sign up page
+    NSLog(@"%@", self.user);
     self.nameLabel.text = self.user[@"name"];
     self.listNumLabel.text = [self.user[@"numLists"] stringValue];
     self.friendsNumLabel.text = [@([self.user[@"friends"] count]) stringValue];
@@ -96,5 +111,34 @@
     }];
 }
 
+- (void)logout:(UITapGestureRecognizer *)tap {
+     if ([FBSDKAccessToken currentAccessToken]) {
+         FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+         [login logOut];
+     }
+     
+     [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+         if (error == nil) {
+             NSLog(@"User is logged out");
+             SceneDelegate *myDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
+             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+             LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginNavController"];
+             myDelegate.window.rootViewController = loginViewController;
+         }
+         else {
+             NSLog(@"Error logging out: %@", error.localizedDescription);
+         }
+     }];
+}
+
+- (void)goBack:(UITapGestureRecognizer *)tap {
+    self.user = nil;
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    SceneDelegate *scene = (SceneDelegate *) self.view.window.windowScene.delegate;
+    UITabBarController *tab = [storyboard instantiateViewControllerWithIdentifier:@"Tabbar"];
+    scene.window.rootViewController = tab;
+    [tab setSelectedIndex:1];
+    
+}
 
 @end

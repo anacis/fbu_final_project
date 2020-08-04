@@ -32,6 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol PlaceListCellDelegate
 - (void)placeListCell:(PlaceListCell *) placeListCell didTap: (PlaceList *)placeList;
+
+@optional
+- (void)placeListCell:(PlaceListCell *) placeListCell didTapUsername: (PFUser *)user;
+
 @end
 
 NS_ASSUME_NONNULL_END

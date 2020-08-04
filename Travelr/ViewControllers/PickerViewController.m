@@ -61,7 +61,7 @@
     [super viewDidLayoutSubviews];
     SceneDelegate *myDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
     //double bottomPadding = myDelegate.window.safeAreaInsets.bottom;
-    [self.view setFrame:CGRectMake(self.view.frame.origin.x, 600 - self.tabBarHeight, self.view.frame.size.width, 300)];
+    [self.view setFrame:CGRectMake(self.view.frame.origin.x, 550 - self.tabBarHeight, self.view.frame.size.width, 300)];
 }
 
 

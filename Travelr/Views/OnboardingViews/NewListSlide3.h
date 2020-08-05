@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UISearchBar *placeSearchBar;
 @property (weak, nonatomic) IBOutlet UITextField *cityField;
 @property (weak, nonatomic) IBOutlet UILabel *suggestionsLabel;
+@property (weak, nonatomic) IBOutlet UIButton *selectStartButton;
 
 @property (weak, nonatomic) IBOutlet UITapGestureRecognizer *tap;
 

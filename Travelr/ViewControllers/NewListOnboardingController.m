@@ -47,6 +47,7 @@
 @property (weak, nonatomic) UITableView *myPlacesTableView;
 @property (strong, nonatomic) NSLayoutConstraint *searchTableHeight;
 @property (weak, nonatomic) UILabel *suggestionsLabel;
+@property (weak, nonatomic) UIButton *selectStartButton;
 
 @property (strong, nonatomic) NSMutableArray *places;
 @property (strong, nonatomic) NSMutableArray *timesSpent;
@@ -54,6 +55,7 @@
 @property (strong, nonatomic) NSMutableArray *suggestions;
 @property (strong, nonatomic) NSMutableArray *allSuggestions;
 @property (strong, nonatomic) NSString *city;
+@property (strong, nonatomic) NSIndexPath *selectedIndexPath;
 
 @end
 
@@ -158,6 +160,11 @@
         self.myPlacesTableView = slide.myPlacesTableView;
         self.suggestionsLabel = slide.suggestionsLabel;
         
+        self.selectStartButton = slide.selectStartButton;
+        UITapGestureRecognizer *tapButton = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapSelectStart:)];
+        [self.selectStartButton addGestureRecognizer:tapButton];
+       
+        
         self.placeSearchTableView.alpha = 0;
         self.placeSearchBar.alpha = 0;
         self.suggestionsCollectionView.alpha = 0;
@@ -244,6 +251,16 @@
         }
         cell.place = self.places[indexPath.row];
         cell.delegate = self;
+        if (indexPath == self.selectedIndexPath) {
+            if (cell.accessoryType == UITableViewCellAccessoryNone) {
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }
+            else if (cell.accessoryType == UITableViewCellAccessoryCheckmark) {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            }
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
         [cell setUpCell];
         //TODO: check if we are editing a list and if so, make the button text equal to the timeSpent value
         return cell;
@@ -284,6 +301,12 @@
             [self animateCloseTableView];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
+    } else if (tableView == self.myPlacesTableView) {
+        if ([self.selectStartButton isSelected]) {
+            self.selectedIndexPath = indexPath;
+            NSLog(@"Selected INdex Path: %@", self.selectedIndexPath);
+            [tableView reloadData];
+        }
     }
 }
 
@@ -559,6 +582,23 @@
      else {
         [self.customDayButton setSelected:NO];
         [self animateOpenCalendar];
+     }
+}
+
+- (void)tapSelectStart:(UITapGestureRecognizer *)recognizer {
+    if (self.selectStartButton.selected == NO) {
+        NSLog(@"Selected Button");
+        [self.selectStartButton setSelected:YES];
+        [self.selectStartButton setTitle:@"Done" forState:UIControlStateSelected];
+        self.selectStartButton.backgroundColor = [UIColor whiteColor];
+        [self.selectStartButton setTitleColor:[UIColor systemBlueColor] forState:UIControlStateSelected];
+     }
+     else {
+        NSLog(@"UnSelected Button");
+        [self.selectStartButton setSelected:NO];
+        [self.selectStartButton setTitle:@"Select Starting Point" forState:UIControlStateNormal];
+        self.selectStartButton.backgroundColor = [UIColor systemBlueColor];
+        [self.selectStartButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
      }
 }
 

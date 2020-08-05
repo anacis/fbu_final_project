@@ -15,8 +15,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="293" height="79"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" text="Maison Alyzee" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOK-eY-RfU">
-                        <rect key="frame" x="71" y="12" width="102" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" text="Maison Alyzee" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOK-eY-RfU">
+                        <rect key="frame" x="71" y="12" width="99.5" height="17"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -35,7 +35,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zbi-52-6Ed">
-                        <rect key="frame" x="193" y="8" width="90" height="28"/>
+                        <rect key="frame" x="183" y="8" width="90" height="28"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="90" id="z7S-96-83L"/>
                         </constraints>
@@ -47,16 +47,16 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Zbi-52-6Ed" firstAttribute="leading" secondItem="oOK-eY-RfU" secondAttribute="trailing" constant="20" id="1ah-7h-xGO"/>
                     <constraint firstItem="lqW-Po-JFC" firstAttribute="leading" secondItem="AmF-HO-UYR" secondAttribute="leading" constant="8" id="9k9-5O-zH7"/>
                     <constraint firstItem="VAC-yy-ekz" firstAttribute="top" secondItem="oOK-eY-RfU" secondAttribute="bottom" constant="8" id="9rA-qP-fFU"/>
+                    <constraint firstItem="Zbi-52-6Ed" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oOK-eY-RfU" secondAttribute="trailing" constant="8" id="JzA-td-bVv"/>
                     <constraint firstItem="VAC-yy-ekz" firstAttribute="leading" secondItem="lqW-Po-JFC" secondAttribute="trailing" constant="8" id="LUe-Ry-jnE"/>
                     <constraint firstItem="oOK-eY-RfU" firstAttribute="leading" secondItem="lqW-Po-JFC" secondAttribute="trailing" constant="8" id="VNB-cn-AMy"/>
-                    <constraint firstItem="Zbi-52-6Ed" firstAttribute="top" secondItem="AmF-HO-UYR" secondAttribute="top" constant="8" id="anK-dh-yYk"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="lqW-Po-JFC" secondAttribute="bottom" constant="20" id="bNU-ni-dHR"/>
-                    <constraint firstAttribute="trailing" secondItem="Zbi-52-6Ed" secondAttribute="trailing" constant="10" id="fv1-PO-fWl"/>
                     <constraint firstItem="lqW-Po-JFC" firstAttribute="top" secondItem="AmF-HO-UYR" secondAttribute="top" constant="10" id="sYy-sS-OX6"/>
                     <constraint firstItem="oOK-eY-RfU" firstAttribute="top" secondItem="AmF-HO-UYR" secondAttribute="top" constant="12" id="usr-ic-5qu"/>
+                    <constraint firstAttribute="trailing" secondItem="Zbi-52-6Ed" secondAttribute="trailing" constant="20" id="x4f-xl-AYE"/>
+                    <constraint firstItem="Zbi-52-6Ed" firstAttribute="top" secondItem="AmF-HO-UYR" secondAttribute="top" constant="8" id="yJ1-XF-q25"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

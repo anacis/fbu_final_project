@@ -18,7 +18,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self.timeSpentButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -35,6 +35,9 @@
     else if ([touch.view isDescendantOfView:self.suggestionsCollectionView]) {
         return NO;
     }
+    else if ([touch.view isDescendantOfView:self.selectStartButton]) {
+        return NO;
+    }
     return YES;
 }
 

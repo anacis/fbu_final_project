@@ -219,6 +219,10 @@
     list.placesUnsorted = self.places;
     list.timesSpent = self.timesSpent;
     
+    if (self.selectedIndexPath != nil) {
+        list[@"start"] = self.places[self.selectedIndexPath.row];
+    }
+    
     [[PFUser currentUser] incrementKey:@"numLists"];
     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
       if (error != nil) {
@@ -257,6 +261,7 @@
             }
             else if (cell.accessoryType == UITableViewCellAccessoryCheckmark) {
                 cell.accessoryType = UITableViewCellAccessoryNone;
+                self.selectedIndexPath = nil;
             }
         } else {
             cell.accessoryType = UITableViewCellAccessoryNone;
@@ -320,6 +325,9 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.myPlacesTableView) {
         if (editingStyle == UITableViewCellEditingStyleDelete) {
+            if (self.selectedIndexPath == indexPath) {
+                self.selectedIndexPath = nil;
+            }
             [self.places removeObjectAtIndex:indexPath.row];
             [self.timesSpent removeObjectAtIndex:indexPath.row];
             [tableView reloadData];

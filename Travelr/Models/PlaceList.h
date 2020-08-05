@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *placesUnsorted;
 @property (nonatomic, strong) NSMutableArray *timesSpent;
 @property (nonatomic, strong) NSArray *placesSorted;
+@property (nonatomic, strong) Place *start;
 
 + (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image;
 

@@ -21,6 +21,7 @@
 @dynamic numHours;
 @dynamic placesUnsorted;
 @dynamic timesSpent;
+@dynamic start;
 
 //not stored in Parse
 @dynamic placesSorted;
@@ -51,18 +52,43 @@
     NSMutableArray *bestSorted = [[NSMutableArray alloc] init];
     double bestTotalDistance = INFINITY;
     
-    for (int i = 0; i < self.placesUnsorted.count; i++) {
+    NSUInteger numStartingPoints;
+    if (self.start != nil) {
+        numStartingPoints = 1;
+    } else {
+        numStartingPoints = self.placesUnsorted.count;
+    }
+    
+    for (int i = 0; i < numStartingPoints; i++) {
+        
         NSMutableArray *unsorted = [NSMutableArray arrayWithArray:self.placesUnsorted]; //make a copy as to not disturb orginal data
         NSMutableArray *sorted = [[NSMutableArray alloc] init];
         
-        [sorted addObject:unsorted[i]];
-        [unsorted removeObjectAtIndex:i];
+        [self.start fetchIfNeeded];
+        int indexStart = -1;
+        for (int i = 0; i < unsorted.count; i++) {
+            Place *place = unsorted[i];
+            if ([place.objectId isEqualToString:self.start.objectId]) {
+                indexStart = i;
+            }
+        }
+        
+        if (self.start != nil) {
+            [sorted addObject:unsorted[indexStart]];
+            [unsorted removeObjectAtIndex:indexStart];
+        } else {
+            [sorted addObject:unsorted[i]];
+            [unsorted removeObjectAtIndex:i];
+        }
         
         while (unsorted.count > 0) {
             Place *from = sorted[sorted.count - 1];
             Place *to;
             double bestDistance = INFINITY;
             for (Place *place in unsorted) {
+                if (self.start == place) {
+                    NSLog(@"There is a match!");
+                }
                 double distance = [PlaceList getDistance:from place2:place];
                 if (distance < bestDistance) {
                     to = place;
@@ -113,6 +139,7 @@
 
 - (void)separateIntoDays:(NSArray *)sorted {
     //We are assuming that the average speed of driving is 35 mph
+    NSLog(@"Sorted Array: %@", sorted);
     int const avgSpeed = 35;
     double daysLeft = [self.numDays doubleValue];
     int sortedIndex = 0;

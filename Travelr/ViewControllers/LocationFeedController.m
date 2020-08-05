@@ -15,6 +15,8 @@
 @interface LocationFeedController () <UITableViewDelegate, UITableViewDataSource, DayCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UILabel *listNameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *completeButton;
 
 @end
 
@@ -24,6 +26,30 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.listNameLabel.text = self.placeList.name;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeTrip:)];
+    [self.completeButton addGestureRecognizer:tap];
+    [self.completeButton setTitle:@"Complete Trip" forState:UIControlStateNormal];
+    [self.completeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    [self.completeButton setTitle:@"Trip Completed" forState:UIControlStateSelected];
+    [self.completeButton setTitleColor:[UIColor colorWithRed:104.0f/255.0f green:181.0f/255.0f blue:78.0f/255.0f alpha:1.0] forState:UIControlStateSelected];
+    
+    
+    if (self.placeList.completed) {
+        NSLog(@"Loading: place is completed");
+        [self.completeButton setSelected:YES];
+        self.completeButton.backgroundColor = [UIColor whiteColor];
+    }
+    else {
+        NSLog(@"Loading: place is uncompleted");
+        [self.completeButton setSelected:NO];
+        self.completeButton.backgroundColor = [UIColor colorWithRed:104.0f/255.0f green:181.0f/255.0f blue:78.0f/255.0f alpha:1.0];
+        //[self.completeButton setBackgroundColor:[UIColor colorWithRed:104 green:181 blue:78 alpha:1.0]];
+        //self.completeButton.titleLabel.text = @"Trip Uncompleted";
+        //self.completeButton.backgroundColor = [UIColor colorWithRed:104 green:181 blue:78 alpha:1.0];
+        //[self.completeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }
     [self checkListCompletion];
 }
 
@@ -85,6 +111,29 @@
 
 - (void)LocationCollectionCell:(nonnull LocationCollectionCell *)LocationCollectionCell didTapLocation:(nonnull Place *)place {
     [self performSegueWithIdentifier:@"detailsSegue" sender:place];
+}
+
+- (void)completeTrip:(UITapGestureRecognizer *)recognizer {
+    if (!self.placeList.completed) {
+        NSLog(@"Completed Trip");
+        [self.completeButton setSelected:YES];
+        self.completeButton.backgroundColor = [UIColor whiteColor];
+        self.placeList.completed = YES;
+    }
+    else {
+        NSLog(@"UnCompleted Trip");
+        [self.completeButton setSelected:NO];
+        self.completeButton.backgroundColor = [UIColor colorWithRed:104.0f/255.0f green:181.0f/255.0f blue:78.0f/255.0f alpha:1.0];
+        self.placeList.completed = NO;
+    }
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"PlaceList"];
+    [query getObjectInBackgroundWithId:self.placeList.objectId
+                                 block:^(PFObject *post, NSError *error) {
+        //NSLog(@"Updated database");
+        post[@"completed"] = @(self.placeList.completed);
+        [post saveInBackground];
+    }];
 }
 
 @end

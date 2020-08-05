@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *dayLabel;
 @property (weak, nonatomic) IBOutlet UIButton *mapsButton;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIButton *completedButton;
 
 @property (nonatomic, weak) id<DayCellDelegate> delegate;
 
@@ -30,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol DayCellDelegate
 - (void)LocationCollectionCell:(LocationCollectionCell *) LocationCollectionCell didTapLocation: (Place *)place;
+
 @end
 
 

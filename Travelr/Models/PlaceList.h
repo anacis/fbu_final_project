@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *timesSpent;
 @property (nonatomic, strong) NSArray *placesSorted;
 @property (nonatomic, strong) Place *start;
+@property (nonatomic) BOOL completed;
 
 + (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image;
 

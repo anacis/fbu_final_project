@@ -37,12 +37,16 @@
 - (void)setUpCell {
     self.dayLabel.text = self.day;
     [self.collectionView reloadData];
+    
+    //TODO: set button
 }
 
 - (void)LocationCollectionCell:(LocationCollectionCell *)LocationCollectionCell didTap:(Place *)place {
     [self.delegate LocationCollectionCell:LocationCollectionCell didTapLocation:place];
 }
 
+- (IBAction)tapComplete:(id)sender {
+}
 
 - (IBAction)startMaps:(id)sender {
     //GMaps Format: "https://www.google.com/maps/dir/Shoreline+Amphitheatre,+Amphitheatre+Parkway,+Mountain+View,+CA/Facebook,+1+Hacker+Way,+Menlo+Park,+CA+94025"

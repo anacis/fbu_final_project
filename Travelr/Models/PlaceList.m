@@ -22,6 +22,7 @@
 @dynamic placesUnsorted;
 @dynamic timesSpent;
 @dynamic start;
+@dynamic completed;
 
 //not stored in Parse
 @dynamic placesSorted;

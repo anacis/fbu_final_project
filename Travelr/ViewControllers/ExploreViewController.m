@@ -13,11 +13,14 @@
 #import "SceneDelegate.h"
 #import "ProfileViewController.h"
 #import <MBProgressHUD.h>
+#import "UserCell.h"
 
-@interface ExploreViewController () <UITableViewDelegate, UITableViewDataSource, PlaceListCellDelegate>
+@interface ExploreViewController () <UITableViewDelegate, UITableViewDataSource, PlaceListCellDelegate, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
-@property (strong, nonatomic) NSArray *placeLists;
+@property (strong, nonatomic) NSArray *exploreResults;
+@property (strong, nonatomic) NSArray *searchResults;
 
 @end
 
@@ -28,7 +31,12 @@
     [self.navigationItem setHidesBackButton:YES];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    [self fetchPlaceLists];
+    self.searchBar.delegate = self;
+    UINib *nib = [UINib nibWithNibName:@"UserCell" bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:@"UserCell"];
+    
+    [self fetchExplore];
+    
 }
 
 - (IBAction)logout:(id)sender {
@@ -64,29 +72,60 @@
 
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    PlaceListCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PlaceListCell"];
-    cell.placeList = self.placeLists[indexPath.row];
-    cell.delegate = self;
-    [cell setUpExploreCell];
-    return cell;
+    if (self.searchResults == nil) {
+        if (self.searchBar.selectedScopeButtonIndex == 0) {
+            UserCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"UserCell"];
+            cell.user = self.exploreResults[indexPath.row];
+            [cell setUpCell];
+            return cell;
+        } else {
+            PlaceListCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PlaceListCell"];
+            cell.placeList = self.exploreResults[indexPath.row];
+            cell.delegate = self;
+            [cell setUpExploreCell];
+            return cell;
+        }
+    } else if ((self.searchResults.count > 0) && [self.searchResults[0] isKindOfClass:[PlaceList class]]){
+        PlaceListCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PlaceListCell"];
+        cell.placeList = self.searchResults[indexPath.row];
+        cell.delegate = self;
+        [cell setUpExploreCell];
+        return cell;
+    } else {
+        UserCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"UserCell"];
+        cell.user = self.searchResults[indexPath.row];
+        [cell setUpCell];
+        return cell;
+    }
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.placeLists.count;
+    if (self.searchResults == nil) {
+        return self.exploreResults.count;
+    } else {
+        return self.searchResults.count;
+    }
 }
 
-- (void)fetchPlaceLists {
+- (void)fetchExplore {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    PFQuery *query = [PFQuery queryWithClassName:@"PlaceList"];
+    PFQuery *query;
+    if (self.searchBar.selectedScopeButtonIndex == 0) {
+        query = [PFUser query];
+        [query whereKey:@"objectId" notEqualTo:[PFUser currentUser].objectId];
+    } else {
+        query = [PFQuery queryWithClassName:@"PlaceList"];
+        [query includeKey:@"placesUnsorted"];
+        [query whereKey:@"author" notEqualTo:[PFUser currentUser]];
+    }
+    
     [query orderByDescending:@"updatedAt"];
-    //[query whereKey:@"author" equalTo:[PFUser currentUser]];
-    [query includeKey:@"placesUnsorted"];
     query.limit = 20;
 
     // fetch data asynchronously
-    [query findObjectsInBackgroundWithBlock:^(NSArray *placeLists, NSError *error) {
-        if (placeLists != nil) {
-            self.placeLists = (NSMutableArray *)placeLists;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *results, NSError *error) {
+        if (results != nil) {
+            self.exploreResults = (NSMutableArray *)results;
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -101,6 +140,53 @@
 
 - (void)placeListCell:(PlaceListCell *) placeListCell didTapUsername: (PFUser *)user {
     [self performSegueWithIdentifier:@"listToProfile" sender:user];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if ([searchText isEqualToString:@""]) {
+        self.searchResults = nil;
+        [self.tableView reloadData];
+    } else {
+        [self search:searchText];
+    }
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    self.searchResults = nil;
+    [self.tableView reloadData];
+    [self.searchBar resignFirstResponder];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
+    if (![self.searchBar.text isEqualToString:@""] || self.searchBar.text == nil) {
+        [self search:self.searchBar.text];
+    } else {
+        [self fetchExplore];
+    }
+}
+
+- (void)search:(NSString *)searchInput {
+    PFQuery *query;
+    if (self.searchBar.selectedScopeButtonIndex == 0) {
+        PFQuery *usernames = [PFUser query];
+        [usernames whereKey:@"username" containsString:searchInput]; //can't use matchesText for a user query so this will have to do, doesn't take into account capitalization
+        PFQuery *names = [PFUser query];
+        [names whereKey:@"name" containsString:searchInput];
+        query = [PFQuery orQueryWithSubqueries:@[usernames,names]];
+    } else if (self.searchBar.selectedScopeButtonIndex == 1) {
+        query = [PFQuery queryWithClassName:@"PlaceList"];
+        [query whereKey:@"name" matchesText:searchInput]; //matches text matches both uppercase and lowercase
+    }
+    [query findObjectsInBackgroundWithBlock:^(NSArray *results, NSError *error) {
+      // results contains players with lots of wins or only a few wins.
+        if (error == nil) {
+            NSLog(@"Results: %@", results);
+            self.searchResults = results;
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"Error searching: %@", error.localizedDescription);
+        }
+    }];
 }
 
 @end

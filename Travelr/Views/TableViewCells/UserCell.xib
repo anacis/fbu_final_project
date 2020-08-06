@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserCell" rowHeight="100" id="RKu-Uc-99T" userLabel="UserCell" customClass="UserCell">
+            <rect key="frame" x="0.0" y="0.0" width="348" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RKu-Uc-99T" id="nHe-HG-GEu">
+                <rect key="frame" x="0.0" y="0.0" width="348" height="100"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="zK1-ZE-8m1" customClass="PFImageView">
+                        <rect key="frame" x="20" y="31.5" width="50" height="47.5"/>
+                        <color key="tintColor" red="0.4818017483" green="0.70095527170000005" blue="0.3567979932" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="8Qc-y6-I7m"/>
+                            <constraint firstAttribute="width" constant="50" id="eha-PQ-Cqg"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paris" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYg-UC-HG4">
+                        <rect key="frame" x="90" y="45" width="37.5" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mTc-qV-yFl">
+                        <rect key="frame" x="282" y="40" width="46" height="30"/>
+                        <state key="normal" title="Button"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="zK1-ZE-8m1" firstAttribute="top" secondItem="nHe-HG-GEu" secondAttribute="top" constant="30" id="8IX-AF-1l2"/>
+                    <constraint firstItem="SYg-UC-HG4" firstAttribute="leading" secondItem="zK1-ZE-8m1" secondAttribute="trailing" constant="20" id="8bC-JJ-llJ"/>
+                    <constraint firstAttribute="trailing" secondItem="mTc-qV-yFl" secondAttribute="trailing" constant="20" id="SEd-kr-eOV"/>
+                    <constraint firstItem="SYg-UC-HG4" firstAttribute="centerY" secondItem="zK1-ZE-8m1" secondAttribute="centerY" id="bQC-ij-bNl"/>
+                    <constraint firstItem="mTc-qV-yFl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="SYg-UC-HG4" secondAttribute="trailing" constant="8" id="m8e-fq-2nw"/>
+                    <constraint firstItem="mTc-qV-yFl" firstAttribute="centerY" secondItem="SYg-UC-HG4" secondAttribute="centerY" id="ohp-L5-5se"/>
+                    <constraint firstItem="zK1-ZE-8m1" firstAttribute="leading" secondItem="nHe-HG-GEu" secondAttribute="leading" constant="20" id="q6f-c9-Acb"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zK1-ZE-8m1" secondAttribute="bottom" constant="10" id="xhh-I0-YgE"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="followButton" destination="mTc-qV-yFl" id="U6o-rd-JdL"/>
+                <outlet property="image" destination="zK1-ZE-8m1" id="DI8-kK-Gd9"/>
+                <outlet property="usernameLabel" destination="SYg-UC-HG4" id="5ed-ye-mgq"/>
+            </connections>
+            <point key="canvasLocation" x="30.434782608695656" y="-14.732142857142856"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="person" catalog="system" width="128" height="117"/>
+    </resources>
+</document>

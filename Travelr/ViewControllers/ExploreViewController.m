@@ -15,7 +15,7 @@
 #import <MBProgressHUD.h>
 #import "UserCell.h"
 
-@interface ExploreViewController () <UITableViewDelegate, UITableViewDataSource, PlaceListCellDelegate, UISearchBarDelegate>
+@interface ExploreViewController () <UITableViewDelegate, UITableViewDataSource, PlaceListCellDelegate, UISearchBarDelegate, UserCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
@@ -75,7 +75,9 @@
     if (self.searchResults == nil) {
         if (self.searchBar.selectedScopeButtonIndex == 0) {
             UserCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"UserCell"];
+            //TODO: handle situation where user is fb user!
             cell.user = self.exploreResults[indexPath.row];
+            cell.delegate = self;
             [cell setUpCell];
             return cell;
         } else {
@@ -94,6 +96,7 @@
     } else {
         UserCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"UserCell"];
         cell.user = self.searchResults[indexPath.row];
+        cell.delegate = self;
         [cell setUpCell];
         return cell;
     }
@@ -187,6 +190,11 @@
             NSLog(@"Error searching: %@", error.localizedDescription);
         }
     }];
+}
+
+- (void)UserCell:(UserCell *) userCell didTapUser: (PFUser *)user {
+    NSLog(@"%@", user);
+    [self performSegueWithIdentifier:@"listToProfile" sender:user];
 }
 
 @end

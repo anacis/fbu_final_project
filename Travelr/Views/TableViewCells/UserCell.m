@@ -14,7 +14,8 @@
     [super awakeFromNib];
     [self.followButton setTitle:@"Follow" forState:UIControlStateNormal];
     [self.followButton setTitle:@"Following" forState:UIControlStateSelected];
-    // Initialization code
+    UITapGestureRecognizer *userTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapUser:)];
+    [self addGestureRecognizer:userTapGestureRecognizer];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -38,6 +39,11 @@
     else {
          [self.followButton setSelected:NO];
     }
+}
+
+- (void) didTapUser:(UITapGestureRecognizer *)sender {
+    NSLog(@"%@", self.delegate);
+    [self.delegate UserCell:self didTapUser:self.user];
 }
 
 @end

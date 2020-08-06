@@ -11,6 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol UserCellDelegate;
+
 @interface UserCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet PFImageView *image;
@@ -18,7 +20,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
 @property (strong, nonatomic) PFUser *user;
 
+@property (nonatomic, weak) id<UserCellDelegate> delegate;
+
 - (void)setUpCell;
+
+@end
+
+@protocol UserCellDelegate
+- (void)UserCell:(UserCell *) userCell didTapUser: (PFUser *)user;
 
 @end
 

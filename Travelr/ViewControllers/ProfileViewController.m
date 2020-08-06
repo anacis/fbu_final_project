@@ -11,6 +11,7 @@
 #import <MBProgressHUD.h>
 #import "SceneDelegate.h"
 #import "LoginViewController.h"
+#import "ParseManager.h"
 @import Parse;
 
 @interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -105,16 +106,7 @@
 
 - (void)fetchFavorites {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    PFQuery *query = [PFQuery queryWithClassName:@"PlaceList"];
-    [query orderByDescending:@"updatedAt"];
-    //[query whereKey:@"author" equalTo:[PFUser currentUser]];
-    NSArray *favorites = [PFUser currentUser][@"favoriteLists"];
-    [query whereKey:@"objectId" containedIn:favorites];
-    [query includeKey:@"placesUnsorted"];
-    query.limit = 20;
-
-    // fetch data asynchronously
-    [query findObjectsInBackgroundWithBlock:^(NSArray *placeLists, NSError *error) {
+    [ParseManager fetchFavorites:^(NSArray * _Nonnull placeLists, NSError * _Nonnull error) {
         if (placeLists != nil) {
             self.favorites = (NSArray *)placeLists;
             [self.favoritesTableView reloadData];
@@ -127,14 +119,7 @@
 
 - (void)fetchLists {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    PFQuery *query = [PFQuery queryWithClassName:@"PlaceList"];
-    [query orderByDescending:@"updatedAt"];
-    [query whereKey:@"author" equalTo:self.user];
-    [query includeKey:@"placesUnsorted"];
-    query.limit = 20;
-
-    // fetch data asynchronously
-    [query findObjectsInBackgroundWithBlock:^(NSArray *placeLists, NSError *error) {
+    [ParseManager fetchPlaceLists:^(NSArray * _Nonnull placeLists, NSError * _Nonnull error) {
         if (placeLists != nil) {
             self.favorites = (NSArray *)placeLists;
             NSLog(@"Placelists: %@", placeLists);
@@ -143,7 +128,7 @@
             NSLog(@"%@", error.localizedDescription);
         }
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-    }];
+    } user:self.user];
 }
 
 - (void)logout:(UITapGestureRecognizer *)tap {

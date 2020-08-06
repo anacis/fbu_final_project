@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		352B80661AD3EB61DA297217 /* Pods_Travelr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6631BA08F7B012734F80F24 /* Pods_Travelr.framework */; };
+		943E516624DC86160055B1AC /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 943E516524DC86160055B1AC /* Colors.m */; };
+		943E516A24DCB0A90055B1AC /* PlaceListCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 943E516824DCB0A90055B1AC /* PlaceListCollectionCell.m */; };
+		943E516B24DCB0A90055B1AC /* PlaceListCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943E516924DCB0A90055B1AC /* PlaceListCollectionCell.xib */; };
+		943E516F24DCB50A0055B1AC /* ParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 943E516E24DCB50A0055B1AC /* ParseManager.m */; };
 		944582B624CBA616001600A8 /* SuggestionCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 944582B424CBA616001600A8 /* SuggestionCollectionCell.m */; };
 		944582B724CBA616001600A8 /* SuggestionCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944582B524CBA616001600A8 /* SuggestionCollectionCell.xib */; };
 		944582BA24CF6C45001600A8 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 944582B924CF6C45001600A8 /* ProfileViewController.m */; };
@@ -39,7 +43,6 @@
 		949A20FE24BE726A007010FD /* LocationFeedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A20FD24BE726A007010FD /* LocationFeedController.m */; };
 		949A210124BE7421007010FD /* DayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A210024BE7421007010FD /* DayCell.m */; };
 		949A210424BE74F0007010FD /* LocationCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A210324BE74F0007010FD /* LocationCollectionCell.m */; };
-		94AAC6A424C641FA003D451E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AAC6A324C641FA003D451E /* Constants.m */; };
 		94AD72B324D8B9AE00E0F515 /* DefaultHandling.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AD72B224D8B9AE00E0F515 /* DefaultHandling.m */; };
 		94DC74AF24D8822A00B01D64 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DC74AE24D8822A00B01D64 /* PickerViewController.m */; };
 		94E3780A24C789DD00A859D7 /* CityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E3780924C789DD00A859D7 /* CityCell.m */; };
@@ -81,6 +84,13 @@
 		3769A92898CABDAFAF08B2BC /* Pods-Travelr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Travelr.release.xcconfig"; path = "Target Support Files/Pods-Travelr/Pods-Travelr.release.xcconfig"; sourceTree = "<group>"; };
 		3B710EB2106F91407D56BC7D /* Pods_TravelrTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TravelrTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF7D7F6CDFA6041A1F5E95D /* Pods-Travelr-TravelrUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Travelr-TravelrUITests.release.xcconfig"; path = "Target Support Files/Pods-Travelr-TravelrUITests/Pods-Travelr-TravelrUITests.release.xcconfig"; sourceTree = "<group>"; };
+		943E516424DC86160055B1AC /* Colors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
+		943E516524DC86160055B1AC /* Colors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
+		943E516724DCB0A90055B1AC /* PlaceListCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceListCollectionCell.h; sourceTree = "<group>"; };
+		943E516824DCB0A90055B1AC /* PlaceListCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaceListCollectionCell.m; sourceTree = "<group>"; };
+		943E516924DCB0A90055B1AC /* PlaceListCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceListCollectionCell.xib; sourceTree = "<group>"; };
+		943E516D24DCB50A0055B1AC /* ParseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParseManager.h; sourceTree = "<group>"; };
+		943E516E24DCB50A0055B1AC /* ParseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParseManager.m; sourceTree = "<group>"; };
 		944582B324CBA616001600A8 /* SuggestionCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuggestionCollectionCell.h; sourceTree = "<group>"; };
 		944582B424CBA616001600A8 /* SuggestionCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuggestionCollectionCell.m; sourceTree = "<group>"; };
 		944582B524CBA616001600A8 /* SuggestionCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionCollectionCell.xib; sourceTree = "<group>"; };
@@ -140,16 +150,14 @@
 		949A210024BE7421007010FD /* DayCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DayCell.m; sourceTree = "<group>"; };
 		949A210224BE74F0007010FD /* LocationCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationCollectionCell.h; sourceTree = "<group>"; };
 		949A210324BE74F0007010FD /* LocationCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationCollectionCell.m; sourceTree = "<group>"; };
-		94AAC6A224C641FA003D451E /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		94AAC6A324C641FA003D451E /* Constants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		94AD72B124D8B9AE00E0F515 /* DefaultHandling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefaultHandling.h; sourceTree = "<group>"; };
 		94AD72B224D8B9AE00E0F515 /* DefaultHandling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DefaultHandling.m; sourceTree = "<group>"; };
 		94DC74AD24D8822A00B01D64 /* PickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
 		94DC74AE24D8822A00B01D64 /* PickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
 		94E3780824C789DD00A859D7 /* CityCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CityCell.h; sourceTree = "<group>"; };
 		94E3780924C789DD00A859D7 /* CityCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CityCell.m; sourceTree = "<group>"; };
-		94E3780B24C79CC600A859D7 /* APIConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIConstants.h; sourceTree = "<group>"; };
-		94E3780C24C79CC600A859D7 /* APIConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIConstants.m; sourceTree = "<group>"; };
+		94E3780B24C79CC600A859D7 /* APIConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = APIConstants.h; path = ../Models/APIConstants.h; sourceTree = "<group>"; };
+		94E3780C24C79CC600A859D7 /* APIConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = APIConstants.m; path = ../Models/APIConstants.m; sourceTree = "<group>"; };
 		94E3781124C7AD1600A859D7 /* NewListSlide1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewListSlide1.xib; sourceTree = "<group>"; };
 		94E3781924C8A80B00A859D7 /* NewListOnboardingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewListOnboardingController.h; sourceTree = "<group>"; };
 		94E3781A24C8A80B00A859D7 /* NewListOnboardingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewListOnboardingController.m; sourceTree = "<group>"; };
@@ -221,6 +229,28 @@
 			path = DetailViews;
 			sourceTree = "<group>";
 		};
+		943E515D24DC83EA0055B1AC /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				94E3780B24C79CC600A859D7 /* APIConstants.h */,
+				94E3780C24C79CC600A859D7 /* APIConstants.m */,
+				94AD72B124D8B9AE00E0F515 /* DefaultHandling.h */,
+				94AD72B224D8B9AE00E0F515 /* DefaultHandling.m */,
+				943E516424DC86160055B1AC /* Colors.h */,
+				943E516524DC86160055B1AC /* Colors.m */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		943E516C24DCB4F00055B1AC /* APIManager */ = {
+			isa = PBXGroup;
+			children = (
+				943E516D24DCB50A0055B1AC /* ParseManager.h */,
+				943E516E24DCB50A0055B1AC /* ParseManager.m */,
+			);
+			path = APIManager;
+			sourceTree = "<group>";
+		};
 		949A209524BCBCB7007010FD = {
 			isa = PBXGroup;
 			children = (
@@ -246,6 +276,8 @@
 		949A20A024BCBCB7007010FD /* Travelr */ = {
 			isa = PBXGroup;
 			children = (
+				943E516C24DCB4F00055B1AC /* APIManager */,
+				943E515D24DC83EA0055B1AC /* Constants */,
 				949A20D824BCCCA0007010FD /* Models */,
 				949A20D724BCCC98007010FD /* Views */,
 				949A20D924BCCCA7007010FD /* ViewControllers */,
@@ -302,12 +334,6 @@
 				949A20DF24BCCD6C007010FD /* PlaceList.m */,
 				949A20E124BCCD8D007010FD /* Place.h */,
 				949A20E224BCCD8D007010FD /* Place.m */,
-				94AAC6A224C641FA003D451E /* Constants.h */,
-				94AAC6A324C641FA003D451E /* Constants.m */,
-				94E3780B24C79CC600A859D7 /* APIConstants.h */,
-				94E3780C24C79CC600A859D7 /* APIConstants.m */,
-				94AD72B124D8B9AE00E0F515 /* DefaultHandling.h */,
-				94AD72B224D8B9AE00E0F515 /* DefaultHandling.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -370,6 +396,9 @@
 				944582B324CBA616001600A8 /* SuggestionCollectionCell.h */,
 				944582B424CBA616001600A8 /* SuggestionCollectionCell.m */,
 				944582B524CBA616001600A8 /* SuggestionCollectionCell.xib */,
+				943E516724DCB0A90055B1AC /* PlaceListCollectionCell.h */,
+				943E516824DCB0A90055B1AC /* PlaceListCollectionCell.m */,
+				943E516924DCB0A90055B1AC /* PlaceListCollectionCell.xib */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -513,6 +542,7 @@
 			files = (
 				94E3782324C8C07E00A859D7 /* NewListSlide3.xib in Resources */,
 				94E3781224C7AD1600A859D7 /* NewListSlide1.xib in Resources */,
+				943E516B24DCB0A90055B1AC /* PlaceListCollectionCell.xib in Resources */,
 				94E3782524C8D62200A859D7 /* CityCellView.xib in Resources */,
 				949A20B124BCBCB8007010FD /* LaunchScreen.storyboard in Resources */,
 				94E3782924C8D78500A859D7 /* SearchPlaceCellView.xib in Resources */,
@@ -688,8 +718,10 @@
 				949A20DD24BCCD09007010FD /* User.m in Sources */,
 				949A210424BE74F0007010FD /* LocationCollectionCell.m in Sources */,
 				949A20FB24BE2651007010FD /* SearchPlaceCell.m in Sources */,
+				943E516A24DCB0A90055B1AC /* PlaceListCollectionCell.m in Sources */,
 				9471201C24DB8A63006AF42B /* UserCell.m in Sources */,
 				944582BA24CF6C45001600A8 /* ProfileViewController.m in Sources */,
+				943E516F24DCB50A0055B1AC /* ParseManager.m in Sources */,
 				94E3783624C8DCAD00A859D7 /* NewListSlide3.m in Sources */,
 				949A20A924BCBCB7007010FD /* ViewController.m in Sources */,
 				949A20FE24BE726A007010FD /* LocationFeedController.m in Sources */,
@@ -705,6 +737,7 @@
 				94E3780D24C79CC600A859D7 /* APIConstants.m in Sources */,
 				94E3781B24C8A80B00A859D7 /* NewListOnboardingController.m in Sources */,
 				944582B624CBA616001600A8 /* SuggestionCollectionCell.m in Sources */,
+				943E516624DC86160055B1AC /* Colors.m in Sources */,
 				949A20E924BCDFA8007010FD /* SignUpViewController.m in Sources */,
 				94688A0D24D22B7B004B52BD /* ExploreViewController.m in Sources */,
 				94E3783024C8DC1800A859D7 /* NewListSlide1.m in Sources */,
@@ -715,7 +748,6 @@
 				944582BD24CF752F001600A8 /* FavoritesCell.m in Sources */,
 				944582C024D09511001600A8 /* DetailsViewController.m in Sources */,
 				94E3780A24C789DD00A859D7 /* CityCell.m in Sources */,
-				94AAC6A424C641FA003D451E /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

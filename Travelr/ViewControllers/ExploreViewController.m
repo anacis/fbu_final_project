@@ -14,6 +14,7 @@
 #import "ProfileViewController.h"
 #import <MBProgressHUD.h>
 #import "UserCell.h"
+#import "ParseManager.h"
 
 @interface ExploreViewController () <UITableViewDelegate, UITableViewDataSource, PlaceListCellDelegate, UISearchBarDelegate, UserCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -112,21 +113,7 @@
 
 - (void)fetchExplore {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    PFQuery *query;
-    if (self.searchBar.selectedScopeButtonIndex == 0) {
-        query = [PFUser query];
-        [query whereKey:@"objectId" notEqualTo:[PFUser currentUser].objectId];
-    } else {
-        query = [PFQuery queryWithClassName:@"PlaceList"];
-        [query includeKey:@"placesUnsorted"];
-        [query whereKey:@"author" notEqualTo:[PFUser currentUser]];
-    }
-    
-    [query orderByDescending:@"updatedAt"];
-    query.limit = 20;
-
-    // fetch data asynchronously
-    [query findObjectsInBackgroundWithBlock:^(NSArray *results, NSError *error) {
+    [ParseManager fetchExplore:^(NSArray * results, NSError * error) {
         if (results != nil) {
             self.exploreResults = (NSMutableArray *)results;
             [self.tableView reloadData];
@@ -134,7 +121,8 @@
             NSLog(@"%@", error.localizedDescription);
         }
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-    }];
+    } index:self.searchBar.selectedScopeButtonIndex];
+    
 }
 
 - (void)placeListCell:(nonnull PlaceListCell *)placeListCell didTap:(nonnull PlaceList *)placeList {
@@ -169,27 +157,15 @@
 }
 
 - (void)search:(NSString *)searchInput {
-    PFQuery *query;
-    if (self.searchBar.selectedScopeButtonIndex == 0) {
-        PFQuery *usernames = [PFUser query];
-        [usernames whereKey:@"username" containsString:searchInput]; //can't use matchesText for a user query so this will have to do, doesn't take into account capitalization
-        PFQuery *names = [PFUser query];
-        [names whereKey:@"name" containsString:searchInput];
-        query = [PFQuery orQueryWithSubqueries:@[usernames,names]];
-    } else if (self.searchBar.selectedScopeButtonIndex == 1) {
-        query = [PFQuery queryWithClassName:@"PlaceList"];
-        [query whereKey:@"name" matchesText:searchInput]; //matches text matches both uppercase and lowercase
-    }
-    [query findObjectsInBackgroundWithBlock:^(NSArray *results, NSError *error) {
-      // results contains players with lots of wins or only a few wins.
+    [ParseManager searchExplore:^(NSArray * results, NSError *  error) {
         if (error == nil) {
-            NSLog(@"Results: %@", results);
-            self.searchResults = results;
-            [self.tableView reloadData];
-        } else {
-            NSLog(@"Error searching: %@", error.localizedDescription);
-        }
-    }];
+           NSLog(@"Results: %@", results);
+           self.searchResults = results;
+           [self.tableView reloadData];
+       } else {
+           NSLog(@"Error searching: %@", error.localizedDescription);
+       }
+    } index:self.searchBar.selectedScopeButtonIndex searchInput:searchInput];
 }
 
 - (void)UserCell:(UserCell *) userCell didTapUser: (PFUser *)user {

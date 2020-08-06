@@ -71,13 +71,20 @@
 
 - (void)facebookLogin:(UITapGestureRecognizer *)recognizer {
     FBSDKLoginButton *button = (FBSDKLoginButton *) recognizer.view;
+    NSLog(@"%@", button.permissions);
     [PFFacebookUtils logInInBackgroundWithReadPermissions:button.permissions block:^(PFUser *user, NSError *error) {
       if (!user) {
           NSLog(@"Uh oh. The user cancelled the Facebook login.");
       }
       else if (user.isNew) {
           NSLog(@"User signed up and logged in through Facebook!");
-          [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+          //TODO: get name from FB and save to Parse
+          
+          
+          
+          UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+          SceneDelegate *scene = (SceneDelegate *) self.view.window.windowScene.delegate;
+          scene.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"Tabbar"];
       }
       else {
           NSLog(@"User logged in through Facebook!");

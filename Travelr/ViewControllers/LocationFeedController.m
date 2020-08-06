@@ -36,7 +36,7 @@
     [self.completeButton setTitleColor:[UIColor colorWithRed:104.0f/255.0f green:181.0f/255.0f blue:78.0f/255.0f alpha:1.0] forState:UIControlStateSelected];
     
     
-    if (self.placeList.completed) {
+    if ([[PFUser currentUser][@"completedLists"] containsObject:self.placeList.objectId]) {
         NSLog(@"Loading: place is completed");
         [self.completeButton setSelected:YES];
         self.completeButton.backgroundColor = [UIColor whiteColor];
@@ -114,26 +114,29 @@
 }
 
 - (void)completeTrip:(UITapGestureRecognizer *)recognizer {
-    if (!self.placeList.completed) {
-        NSLog(@"Completed Trip");
-        [self.completeButton setSelected:YES];
-        self.completeButton.backgroundColor = [UIColor whiteColor];
-        self.placeList.completed = YES;
-    }
-    else {
-        NSLog(@"UnCompleted Trip");
-        [self.completeButton setSelected:NO];
-        self.completeButton.backgroundColor = [UIColor colorWithRed:104.0f/255.0f green:181.0f/255.0f blue:78.0f/255.0f alpha:1.0];
-        self.placeList.completed = NO;
-    }
-    
-    PFQuery *query = [PFQuery queryWithClassName:@"PlaceList"];
-    [query getObjectInBackgroundWithId:self.placeList.objectId
-                                 block:^(PFObject *post, NSError *error) {
-        //NSLog(@"Updated database");
-        post[@"completed"] = @(self.placeList.completed);
-        [post saveInBackground];
+    PFUser *currUser = [PFUser currentUser];
+    NSMutableArray *list = currUser[@"completedLists"];
+    if (!self.completeButton.isSelected) {
+           NSLog(@"Completed Trip");
+           [self.completeButton setSelected:YES];
+           self.completeButton.backgroundColor = [UIColor whiteColor];
+            if (list == nil) {
+                      list = [[NSMutableArray alloc] init];
+            }
+            [list addObject:self.placeList.objectId];
+       } else {
+           NSLog(@"UnCompleted Trip");
+           [self.completeButton setSelected:NO];
+           self.completeButton.backgroundColor = [UIColor colorWithRed:104.0f/255.0f green:181.0f/255.0f blue:78.0f/255.0f alpha:1.0];
+           [list removeObject:self.placeList.objectId];
+       }
+    [currUser setObject:list forKey:@"completedLists"];
+    [currUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"Updated user");
+        }
     }];
+
 }
 
 @end

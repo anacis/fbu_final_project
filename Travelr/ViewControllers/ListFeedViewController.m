@@ -125,6 +125,20 @@
     }];
 }
 
+- (void)fetchCompleted {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [ParseManager fetchFavorites:^(NSArray * _Nonnull placeLists, NSError * _Nonnull error) {
+        if (placeLists != nil) {
+            self.completedLists = (NSMutableArray *)placeLists;
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
+}
+
+//TODO: create fetchUpcoming method
+
 - (IBAction)onTapNewList:(id)sender {
     [self performSegueWithIdentifier:@"newListSegue" sender:nil];
 }
@@ -146,7 +160,6 @@
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 2;
     if (collectionView == self.upcomingTripCollection) {
         return self.upcomingLists.count;
     } else if (collectionView == self.completedCollection) {

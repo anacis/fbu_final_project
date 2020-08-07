@@ -22,15 +22,24 @@
 }
 
 + (void)fetchFavorites:(void(^)(NSArray *placeLists, NSError *error))completion {
-    
     PFQuery *query = [PFQuery queryWithClassName:@"PlaceList"];
     [query orderByDescending:@"updatedAt"];
-    NSArray *favorites = [PFUser currentUser][@"favoriteLists"];
+    PFUser *user = [PFUser currentUser];
+    NSArray *favorites = user[@"favoriteLists"];
     [query whereKey:@"objectId" containedIn:favorites];
     [query includeKey:@"placesUnsorted"];
     query.limit = 20;
     [query findObjectsInBackgroundWithBlock:completion];
-     
+}
+
++ (void)fetchCompleted:(void(^)(NSArray *placeLists, NSError *error))completion {
+    PFQuery *query = [PFQuery queryWithClassName:@"PlaceList"];
+    [query orderByDescending:@"updatedAt"];
+    NSArray *completed = [PFUser currentUser][@"completedLists"];
+    [query whereKey:@"objectId" containedIn:completed];
+    [query includeKey:@"placesUnsorted"];
+    query.limit = 20;
+    [query findObjectsInBackgroundWithBlock:completion];
 }
 
 + (void)fetchExplore:(void(^)(NSArray *results, NSError *error))completion index:(NSInteger)index {
@@ -45,6 +54,14 @@
     }
     [query orderByDescending:@"updatedAt"];
     query.limit = 20;
+    [query findObjectsInBackgroundWithBlock:completion];
+}
+
+
++ (void)searchMyLists:(void(^)(NSArray *results, NSError *error))completion searchInput:(NSString *)searchInput{
+    PFQuery *query = [PFQuery queryWithClassName:@"PlaceList"];
+    [query whereKey:@"name" containsString:searchInput];
+    [query whereKey:@"author" equalTo:[PFUser currentUser]];
     [query findObjectsInBackgroundWithBlock:completion];
 }
 

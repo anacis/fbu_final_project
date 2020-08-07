@@ -15,7 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)fetchPlaceLists:(void(^)(NSArray *placeLists, NSError *error))completion user:(PFUser *) user;
 + (void)fetchFavorites:(void(^)(NSArray *placeLists, NSError *error))completion;
++ (void)fetchCompleted:(void(^)(NSArray *placeLists, NSError *error))completion;
 + (void)fetchExplore:(void(^)(NSArray *placeLists, NSError *error))completion index:(NSInteger)index;
++ (void)searchMyLists:(void(^)(NSArray *results, NSError *error))completion searchInput:(NSString *)searchInput;
 + (void)searchExplore:(void(^)(NSArray *placeLists, NSError *error))completion index:(NSInteger)index searchInput:(NSString *)searchInput;
 
 @end

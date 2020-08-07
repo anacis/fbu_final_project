@@ -45,10 +45,6 @@
         NSLog(@"Loading: place is uncompleted");
         [self.completeButton setSelected:NO];
         self.completeButton.backgroundColor = [UIColor colorWithRed:104.0f/255.0f green:181.0f/255.0f blue:78.0f/255.0f alpha:1.0];
-        //[self.completeButton setBackgroundColor:[UIColor colorWithRed:104 green:181 blue:78 alpha:1.0]];
-        //self.completeButton.titleLabel.text = @"Trip Uncompleted";
-        //self.completeButton.backgroundColor = [UIColor colorWithRed:104 green:181 blue:78 alpha:1.0];
-        //[self.completeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
     [self checkListCompletion];
 }

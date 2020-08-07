@@ -16,7 +16,7 @@
 #import "PlaceListCollectionCell.h"
 #import "ParseManager.h"
 
-@interface ListFeedViewController () <UITableViewDelegate, UITableViewDataSource, PlaceListCellDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ListFeedViewController () <UITableViewDelegate, UITableViewDataSource, PlaceListCellDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -25,7 +25,16 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *completedCollection;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
-@property (strong, nonatomic) NSArray *placeLists;
+@property (weak, nonatomic) IBOutlet UILabel *upcomingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *likedLabel;
+@property (weak, nonatomic) IBOutlet UILabel *completedLabel;
+@property (weak, nonatomic) IBOutlet UIView *latestView;
+@property (weak, nonatomic) IBOutlet UILabel *latestLabel;
+
+
+
+
+@property (strong, nonatomic) NSArray *searchResults;
 @property (strong, nonatomic) NSArray *upcomingLists;
 @property (strong, nonatomic) NSArray *likedLists;
 @property (strong, nonatomic) NSArray *completedLists;
@@ -48,6 +57,7 @@
     self.upcomingTripCollection.dataSource = self;
     self.likedCollection.delegate = self;
     self.likedCollection.dataSource = self;
+    self.searchBar.delegate = self;
     
     UINib *nib = [UINib nibWithNibName:@"PlaceListCollectionCell" bundle:nil];
     [self.upcomingTripCollection registerNib:nib forCellWithReuseIdentifier:@"PlaceListCollectionCell"];
@@ -56,8 +66,16 @@
     NSPredicate *heightPredicate = [NSPredicate predicateWithFormat:@"firstAttribute = %d", NSLayoutAttributeHeight];
     self.searchTableHeight = [self.tableView.constraints filteredArrayUsingPredicate:heightPredicate][0];
     
-    //[self fetchPlaceLists];
+    [self fetchFavorites];
+    [self fetchMyPlaceLists];
+    [self fetchCompleted];
     
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self fetchFavorites];
+    [self fetchMyPlaceLists];
+    [self fetchCompleted];
 }
 
 - (IBAction)logout:(id)sender {
@@ -83,6 +101,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqual:@"listToLocationSegue"]) {
         LocationFeedController *locationFeed = [segue destinationViewController];
+        NSLog(@"Placelist: %@", sender);
         locationFeed.placeList = sender;
     }
 }
@@ -90,21 +109,21 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PlaceListCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PlaceListCell"];
-    cell.placeList = self.placeLists[indexPath.row];
+    cell.placeList = self.searchResults[indexPath.row];
     cell.delegate = self;
     [cell setUpCell];
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.placeLists.count;
+    return self.searchResults.count;
 }
 
 - (void)fetchMyPlaceLists {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [ParseManager fetchPlaceLists:^(NSArray * _Nonnull placeLists, NSError * _Nonnull error) {
+    [ParseManager fetchPlaceLists:^(NSArray * placeLists, NSError * error) {
         if (placeLists != nil) {
-            self.placeLists = (NSMutableArray *)placeLists;
+            self.searchResults = (NSMutableArray *)placeLists;
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -115,9 +134,10 @@
 
 - (void)fetchFavorites {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [ParseManager fetchFavorites:^(NSArray * _Nonnull placeLists, NSError * _Nonnull error) {
+    [ParseManager fetchFavorites:^(NSArray * placeLists, NSError * error) {
         if (placeLists != nil) {
             self.likedLists = (NSMutableArray *)placeLists;
+            [self.likedCollection reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -127,9 +147,10 @@
 
 - (void)fetchCompleted {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [ParseManager fetchFavorites:^(NSArray * _Nonnull placeLists, NSError * _Nonnull error) {
+    [ParseManager fetchCompleted:^(NSArray * placeLists, NSError * error) {
         if (placeLists != nil) {
             self.completedLists = (NSMutableArray *)placeLists;
+            [self.completedCollection reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -152,10 +173,11 @@
     if (collectionView == self.upcomingTripCollection) {
         
     } else if (collectionView == self.completedCollection) {
-        
+        cell.placeList = self.completedLists[indexPath.item];
     } else if (collectionView == self.likedCollection) {
-        
+        cell.placeList = self.likedLists[indexPath.row];
     }
+    [cell setUpCell];
     return cell;
 }
 
@@ -169,18 +191,35 @@
     }
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (collectionView == self.completedCollection) {
+        [self.completedLists[indexPath.item] separateIntoDays:[self.completedLists[indexPath.item] sortPlaces]];
+        [self performSegueWithIdentifier:@"listToLocationSegue" sender:self.completedLists[indexPath.item]];
+    } else if (collectionView == self.likedCollection) {
+        [self.likedLists[indexPath.item] separateIntoDays:[self.likedLists[indexPath.item] sortPlaces]];
+        [self performSegueWithIdentifier:@"listToLocationSegue" sender:self.likedLists[indexPath.item]];
+    }
+}
+
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    //NSString *city = self.cityField.text;
-    //[self fetchLocationsWithQuery:searchBar.text near:city];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [ParseManager searchMyLists:^(NSArray * results, NSError * error) {
+        if (results != nil) {
+            self.searchResults = results;
+            [self.tableView reloadData];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        }
+    } searchInput:searchBar.text];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     [self animateOpenTableView];
+    [self fetchMyPlaceLists];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if ([searchText isEqualToString:@""]) {
-        [self animateCloseTableView];
+        [self fetchMyPlaceLists];
     }
 }
 
@@ -194,21 +233,46 @@
         [self animateOpenTableView];
     }
     NSString *newText = [searchBar.text stringByReplacingCharactersInRange:range withString:text];
-    //[self fetchLocationsWithQuery:newText near:city];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [ParseManager searchMyLists:^(NSArray * results, NSError * error) {
+        if (results != nil) {
+            self.searchResults = results;
+            [self.tableView reloadData];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        }
+    } searchInput:newText];
     return true;
 }
 
-
-
 - (void)animateOpenTableView {
-    [UIView animateWithDuration:1.2f animations:^{
-        self.searchTableHeight.constant = [UIScreen mainScreen].bounds.size.height;
+    [UIView animateWithDuration:0.0f animations:^{
+        self.searchTableHeight.constant = self.view.safeAreaLayoutGuide.layoutFrame.size.height;
+
+        self.latestLabel.alpha = 0;
+        self.latestView.alpha = 0;
+        self.upcomingLabel.alpha = 0;
+        self.upcomingTripCollection.alpha = 0;
+        self.likedLabel.alpha = 0;
+        self.likedCollection.alpha = 0;
+        self.completedLabel.alpha = 0;
+        self.completedCollection.alpha = 0;
+        
     }];
 }
 
 - (void)animateCloseTableView {
-    [UIView animateWithDuration:1.2f animations:^{
+    [UIView animateWithDuration:0.2f animations:^{
         self.searchTableHeight.constant = 0;
+        self.searchBar.text = @"";
+        
+        self.latestLabel.alpha = 1;
+        self.latestView.alpha = 1;
+        self.upcomingLabel.alpha = 1;
+        self.upcomingTripCollection.alpha = 1;
+        self.likedLabel.alpha = 1;
+        self.likedCollection.alpha = 1;
+        self.completedLabel.alpha = 1;
+        self.completedCollection.alpha = 1;
     }];
 }
 

@@ -12,6 +12,7 @@
 		943E516A24DCB0A90055B1AC /* PlaceListCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 943E516824DCB0A90055B1AC /* PlaceListCollectionCell.m */; };
 		943E516B24DCB0A90055B1AC /* PlaceListCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943E516924DCB0A90055B1AC /* PlaceListCollectionCell.xib */; };
 		943E516F24DCB50A0055B1AC /* ParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 943E516E24DCB50A0055B1AC /* ParseManager.m */; };
+		943E517224DDD6A00055B1AC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 943E517124DDD6A00055B1AC /* SettingsViewController.m */; };
 		944582B624CBA616001600A8 /* SuggestionCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 944582B424CBA616001600A8 /* SuggestionCollectionCell.m */; };
 		944582B724CBA616001600A8 /* SuggestionCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944582B524CBA616001600A8 /* SuggestionCollectionCell.xib */; };
 		944582BA24CF6C45001600A8 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 944582B924CF6C45001600A8 /* ProfileViewController.m */; };
@@ -91,6 +92,8 @@
 		943E516924DCB0A90055B1AC /* PlaceListCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceListCollectionCell.xib; sourceTree = "<group>"; };
 		943E516D24DCB50A0055B1AC /* ParseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParseManager.h; sourceTree = "<group>"; };
 		943E516E24DCB50A0055B1AC /* ParseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParseManager.m; sourceTree = "<group>"; };
+		943E517024DDD6A00055B1AC /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		943E517124DDD6A00055B1AC /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		944582B324CBA616001600A8 /* SuggestionCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuggestionCollectionCell.h; sourceTree = "<group>"; };
 		944582B424CBA616001600A8 /* SuggestionCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuggestionCollectionCell.m; sourceTree = "<group>"; };
 		944582B524CBA616001600A8 /* SuggestionCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionCollectionCell.xib; sourceTree = "<group>"; };
@@ -359,6 +362,8 @@
 				94688A0C24D22B7B004B52BD /* ExploreViewController.m */,
 				94DC74AD24D8822A00B01D64 /* PickerViewController.h */,
 				94DC74AE24D8822A00B01D64 /* PickerViewController.m */,
+				943E517024DDD6A00055B1AC /* SettingsViewController.h */,
+				943E517124DDD6A00055B1AC /* SettingsViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -741,6 +746,7 @@
 				949A20E924BCDFA8007010FD /* SignUpViewController.m in Sources */,
 				94688A0D24D22B7B004B52BD /* ExploreViewController.m in Sources */,
 				94E3783024C8DC1800A859D7 /* NewListSlide1.m in Sources */,
+				943E517224DDD6A00055B1AC /* SettingsViewController.m in Sources */,
 				94DC74AF24D8822A00B01D64 /* PickerViewController.m in Sources */,
 				94AD72B324D8B9AE00E0F515 /* DefaultHandling.m in Sources */,
 				949A210124BE7421007010FD /* DayCell.m in Sources */,

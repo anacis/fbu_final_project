@@ -79,12 +79,14 @@
       else if (user.isNew) {
           NSLog(@"User signed up and logged in through Facebook!");
           //TODO: get name from FB and save to Parse
-          
-          
-          
-          UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-          SceneDelegate *scene = (SceneDelegate *) self.view.window.windowScene.delegate;
-          scene.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"Tabbar"];
+          [FBSDKProfile loadCurrentProfileWithCompletion:^(FBSDKProfile * _Nullable profile, NSError * _Nullable error) {
+              PFUser *fbUser = [PFUser currentUser];
+              fbUser[@"name"] = profile.name;
+              [fbUser saveInBackground];
+              UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+              SceneDelegate *scene = (SceneDelegate *) self.view.window.windowScene.delegate;
+              scene.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"Tabbar"];
+          }];
       }
       else {
           NSLog(@"User logged in through Facebook!");

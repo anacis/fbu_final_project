@@ -174,7 +174,11 @@
             NSLog(@"Error following user: %@", error.localizedDescription);
         }
     }];
-    
+}
+
+
+- (IBAction)tapSettings:(id)sender {
+    [self performSegueWithIdentifier:@"profileToSettings" sender:nil];
 }
 
 

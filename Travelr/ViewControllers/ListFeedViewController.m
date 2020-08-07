@@ -35,6 +35,7 @@
 
 
 @property (strong, nonatomic) NSArray *searchResults;
+@property (strong, nonatomic) NSArray *myPlaceLists;
 @property (strong, nonatomic) NSArray *upcomingLists;
 @property (strong, nonatomic) NSArray *likedLists;
 @property (strong, nonatomic) NSArray *completedLists;
@@ -123,8 +124,9 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [ParseManager fetchPlaceLists:^(NSArray * placeLists, NSError * error) {
         if (placeLists != nil) {
-            self.searchResults = (NSMutableArray *)placeLists;
+            self.myPlaceLists = placeLists;
             [self.tableView reloadData];
+            [self fetchUpcoming];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -136,7 +138,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [ParseManager fetchFavorites:^(NSArray * placeLists, NSError * error) {
         if (placeLists != nil) {
-            self.likedLists = (NSMutableArray *)placeLists;
+            self.likedLists = placeLists;
             [self.likedCollection reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -149,7 +151,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [ParseManager fetchCompleted:^(NSArray * placeLists, NSError * error) {
         if (placeLists != nil) {
-            self.completedLists = (NSMutableArray *)placeLists;
+            self.completedLists = placeLists;
             [self.completedCollection reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -158,7 +160,24 @@
     }];
 }
 
-//TODO: create fetchUpcoming method
+- (void)fetchUpcoming {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    double const upperBound = 31 * 86400; //days to be considered an upcoming trip, measured in seconds since timeIntervalSinceNow is in secs
+                                         //idk if this number is too large? should I divide by 86400 when comparing the time interval instead?
+    if (self.myPlaceLists != nil) {
+        NSMutableArray *constructorArray = [[NSMutableArray alloc] init];
+        for (int i = 0; i < self.myPlaceLists.count; i++) {
+            PlaceList *list = self.myPlaceLists[i];
+            if (list.startDate != nil && [list.startDate timeIntervalSinceNow] <= upperBound && [list.startDate timeIntervalSinceNow] > 0) {
+                [constructorArray addObject:list];
+                
+            }
+        }
+        self.upcomingLists = (NSArray *) constructorArray;
+        [self.upcomingTripCollection reloadData];
+    }
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
 
 - (IBAction)onTapNewList:(id)sender {
     [self performSegueWithIdentifier:@"newListSegue" sender:nil];
@@ -171,7 +190,7 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PlaceListCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PlaceListCollectionCell" forIndexPath:indexPath];
     if (collectionView == self.upcomingTripCollection) {
-        
+        cell.placeList = self.upcomingLists[indexPath.item];
     } else if (collectionView == self.completedCollection) {
         cell.placeList = self.completedLists[indexPath.item];
     } else if (collectionView == self.likedCollection) {
@@ -192,13 +211,16 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    PlaceList *list;
     if (collectionView == self.completedCollection) {
-        [self.completedLists[indexPath.item] separateIntoDays:[self.completedLists[indexPath.item] sortPlaces]];
-        [self performSegueWithIdentifier:@"listToLocationSegue" sender:self.completedLists[indexPath.item]];
+        list = self.completedLists[indexPath.item];
     } else if (collectionView == self.likedCollection) {
-        [self.likedLists[indexPath.item] separateIntoDays:[self.likedLists[indexPath.item] sortPlaces]];
-        [self performSegueWithIdentifier:@"listToLocationSegue" sender:self.likedLists[indexPath.item]];
+        list = self.likedLists[indexPath.item];
+    } else if (collectionView == self.upcomingTripCollection) {
+        list = self.upcomingLists[indexPath.item];
     }
+    [list separateIntoDays:[list sortPlaces]];
+    [self performSegueWithIdentifier:@"listToLocationSegue" sender:list];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -214,12 +236,14 @@
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     [self animateOpenTableView];
-    [self fetchMyPlaceLists];
+    self.searchResults = self.myPlaceLists;
+    [self.tableView reloadData];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if ([searchText isEqualToString:@""]) {
-        [self fetchMyPlaceLists];
+        self.searchResults = self.myPlaceLists;
+        [self.tableView reloadData];
     }
 }
 

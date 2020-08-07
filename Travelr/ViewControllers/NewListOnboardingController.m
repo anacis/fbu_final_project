@@ -139,6 +139,15 @@
         self.daysField.alpha = 0;
         self.hoursField = slide.numHoursField;
         self.calendarView = slide.calendarView;
+        
+        NSDate *today = [[NSDate alloc] init];
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+        [offsetComponents setYear:1];
+        NSDate *nextYear = [calendar dateByAddingComponents:offsetComponents toDate:today options:0];
+        self.calendarView.firstDate = today;
+        self.calendarView.lastDate = nextYear;
+        
         NSPredicate *heightPredicate = [NSPredicate predicateWithFormat:@"firstAttribute = %d", NSLayoutAttributeHeight];
         self.calendarHeight = [self.calendarView.constraints filteredArrayUsingPredicate:heightPredicate][0];
         self.customDayButton = slide.customDayButton;
@@ -213,6 +222,7 @@
     }
     else {
         list.numDays = @([GLDateUtils daysBetween:self.calendarRange.beginDate and:self.calendarRange.endDate] + 1);
+        list.startDate = self.calendarRange.beginDate;
     }
     list.numHours = [formatter numberFromString:self.hoursField.text];
     list.image = [PlaceList getPFFileFromImage:self.listImage.image];

@@ -9,6 +9,7 @@
 #import "DayCell.h"
 #import "LocationCollectionCell.h"
 #import "DetailsViewController.h"
+#import "Colors.h"
 
 @implementation DayCell 
 
@@ -16,6 +17,10 @@
     [super awakeFromNib];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
+    [self.mapsButton setTitleColor:[Colors whiteT2] forState:UIControlStateNormal];
+    self.mapsButton.backgroundColor = [Colors darkGreenT2];
+    self.mapsButton.layer.cornerRadius = 5;
+    self.mapsButton.titleLabel.textAlignment = NSTextAlignmentCenter;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -45,8 +50,6 @@
     [self.delegate LocationCollectionCell:LocationCollectionCell didTapLocation:place];
 }
 
-- (IBAction)tapComplete:(id)sender {
-}
 
 - (IBAction)startMaps:(id)sender {
     //GMaps Format: "https://www.google.com/maps/dir/Shoreline+Amphitheatre,+Amphitheatre+Parkway,+Mountain+View,+CA/Facebook,+1+Hacker+Way,+Menlo+Park,+CA+94025"

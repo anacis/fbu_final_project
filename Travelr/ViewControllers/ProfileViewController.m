@@ -12,9 +12,10 @@
 #import "SceneDelegate.h"
 #import "LoginViewController.h"
 #import "ParseManager.h"
+#import "LocationFeedController.h"
 @import Parse;
 
-@interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource, FavoritesCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *favoritesTableView;
 @property (weak, nonatomic) IBOutlet PFImageView *profilePicView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -39,17 +40,8 @@
     [self setUpPage];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (void)setUpPage {
+    [self.favoritesTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     UITapGestureRecognizer *tap;
     if (self.user == nil || [self.user.objectId isEqualToString:[PFUser currentUser].objectId]) {
         //my profile page
@@ -96,6 +88,7 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     FavoritesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FavoritesCell"];
     cell.placeList = self.favorites[indexPath.row];
+    cell.delegate = self;
     [cell setUpCell];
     return cell;
 }
@@ -181,5 +174,17 @@
     [self performSegueWithIdentifier:@"profileToSettings" sender:nil];
 }
 
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"profileToList"]) {
+        LocationFeedController *dest = [segue destinationViewController];
+        dest.placeList = sender;
+    }
+}
+
+
+- (void)favoritesCell:(nonnull FavoritesCell *)favoritesCell didTap:(nonnull PlaceList *)placeList {
+    [self performSegueWithIdentifier:@"profileToList" sender:placeList];
+}
 
 @end

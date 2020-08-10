@@ -52,6 +52,7 @@
     [self.navigationItem setHidesBackButton:YES];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.completedCollection.delegate = self;
     self.completedCollection.dataSource = self;
     self.upcomingTripCollection.delegate = self;
@@ -168,7 +169,7 @@
         NSMutableArray *constructorArray = [[NSMutableArray alloc] init];
         for (int i = 0; i < self.myPlaceLists.count; i++) {
             PlaceList *list = self.myPlaceLists[i];
-            if (list.startDate != nil && [list.startDate timeIntervalSinceNow] <= upperBound && [list.startDate timeIntervalSinceNow] > 0) {
+            if (list.startDate != nil && [list.startDate timeIntervalSinceNow] <= upperBound && [list.startDate timeIntervalSinceNow] >= 0) {
                 [constructorArray addObject:list];
                 
             }

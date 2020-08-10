@@ -13,6 +13,8 @@
 
 - (void)setUpCell {
     self.nameLabel.text = self.place.name;
+    self.nameLabel.layer.cornerRadius = 5;
+    self.nameLabel.layer.masksToBounds = YES;
     NSURL *photoURL = [NSURL URLWithString:self.place.photoURLString];
     [self.imageView setImageWithURL:photoURL];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapLocation:)];

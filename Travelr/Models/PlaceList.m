@@ -49,7 +49,7 @@
     
 }
 
-//for now disregard time and days, just sort by distance assuming for one day
+//TODO: take into account preferences, choose option that takes into account preferences if total distance is max X miles more than optimized route
 - (NSArray *)sortPlaces {
     NSMutableArray *bestSorted = [[NSMutableArray alloc] init];
     double bestTotalDistance = INFINITY;

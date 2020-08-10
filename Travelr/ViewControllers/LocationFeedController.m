@@ -11,6 +11,7 @@
 #import "NewListOnboardingController.h"
 #import "LocationCollectionCell.h"
 #import "DetailsViewController.h"
+#import "Colors.h"
 
 @interface LocationFeedController () <UITableViewDelegate, UITableViewDataSource, DayCellDelegate>
 
@@ -26,25 +27,26 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.listNameLabel.text = self.placeList.name;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeTrip:)];
     [self.completeButton addGestureRecognizer:tap];
     [self.completeButton setTitle:@"Complete Trip" forState:UIControlStateNormal];
-    [self.completeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.completeButton setTitleColor:[Colors whiteT2] forState:UIControlStateNormal];
     
     [self.completeButton setTitle:@"Trip Completed" forState:UIControlStateSelected];
-    [self.completeButton setTitleColor:[UIColor colorWithRed:104.0f/255.0f green:181.0f/255.0f blue:78.0f/255.0f alpha:1.0] forState:UIControlStateSelected];
+    [self.completeButton setTitleColor:[Colors whiteT2] forState:UIControlStateSelected];
     
     
     if ([[PFUser currentUser][@"completedLists"] containsObject:self.placeList.objectId]) {
         NSLog(@"Loading: place is completed");
         [self.completeButton setSelected:YES];
-        self.completeButton.backgroundColor = [UIColor whiteColor];
+        self.completeButton.backgroundColor = [Colors lightOrangeT2];
     }
     else {
         NSLog(@"Loading: place is uncompleted");
         [self.completeButton setSelected:NO];
-        self.completeButton.backgroundColor = [UIColor colorWithRed:104.0f/255.0f green:181.0f/255.0f blue:78.0f/255.0f alpha:1.0];
+        self.completeButton.backgroundColor = [Colors lightGreenT2];
     }
     [self checkListCompletion];
 }
@@ -115,7 +117,7 @@
     if (!self.completeButton.isSelected) {
            NSLog(@"Completed Trip");
            [self.completeButton setSelected:YES];
-           self.completeButton.backgroundColor = [UIColor whiteColor];
+           self.completeButton.backgroundColor = [Colors lightOrangeT2];
             if (list == nil) {
                       list = [[NSMutableArray alloc] init];
             }
@@ -123,7 +125,7 @@
        } else {
            NSLog(@"UnCompleted Trip");
            [self.completeButton setSelected:NO];
-           self.completeButton.backgroundColor = [UIColor colorWithRed:104.0f/255.0f green:181.0f/255.0f blue:78.0f/255.0f alpha:1.0];
+           self.completeButton.backgroundColor = [Colors lightGreenT2];
            [list removeObject:self.placeList.objectId];
        }
     [currUser setObject:list forKey:@"completedLists"];

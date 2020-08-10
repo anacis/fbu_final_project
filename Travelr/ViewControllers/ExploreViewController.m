@@ -32,12 +32,18 @@
     [self.navigationItem setHidesBackButton:YES];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.searchBar.delegate = self;
+    
     UINib *nib = [UINib nibWithNibName:@"UserCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"UserCell"];
     
     [self fetchExplore];
     
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self fetchExplore];
 }
 
 - (IBAction)logout:(id)sender {

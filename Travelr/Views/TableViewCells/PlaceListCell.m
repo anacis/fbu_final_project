@@ -16,7 +16,6 @@
     [self addGestureRecognizer:placeListTapGestureRecognizer];
     UITapGestureRecognizer *usernameTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(usernameTapped:)];
     [self.usernameLabel addGestureRecognizer:usernameTapGestureRecognizer];
-   
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

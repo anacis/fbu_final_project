@@ -15,34 +15,48 @@
                 <rect key="frame" x="0.0" y="0.0" width="348" height="100"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ui-bH-xFb">
+                        <rect key="frame" x="8" y="8" width="332" height="84"/>
+                        <color key="backgroundColor" red="0.91372549020000005" green="0.88235294119999996" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="zK1-ZE-8m1" customClass="PFImageView">
-                        <rect key="frame" x="20" y="31.5" width="50" height="47.5"/>
-                        <color key="tintColor" red="0.4818017483" green="0.70095527170000005" blue="0.3567979932" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <rect key="frame" x="20" y="19.5" width="50" height="47.5"/>
+                        <color key="tintColor" red="0.92941176469999998" green="0.63921568630000003" blue="0.41960784309999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="8Qc-y6-I7m"/>
                             <constraint firstAttribute="width" constant="50" id="eha-PQ-Cqg"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paris" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYg-UC-HG4">
-                        <rect key="frame" x="90" y="45" width="37.5" height="20.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="90" y="31.5" width="37" height="23.5"/>
+                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mTc-qV-yFl">
-                        <rect key="frame" x="282" y="40" width="46" height="30"/>
+                        <rect key="frame" x="282" y="28" width="46" height="30"/>
                         <state key="normal" title="Button"/>
                     </button>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="zK1-ZE-8m1" firstAttribute="top" secondItem="nHe-HG-GEu" secondAttribute="top" constant="30" id="8IX-AF-1l2"/>
+                    <constraint firstItem="zK1-ZE-8m1" firstAttribute="top" secondItem="5Ui-bH-xFb" secondAttribute="top" constant="10" id="8IX-AF-1l2"/>
                     <constraint firstItem="SYg-UC-HG4" firstAttribute="leading" secondItem="zK1-ZE-8m1" secondAttribute="trailing" constant="20" id="8bC-JJ-llJ"/>
+                    <constraint firstItem="5Ui-bH-xFb" firstAttribute="leading" secondItem="nHe-HG-GEu" secondAttribute="leading" constant="8" id="A3Y-4p-0IV"/>
+                    <constraint firstItem="5Ui-bH-xFb" firstAttribute="top" secondItem="nHe-HG-GEu" secondAttribute="top" constant="8" id="Qni-xk-aUz"/>
                     <constraint firstAttribute="trailing" secondItem="mTc-qV-yFl" secondAttribute="trailing" constant="20" id="SEd-kr-eOV"/>
+                    <constraint firstAttribute="bottom" secondItem="5Ui-bH-xFb" secondAttribute="bottom" constant="8" id="YBJ-uE-T2N"/>
                     <constraint firstItem="SYg-UC-HG4" firstAttribute="centerY" secondItem="zK1-ZE-8m1" secondAttribute="centerY" id="bQC-ij-bNl"/>
                     <constraint firstItem="mTc-qV-yFl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="SYg-UC-HG4" secondAttribute="trailing" constant="8" id="m8e-fq-2nw"/>
                     <constraint firstItem="mTc-qV-yFl" firstAttribute="centerY" secondItem="SYg-UC-HG4" secondAttribute="centerY" id="ohp-L5-5se"/>
                     <constraint firstItem="zK1-ZE-8m1" firstAttribute="leading" secondItem="nHe-HG-GEu" secondAttribute="leading" constant="20" id="q6f-c9-Acb"/>
-                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zK1-ZE-8m1" secondAttribute="bottom" constant="10" id="xhh-I0-YgE"/>
+                    <constraint firstAttribute="trailing" secondItem="5Ui-bH-xFb" secondAttribute="trailing" constant="8" id="syo-Fd-DRB"/>
+                    <constraint firstItem="5Ui-bH-xFb" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zK1-ZE-8m1" secondAttribute="bottom" constant="10" id="xhh-I0-YgE"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

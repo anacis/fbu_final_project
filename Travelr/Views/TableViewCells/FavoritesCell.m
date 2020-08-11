@@ -32,7 +32,7 @@
          [self.likeButton setSelected:NO];
     }
     [self.placeList.author fetchIfNeeded];
-    self.authorLabel.text = self.placeList.author.username;
+    self.authorLabel.text = [@"@" stringByAppendingString:self.placeList.author.username];
     self.image.file = self.placeList.image;
     self.image.layer.cornerRadius = self.image.frame.size.height / 2; //formula to create a circular image
     [self.image loadInBackground];

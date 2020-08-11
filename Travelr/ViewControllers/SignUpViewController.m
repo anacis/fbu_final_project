@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UITextField *retypePassField;
+@property (weak, nonatomic) IBOutlet UITextField *nameField;
 
 @end
 
@@ -26,13 +27,15 @@
 
 - (IBAction)onTapSignUp:(id)sender {
     NSString *username = self.usernameField.text;
+    NSString *name = self.nameField.text;
     NSString *password = self.passwordField.text;
     NSString *passwordRetype = self.retypePassField.text;
     
     //check all fields are entered
     if ([username isEqualToString:@""]
         || [password isEqualToString:@""]
-        || [passwordRetype isEqualToString:@""]) {
+        || [passwordRetype isEqualToString:@""]
+        || [name isEqualToString:@""]) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Missing Data"
                message:@"Please complete all fields."
         preferredStyle:(UIAlertControllerStyleAlert)];
@@ -67,6 +70,7 @@
     // set user properties
     newUser.username = username;
     newUser.password = password;
+    newUser[@"name"] = name;
     
     // call sign up function on the object
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {

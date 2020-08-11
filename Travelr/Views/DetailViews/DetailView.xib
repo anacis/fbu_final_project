@@ -56,7 +56,7 @@
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="RH3-aG-KiF">
                     <rect key="frame" x="15" y="483.5" width="384" height="125"/>
-                    <color key="backgroundColor" red="0.85132629843669094" green="1" blue="0.78858222596789573" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <color key="backgroundColor" red="0.52156862749999999" green="0.68235294120000001" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="125" id="vsC-yQ-uzj"/>
                     </constraints>

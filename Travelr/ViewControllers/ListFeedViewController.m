@@ -30,8 +30,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *completedLabel;
 @property (weak, nonatomic) IBOutlet UIView *latestView;
 @property (weak, nonatomic) IBOutlet UILabel *latestLabel;
-
-
+@property (weak, nonatomic) IBOutlet UIImageView *latestImage;
 
 
 @property (strong, nonatomic) NSArray *searchResults;
@@ -60,6 +59,8 @@
     self.likedCollection.delegate = self;
     self.likedCollection.dataSource = self;
     self.searchBar.delegate = self;
+    
+    self.latestImage.layer.cornerRadius = 10.0;
     
     UINib *nib = [UINib nibWithNibName:@"PlaceListCollectionCell" bundle:nil];
     [self.upcomingTripCollection registerNib:nib forCellWithReuseIdentifier:@"PlaceListCollectionCell"];
@@ -281,6 +282,7 @@
         self.likedCollection.alpha = 0;
         self.completedLabel.alpha = 0;
         self.completedCollection.alpha = 0;
+        self.latestImage.alpha = 0;
         
     }];
 }
@@ -298,6 +300,7 @@
         self.likedCollection.alpha = 1;
         self.completedLabel.alpha = 1;
         self.completedCollection.alpha = 1;
+        self.latestImage.alpha = 1;
     }];
 }
 

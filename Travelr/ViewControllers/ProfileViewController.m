@@ -13,6 +13,7 @@
 #import "LoginViewController.h"
 #import "ParseManager.h"
 #import "LocationFeedController.h"
+#import "Colors.h"
 @import Parse;
 
 @interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource, FavoritesCellDelegate>
@@ -42,6 +43,16 @@
 
 - (void)setUpPage {
     [self.favoritesTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
+    UITapGestureRecognizer *tapFollow = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(follow:)];
+    [self.followButton addGestureRecognizer:tapFollow];
+    [self.followButton setTitle:@"Follow" forState:UIControlStateNormal];
+    [self.followButton setTitleColor:[Colors lightOrangeT2] forState:UIControlStateNormal];
+    [self.followButton setTitle:@"Following" forState:UIControlStateSelected];
+    [self.followButton setTitleColor:[Colors whiteT2] forState:UIControlStateSelected];
+    self.followButton.layer.cornerRadius = 5;
+    
+    
     UITapGestureRecognizer *tap;
     if (self.user == nil || [self.user.objectId isEqualToString:[PFUser currentUser].objectId]) {
         //my profile page
@@ -56,14 +67,17 @@
         [self.followButton setHidden:NO];
         if ([[PFUser currentUser][@"following"] containsObject:self.user.objectId]) {
             [self.followButton setSelected:YES];
+            self.followButton.backgroundColor = [Colors lightOrangeT2];
+            self.followButton.tintColor = [Colors whiteT2];
         }
         else {
             [self.followButton setSelected:NO];
+            self.followButton.backgroundColor = [Colors creamT2];
+            self.followButton.tintColor = [Colors lightOrangeT2];
         }
     }
     self.favoritesTableView.delegate = self;
     self.favoritesTableView.dataSource = self;
-    //TODO: add name field in sign up page
     self.nameLabel.text = self.user[@"name"];
     self.listNumLabel.text = [self.user[@"numLists"] stringValue];
     self.friendsNumLabel.text = [@([self.user[@"following"] count]) stringValue];
@@ -144,25 +158,29 @@
      }];
 }
 
-- (IBAction)follow:(id)sender {
+- (void)follow:(UITapGestureRecognizer *)recognizer {
     NSLog(@"Tapped on follow");
     PFUser *currUser = [PFUser currentUser];
     NSMutableArray *list = currUser[@"following"];
     if (self.followButton.isSelected) {
         [self.followButton setSelected:NO];
         [list removeObject:self.user.objectId];
+        self.followButton.backgroundColor = [Colors creamT2];
+        self.followButton.tintColor = [Colors lightOrangeT2];
     }
     else {
         [self.followButton setSelected:YES];
+        self.followButton.backgroundColor = [Colors lightOrangeT2];
+        self.followButton.tintColor = [Colors whiteT2];
         if (list == nil) {
             list = [[NSMutableArray alloc] init];
         }
         [list addObject:self.user.objectId];
     }
-    [currUser setObject:list  forKey:@"following"];
+    [currUser setObject:list forKey:@"following"];
     [currUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
-            NSLog(@"Followed user");
+            NSLog(@"Updated follow status");
         } else {
             NSLog(@"Error following user: %@", error.localizedDescription);
         }

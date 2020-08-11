@@ -13,6 +13,7 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "DetailView.h"
 #import "PickerViewController.h"
+#import "Colors.h"
 @import Parse;
 @import GoogleMaps;
 
@@ -53,7 +54,7 @@
     self.pageControl.currentPage = index;
     [self.scrollView scrollRectToVisible:CGRectMake((self.scrollView.frame.size.width * index), 0, self.scrollView.frame.size.width, self.scrollView.frame.size.height) animated:NO];
     
-    self.pageControl.pageIndicatorTintColor = [UIColor colorWithRed:66.0/255.0f green:179.0/255.0f blue:111.0/255.0f alpha:1.0];
+    self.pageControl.pageIndicatorTintColor = [Colors lightGreenT2];
     self.pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:151.0/255.0f green:195.0/255.0f blue:157.0/255.0f alpha:0.5];
     
 }

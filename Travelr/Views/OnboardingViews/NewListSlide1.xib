@@ -50,7 +50,7 @@
                     </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.52156862749999999" green="0.68235294120000001" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="tvT-13-eje" firstAttribute="centerY" secondItem="Nst-as-4un" secondAttribute="centerY" id="3St-rp-Ude"/>

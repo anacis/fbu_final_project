@@ -48,11 +48,11 @@ This app will allow a user to create a list of locations in a city/small area th
 
 **Optional Nice-to-have Stories**
 - [X] Ability to edit a list
-- [ ] Ability to view other people's lists (friends, but how do I implement the friends feature?)
+- [X] Ability to view other people's lists (friends, but how do I implement the friends feature?)
 - [X] The app can suggest popular places to visit that are in the area you are visiting
 - [X] Ability to favorite lists and see them in a user's profile page
 - [X] The app suggests how long to spend at each location
-- [ ] Ability to view a details page for each location
+- [X] Ability to view a details page for each location
 
 
 

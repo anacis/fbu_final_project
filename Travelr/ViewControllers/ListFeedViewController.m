@@ -30,7 +30,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *completedLabel;
 @property (weak, nonatomic) IBOutlet UIView *latestView;
 @property (weak, nonatomic) IBOutlet UILabel *latestLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *latestImage;
+@property (weak, nonatomic) IBOutlet PFImageView *latestImage;
+@property (weak, nonatomic) IBOutlet UILabel *latestNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *latestDescriptionLabel;
 
 
 @property (strong, nonatomic) NSArray *searchResults;
@@ -38,7 +40,7 @@
 @property (strong, nonatomic) NSArray *upcomingLists;
 @property (strong, nonatomic) NSArray *likedLists;
 @property (strong, nonatomic) NSArray *completedLists;
-@property (strong, nonatomic) Place *latestTrip;
+@property (strong, nonatomic) PlaceList *latestTrip;
 
 @property (strong, nonatomic) NSLayoutConstraint *searchTableHeight;
 
@@ -60,6 +62,8 @@
     self.likedCollection.dataSource = self;
     self.searchBar.delegate = self;
     
+    UITapGestureRecognizer *tapLatest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapLatest:)];
+    [self.latestView addGestureRecognizer:tapLatest];
     self.latestImage.layer.cornerRadius = 10.0;
     
     UINib *nib = [UINib nibWithNibName:@"PlaceListCollectionCell" bundle:nil];
@@ -69,16 +73,13 @@
     NSPredicate *heightPredicate = [NSPredicate predicateWithFormat:@"firstAttribute = %d", NSLayoutAttributeHeight];
     self.searchTableHeight = [self.tableView.constraints filteredArrayUsingPredicate:heightPredicate][0];
     
-    [self fetchFavorites];
-    [self fetchMyPlaceLists];
-    [self fetchCompleted];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [self fetchFavorites];
     [self fetchMyPlaceLists];
     [self fetchCompleted];
+    [self setUpLatest];
 }
 
 - (IBAction)logout:(id)sender {
@@ -104,7 +105,11 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqual:@"listToLocationSegue"]) {
         LocationFeedController *locationFeed = [segue destinationViewController];
-        NSLog(@"Placelist: %@", sender);
+        locationFeed.placeList = sender;
+        [[PFUser currentUser] setObject:sender  forKey:@"latestTrip"];
+        [[PFUser currentUser] saveInBackground];
+    } else if ([segue.identifier isEqualToString:@"latestToLocation"]) {
+        LocationFeedController *locationFeed = [segue destinationViewController];
         locationFeed.placeList = sender;
     }
 }
@@ -179,6 +184,23 @@
         [self.upcomingTripCollection reloadData];
     }
     [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
+- (void)setUpLatest {
+    if ([PFUser currentUser][@"latestTrip"] != nil) {
+        self.latestTrip = [PFUser currentUser][@"latestTrip"];
+        [self.latestTrip fetchIfNeeded];
+        self.latestImage.file = self.latestTrip.image;
+        [self.latestImage loadInBackground];
+        self.latestNameLabel.text = self.latestTrip.name;
+        self.latestDescriptionLabel.text = self.latestTrip[@"description"];
+    } else {
+        NSLog(@"No Latest Trip");
+    }
+}
+
+- (void)tapLatest:(UITapGestureRecognizer *)tap {
+    [self performSegueWithIdentifier:@"latestToLocation" sender:self.latestTrip];
 }
 
 - (IBAction)onTapNewList:(id)sender {

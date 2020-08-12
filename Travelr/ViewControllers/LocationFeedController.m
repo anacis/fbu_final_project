@@ -88,7 +88,7 @@
     
     if (self.placeList.placesUnsorted.count != flatArray.count) {
         
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Incomplete Itinerary"
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Itinerary Mismatch"
                message:@"It is impossible to generate a full itinerary given the time constraints, consider editing your list."
         preferredStyle:(UIAlertControllerStyleAlert)];
         // create an OK action

@@ -204,19 +204,19 @@
                                 <rect key="frame" x="16" y="178" width="343" height="129"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tower" translatesAutoresizingMaskIntoConstraints="NO" id="FjH-pw-8wz">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="iceland" translatesAutoresizingMaskIntoConstraints="NO" id="FjH-pw-8wz" customClass="PFImageView">
                                         <rect key="frame" x="23" y="17" width="87" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Paris" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="82r-k4-SHC">
-                                        <rect key="frame" x="133" y="23" width="39" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Iceland" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="82r-k4-SHC">
+                                        <rect key="frame" x="133" y="23" width="57" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pastries and croissants" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KdY-oZ-95k">
-                                        <rect key="frame" x="133" y="59" width="177" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Northern lights" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KdY-oZ-95k">
+                                        <rect key="frame" x="133" y="59" width="115" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -374,8 +374,10 @@
                     <connections>
                         <outlet property="completedCollection" destination="FYT-Kz-bug" id="vSs-Vn-Dis"/>
                         <outlet property="completedLabel" destination="2xo-nK-jhk" id="0Mn-QM-2ux"/>
-                        <outlet property="latestImage" destination="FjH-pw-8wz" id="YrM-6o-Ss2"/>
+                        <outlet property="latestDescriptionLabel" destination="KdY-oZ-95k" id="Hnh-uY-XzL"/>
+                        <outlet property="latestImage" destination="FjH-pw-8wz" id="Xki-UL-OSe"/>
                         <outlet property="latestLabel" destination="GTm-n3-h14" id="KUR-Ys-Di6"/>
+                        <outlet property="latestNameLabel" destination="82r-k4-SHC" id="5yy-aD-gBe"/>
                         <outlet property="latestView" destination="99M-oc-YpC" id="hfT-Jc-i7b"/>
                         <outlet property="likedCollection" destination="zNo-Ah-WfX" id="T2K-Rh-NJb"/>
                         <outlet property="likedLabel" destination="ARv-qJ-XqQ" id="poz-cz-AWc"/>
@@ -385,6 +387,7 @@
                         <outlet property="upcomingTripCollection" destination="GhA-4t-hRW" id="dmH-9t-cQG"/>
                         <segue destination="rUE-gm-v18" kind="show" identifier="listToLocationSegue" id="3hW-Zb-Svk"/>
                         <segue destination="M3c-1h-a2q" kind="show" identifier="newListSegue" animates="NO" id="n5u-DT-cbh"/>
+                        <segue destination="rUE-gm-v18" kind="show" identifier="latestToLocation" id="zJG-15-cKL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6jT-bh-cfN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1670,7 +1673,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="wR7-11-j1C"/>
         <segue reference="n5u-DT-cbh"/>
-        <segue reference="3hW-Zb-Svk"/>
+        <segue reference="zJG-15-cKL"/>
         <segue reference="UjZ-CX-e0M"/>
     </inferredMetricsTieBreakers>
     <resources>
@@ -1680,10 +1683,10 @@
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
+        <image name="iceland" width="2119" height="1414"/>
         <image name="mappin.circle" catalog="system" width="128" height="121"/>
         <image name="paperplane.fill" catalog="system" width="128" height="121"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
-        <image name="tower" width="167" height="125"/>
     </resources>
 </document>

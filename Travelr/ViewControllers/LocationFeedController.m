@@ -19,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *listNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *completeButton;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
+@property (weak, nonatomic) IBOutlet UIButton *likeButton;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
 @end
 
@@ -30,6 +32,22 @@
     self.tableView.dataSource = self;
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.listNameLabel.text = self.placeList.name;
+    
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"MM/dd/yy";
+    if (self.placeList.startDate != nil && [self.placeList.author.objectId isEqualToString:[PFUser currentUser].objectId]) {
+        NSString *startDateString = [dateFormatter stringFromDate:self.placeList.startDate];
+        NSDate *endDate = [self.placeList.startDate dateByAddingTimeInterval:([self.placeList.numDays intValue] - 1)*24*60*60];
+        NSString *endDateString = [dateFormatter stringFromDate:endDate];
+        if ([startDateString isEqualToString:endDateString]) {
+            self.dateLabel.text = startDateString;
+        } else {
+            self.dateLabel.text = [NSString stringWithFormat:@"%@ - %@", startDateString, endDateString];
+        }
+    } else {
+        self.dateLabel.text = @"date unavailable";
+    }
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeTrip:)];
     [self.completeButton addGestureRecognizer:tap];
     [self.completeButton setTitle:@"Complete Trip" forState:UIControlStateNormal];
@@ -38,7 +56,7 @@
     [self.completeButton setTitle:@"Trip Completed" forState:UIControlStateSelected];
     [self.completeButton setTitleColor:[Colors whiteT2] forState:UIControlStateSelected];
     
-    if (self.placeList.author == [PFUser currentUser]) {
+    if ([self.placeList.author.objectId isEqualToString:[PFUser currentUser].objectId]) {
         [self.editButton setTitle:@"Edit" forState:UIControlStateNormal];
         [self.editButton setTitle:@"Edit" forState:UIControlStateSelected];
     } else {
@@ -48,15 +66,21 @@
     
     
     if ([[PFUser currentUser][@"completedLists"] containsObject:self.placeList.objectId]) {
-        NSLog(@"Loading: place is completed");
         [self.completeButton setSelected:YES];
         self.completeButton.backgroundColor = [Colors lightOrangeT2];
     }
     else {
-        NSLog(@"Loading: place is uncompleted");
         [self.completeButton setSelected:NO];
         self.completeButton.backgroundColor = [Colors lightGreenT2];
     }
+    
+    if ([[PFUser currentUser][@"favoriteLists"] containsObject:self.placeList.objectId]) {
+        [self.likeButton setSelected:YES];
+    }
+    else {
+         [self.likeButton setSelected:NO];
+    }
+    
     [self checkListCompletion];
 }
 
@@ -144,6 +168,29 @@
         }
     }];
 
+}
+
+- (IBAction)like:(id)sender {
+    PFUser *currUser = [PFUser currentUser];
+    NSMutableArray *list = currUser[@"favoriteLists"];
+    if (self.likeButton.isSelected) {
+        [self.likeButton setSelected:NO];
+        [list removeObject:self.placeList.objectId];
+        
+    }
+    else {
+        [self.likeButton setSelected:YES];
+        if (list == nil) {
+            list = [[NSMutableArray alloc] init];
+        }
+        [list addObject:self.placeList.objectId];
+    }
+    [currUser setObject:list  forKey:@"favoriteLists"];
+    [currUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"Liked list");
+        }
+    }];
 }
 
 @end

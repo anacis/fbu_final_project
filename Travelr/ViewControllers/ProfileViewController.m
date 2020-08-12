@@ -91,12 +91,7 @@
         NSLog(@"User does not have a profile pic");
     }
     
-    
-    if ([self.user.objectId isEqualToString:[PFUser currentUser].objectId]) {
-        [self fetchFavorites];
-    } else {
-        [self fetchLists];
-    }
+    [self fetchLists];
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {

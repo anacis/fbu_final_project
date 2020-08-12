@@ -30,6 +30,7 @@
     self.addressLabel.text = [self.place.gMapsAddress stringByReplacingOccurrencesOfString:@"+" withString:@" "];
     self.categoryLabel.text = self.place.locationType;
 
+    self.image.layer.cornerRadius = 5;
     NSURL *photoURL = [NSURL URLWithString:self.place.photoURLString];
     [self.image setImageWithURL:photoURL];
     

@@ -22,7 +22,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Iit-hG-Oc7">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Iit-hG-Oc7">
                         <rect key="frame" x="43" y="15" width="64" height="70"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="64" id="2aY-5U-3Y7"/>
@@ -31,6 +31,7 @@
                     </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="plus.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4yD-X8-5Fp">
                         <rect key="frame" x="99" y="8.5" width="15" height="15"/>
+                        <color key="tintColor" red="0.46274509800000002" green="0.61568627450000002" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </imageView>
                 </subviews>
             </view>

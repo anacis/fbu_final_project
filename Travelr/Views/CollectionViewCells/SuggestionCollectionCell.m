@@ -13,6 +13,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.imageView.layer.cornerRadius=10;
     // Initialization code
 }
 

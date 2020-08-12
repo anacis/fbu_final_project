@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *listNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *completeButton;
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
 
 @end
 
@@ -36,6 +37,14 @@
     
     [self.completeButton setTitle:@"Trip Completed" forState:UIControlStateSelected];
     [self.completeButton setTitleColor:[Colors whiteT2] forState:UIControlStateSelected];
+    
+    if (self.placeList.author == [PFUser currentUser]) {
+        [self.editButton setTitle:@"Edit" forState:UIControlStateNormal];
+        [self.editButton setTitle:@"Edit" forState:UIControlStateSelected];
+    } else {
+        [self.editButton setTitle:@"Clone" forState:UIControlStateNormal];
+        [self.editButton setTitle:@"Clone" forState:UIControlStateSelected];
+    }
     
     
     if ([[PFUser currentUser][@"completedLists"] containsObject:self.placeList.objectId]) {

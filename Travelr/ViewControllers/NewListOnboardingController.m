@@ -206,8 +206,16 @@
 
 - (IBAction)saveList:(id)sender {
     PlaceList *list;
-    if (self.placeList == nil) {
+    //new list or clone of list
+    if (self.placeList == nil || self.placeList.author != [PFUser currentUser]) {
         list = [PlaceList new];
+        list.author = [PFUser currentUser];
+        [[PFUser currentUser] incrementKey:@"numLists"];
+        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+          if (error != nil) {
+            NSLog(@"Error: %@", error.localizedDescription);
+          }
+        }];
     }
     else {
         list = self.placeList;
@@ -215,7 +223,6 @@
     }
     list.name = self.titleField.text;
     list[@"description"] = self.descriptionField.text;
-    list.author = [PFUser currentUser];
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc]init];
     if (self.customDayButton.selected == YES) {
         list.numDays = [formatter numberFromString:self.daysField.text];
@@ -232,13 +239,6 @@
     if (self.selectedIndexPath != nil) {
         list[@"start"] = self.places[self.selectedIndexPath.row];
     }
-    
-    [[PFUser currentUser] incrementKey:@"numLists"];
-    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-      if (error != nil) {
-        NSLog(@"Error: %@", error.localizedDescription);
-      }
-    }];
 
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [list saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {

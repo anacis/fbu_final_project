@@ -22,7 +22,7 @@
 @import GLCalendarView;
 @import Parse;
 
-@interface NewListOnboardingController () <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NewPlaceCellDelegate, GLCalendarViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, PickerViewDelegate>
+@interface NewListOnboardingController () <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NewPlaceCellDelegate, GLCalendarViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, PickerViewDelegate, UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
@@ -73,6 +73,7 @@
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * self.pageControl.numberOfPages, self.scrollView.frame.size.height);
     self.scrollView.delegate = self;
     
+    self.descriptionField.delegate = self;
     self.myPlacesTableView.delegate = self;
     self.myPlacesTableView.dataSource = self;
     self.placeSearchTableView.dataSource = self;
@@ -99,6 +100,8 @@
      else {
          self.places = [[NSMutableArray alloc] init];
          self.timesSpent = [[NSMutableArray alloc] init];
+         self.descriptionField.text = @"Write your description here!";
+         self.descriptionField.textColor = UIColor.opaqueSeparatorColor;
      }
 }
 
@@ -417,12 +420,30 @@
 }
 
 -(void)textFieldDidChange :(UITextField *) textField{
-    if ([textField.text isEqualToString:@""]) {
-        [self animateSearchDisAppear];
+    if (textField == self.cityField) {
+        if ([textField.text isEqualToString:@""]) {
+            [self animateSearchDisAppear];
+        }
+        else {
+            [self fetchSuggestionsWithCity:textField.text];
+            [self animateSearchAppear];
+        }
     }
-    else {
-        [self fetchSuggestionsWithCity:textField.text];
-        [self animateSearchAppear];
+}
+
+/*- (void)textViewDidChange:(UITextView *)textView {
+    if (textView == self.descriptionField) {
+        if ([self.descriptionField.text isEqualToString:@""]) {
+            
+        }
+    }
+}*/
+
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    if (textView == self.descriptionField) {
+        textView.text = @"";
+        textView.textColor = UIColor.blackColor;
     }
 }
 

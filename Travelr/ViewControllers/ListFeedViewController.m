@@ -189,11 +189,17 @@
 - (void)setUpLatest {
     if ([PFUser currentUser][@"latestTrip"] != nil) {
         self.latestTrip = [PFUser currentUser][@"latestTrip"];
-        [self.latestTrip fetchIfNeeded];
-        self.latestImage.file = self.latestTrip.image;
-        [self.latestImage loadInBackground];
-        self.latestNameLabel.text = self.latestTrip.name;
-        self.latestDescriptionLabel.text = self.latestTrip[@"description"];
+        [self.latestTrip fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            if (error == nil) {
+                self.latestImage.file = self.latestTrip.image;
+               [self.latestImage loadInBackground];
+               self.latestNameLabel.text = self.latestTrip.name;
+               self.latestDescriptionLabel.text = self.latestTrip[@"description"];
+            } else {
+                NSLog(@"Error get latest trip: %@", error.localizedDescription);
+            }
+        }];
+       
     } else {
         NSLog(@"No Latest Trip");
     }

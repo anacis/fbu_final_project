@@ -116,6 +116,8 @@
 
 + (double)getDistance:(Place *)place1 place2:(Place *) place2 {
     //convert lat/lon to radians, foursquare gives it in degrees
+    [place1 fetchIfNeeded];
+    [place2 fetchIfNeeded];
     double lat1 = [PlaceList convertToRadians:place1.latitude];
     double lat2 = [PlaceList convertToRadians:place2.latitude];
     double long1 = [PlaceList convertToRadians:place1.longitude];

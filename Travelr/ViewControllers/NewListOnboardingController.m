@@ -431,15 +431,6 @@
     }
 }
 
-/*- (void)textViewDidChange:(UITextView *)textView {
-    if (textView == self.descriptionField) {
-        if ([self.descriptionField.text isEqualToString:@""]) {
-            
-        }
-    }
-}*/
-
-
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     if (textView == self.descriptionField) {
         textView.text = @"";
